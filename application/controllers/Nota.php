@@ -18,9 +18,9 @@ class Nota extends MY_Controller {
 
 		$this->load->model('nota_model');
 
-		// if (!empty($post['not_id']) || !empty($post['atds_id']))
-		// 	$resultado = $this->nota_model->editar($post);
-		// else
+		if (!empty($post['atds_id']))
+			$resultado = $this->nota_model->editar($post);
+		else
 			$resultado = $this->nota_model->salvar($post);
 
 

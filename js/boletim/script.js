@@ -15,26 +15,6 @@ $(function() {
 
 });
 
-function submitAjax(form){
-	$.ajax({
-		data: form.serialize(),
-		url: '../boletim/salvar',
-		type: 'POST',
-		dataType: 'json',
-		async: false,
-		success: function(r){
-			if(r == 'editado')
-				$(".alert-success.editado").removeClass('hide');
-			else if (r)
-				$(".alert-success.inserido").removeClass('hide');
-			else
-				$(".alert-danger").removeClass('hide');
-
-			$('#auxLancamentos').html('');
-		}
-	})
-}
-
 function buscarAlunos(){
 	var turma = $('select[name="tur_id"]').val();
 

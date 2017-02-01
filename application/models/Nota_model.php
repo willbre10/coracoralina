@@ -56,12 +56,18 @@ class Nota_model extends CI_Model
 			foreach ($valores as $valor){
 				$ids = explode('/', $valor);
 
-				$nota = $dados['notas'][$ids[1]];
-				$alu_id = $ids[0];
+				$nota_pm = $dados['notas']['pm'][$ids[1]];
+				$nota_tm = $dados['notas']['tm'][$ids[1]];
+				$nota_pb = $dados['notas']['pb'][$ids[1]];
+				$nota_tb = $dados['notas']['tb'][$ids[1]];
+				$not_id = $ids[0];
 
-				$sql = "UPDATE notas
-						SET fal_falta = $nota
-						WHERE fal_id = " . $alu_id;
+				$sql = "UPDATE nota
+						SET not_prova_mensal = '$nota_pm',
+							not_trabalho_mensal = '$nota_tm',
+							not_prova_bimestral = '$nota_pb',
+							not_trabalho_bimestral = '$nota_tb'
+						WHERE not_id = " . $not_id;
 
 				if(!$this->db->simple_query($sql))
 					$retorno = false;

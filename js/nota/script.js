@@ -138,9 +138,10 @@ function validaNota(){
 	$('.nota').each(function(){
 		var valor = $(this).val().replace('.', '')
 
-		retorno = verificaNotaValida(valor);
-		if(!retorno)
+		if(!verificaNotaValida(valor)){
+			retorno = false;
 			$(this).css('border-color', 'red');
+		}
 	})
 
 	return retorno;
