@@ -45,6 +45,16 @@
                                         <option value="">Selecione</option>
                                     </select>
                                 </div>
+                                <div class="form-group pull-left input-right input-small">
+                                    <label>Bimestre * </label>
+                                    <select data-required="true" class="form-control" name="fal_bimestre">
+                                        <option value="">Selecione</option>
+                                        <option value="1">1º Bimestre</option>
+                                        <option value="2">2º Bimestre</option>
+                                        <option value="3">3º Bimestre</option>
+                                        <option value="4">4º Bimestre</option>
+                                    </select>
+                                </div>
                                 <div class="form-group pull-left input-small input-right">
                                     <label>Data * </label>
                                     <input data-required="true" id="data" class="form-control" name="dia_letivo">
