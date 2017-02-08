@@ -10,8 +10,7 @@ class Usuario_model extends CI_Model
 		$login = $this->input->post('login');
 		$senha = $this->input->post('senha');
 
-		$this->load->database();
-
+		
 		log_message('info', 'Tentativa de Login => usuário ['. $login .']');
 
 		$sql = "SELECT * FROM usuario WHERE usu_login = ? AND usu_senha = ? AND usu_status = ?";
@@ -28,8 +27,7 @@ class Usuario_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-
+		
 		$this->load->library('session');
 		log_message('info', 'Busca em Usuarios => usuário ['. $this->session->usuario['usu_login'] .']');
 
@@ -68,8 +66,7 @@ class Usuario_model extends CI_Model
 		$retorno = true;
 		$insert = '';
 
-		$this->load->database();
-
+		
 		$this->load->library('session');
 		log_message('info', 'Tentativa de inserção de usuário ['. $dados['usu_login'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 
@@ -116,8 +113,7 @@ class Usuario_model extends CI_Model
 		$where = '';
 		$resultado = '';
 
-		$this->load->database();
-
+		
 		foreach($dados as $key => $dado){
 			$where .= " AND $key = ";
 			$where .= !is_numeric($dado) ? "'$dado'" : $dado;
@@ -140,8 +136,7 @@ class Usuario_model extends CI_Model
 		$set = '';
 		$auxSet = array();
 
-		$this->load->database();
-
+		
 		$this->load->library('session');
 		log_message('info', 'Tentativa de atualização de usuário ['. $dados['usu_login'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 
@@ -192,8 +187,7 @@ class Usuario_model extends CI_Model
 	{
 		$resultado = '';
 
-		$this->load->database();
-
+		
 		$this->load->library('session');
 		log_message('info', 'Busca de usuario por perfil => usuário ['. $this->session->usuario['usu_login'] .']');
 

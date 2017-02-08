@@ -57,20 +57,10 @@ function preencheAlunos(dados){
 }
 
 function imprimirBoletim(alu_id){
-	var tur_id = $('select[name="tur_id"]').val();
 
-	$.ajax({
-		data: 'alu_id='+alu_id+'&tur_id='+tur_id,
-		url: '../boletim/buscarBoletimAluno',
-		type: 'POST',
-		dataType: 'json',
-		async: false,
-		success: function(r){
-			if (r){
-				console.log(r)
-			}
-		}
-	})
+	$('input[name="alu_id"]').val(alu_id);
+
+	$('#data-form').attr('action', '../boletim/buscarBoletimAluno').submit();
 }
 
 function validaFormBoletim(){

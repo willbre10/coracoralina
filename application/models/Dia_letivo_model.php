@@ -7,8 +7,6 @@ class Dia_letivo_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-		
 		$sql = 'SELECT (CONCAT("<a onclick=\'visualizarAnoLetivo(this);\' title=\'Visualizar Dias Letivos\' 
 									data-toggle=\'modal\' data-target=\'#myModal\' 
 									id=\'editar", dil_id ,"\' class=\'one-action-grid\' 
@@ -44,8 +42,7 @@ class Dia_letivo_model extends CI_Model
 		$retorno = true;
 		$insert = '';
 
-		$this->load->database();
-
+		
 		if (!$this->validaAnoLetivoExistente($dados['ano'])){
 
 			foreach($dados['dias'] as $meses){
@@ -80,8 +77,7 @@ class Dia_letivo_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-
+		
 		$sql = "SELECT *  FROM dia_letivo WHERE YEAR(dil_dia_letivo) =
 					(SELECT YEAR(dil_dia_letivo)
 					FROM dia_letivo 
@@ -113,8 +109,7 @@ class Dia_letivo_model extends CI_Model
 	{
 		$resultado = array();
 		
-		$this->load->database();
-
+		
 		$sql = "SELECT * FROM dia_letivo WHERE YEAR(dil_dia_letivo) = $ano";
 
 		$query = $this->db->query($sql);
@@ -132,8 +127,7 @@ class Dia_letivo_model extends CI_Model
 		$set = '';
 		$auxSet = array();
 
-		$this->load->database();
-
+		
 		if ($this->validaDisciplinaExistente(array('dis_id' => $dados['dis_id']))){
 
 			$dados = array_filter($dados);
@@ -169,8 +163,7 @@ class Dia_letivo_model extends CI_Model
 		$auxData = explode('/', $dia['dia_letivo']);
 		$data = $auxData[2] . '-' . $auxData['1'] . '-' . $auxData[0];
 
-		$this->load->database();
-
+		
 		$sql = "SELECT * FROM dia_letivo WHERE dil_dia_letivo = '$data'";
 
 		$query = $this->db->query($sql);

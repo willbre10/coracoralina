@@ -7,8 +7,6 @@ class Aluno_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-
 		$this->load->library('session');
 		log_message('info', 'Busca em Professores => usuário ['. $this->session->usuario['usu_login'] .']');
 		
@@ -49,8 +47,6 @@ class Aluno_model extends CI_Model
 	{
 		$retorno = true;
 		$insert = '';
-
-		$this->load->database();
 
 		$this->load->library('session');
 		log_message('info', 'Tentativa de inserção de professor ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
@@ -109,8 +105,6 @@ class Aluno_model extends CI_Model
 			unset($dados['type_search']);
 		}
 
-		$this->load->database();
-
 		foreach($dados as $key => $dado){
 			$where .= " AND $key $type ";
 			if(!is_numeric($dado))
@@ -138,8 +132,6 @@ class Aluno_model extends CI_Model
 		$retorno = true;
 		$set = '';
 		$auxSet = array();
-
-		$this->load->database();
 
 		$this->load->library('session');
 		log_message('info', 'Tentativa de atualização de professor ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');

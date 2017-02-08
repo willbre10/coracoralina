@@ -51,7 +51,7 @@
                                             <input data-required="true" class="form-control" name="tur_ano" placeholder="Ano...">
                                         </div>
                                         <div class="clear"></div>
-                                        <div class="form-group pull-left input-medium">
+                                        <div class="form-group pull-left input-semilarge">
                                             <label>Alunos * </label>
                                             <div id="alunos" style="display:block">
                                                 <span id="auxAddAluno"></span>

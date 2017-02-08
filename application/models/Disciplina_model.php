@@ -7,8 +7,7 @@ class Disciplina_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-
+		
 		$this->load->library('session');
 		log_message('info', 'Busca em Disciplinas => usuário ['. $this->session->usuario['usu_login'] .']');
 
@@ -45,8 +44,7 @@ class Disciplina_model extends CI_Model
 		$retorno = true;
 		$insert = '';
 
-		$this->load->database();
-
+		
 		$this->load->library('session');
 		log_message('info', 'Tentativa de inserção de disciplina ['. $dados['dis_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 
@@ -97,8 +95,7 @@ class Disciplina_model extends CI_Model
 			unset($dados['type_search']);
 		}
 
-		$this->load->database();
-
+		
 		foreach($dados as $key => $dado){
 			$where .= " AND $key $type ";
 			if(!is_numeric($dado))
@@ -127,8 +124,7 @@ class Disciplina_model extends CI_Model
 		$set = '';
 		$auxSet = array();
 
-		$this->load->database();
-
+		
 		$this->load->library('session');
 		log_message('info', 'Tentativa de atualização de disciplina ['. $dados['dis_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 
@@ -178,8 +174,7 @@ class Disciplina_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-		$this->load->library('session');
+				$this->load->library('session');
 
 		$perfil = $this->session->usuario['per_id'];
 		$usuario = $this->session->usuario['usu_id'];

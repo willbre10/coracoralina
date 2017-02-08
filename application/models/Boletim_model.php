@@ -7,8 +7,6 @@ class Boletim_model extends CI_Model
 		$notas = array();
 		$faltas = array();
 
-		$this->load->database();
-
 		$sql = "SELECT DISTINCT alu.alu_nome
 					, alu.alu_ra
 					, tur.tur_nome
@@ -59,11 +57,9 @@ class Boletim_model extends CI_Model
 		    $notas[] = $row;
 		}
 
-		$this->trataDadosBoletim(current($dadosBasicos), $faltas, $notas);
+		$resultado = $this->trataDadosBoletim(current($dadosBasicos), $faltas, $notas);
 
-		// echo "<pre>";print_r($faltas);
-		// echo "<pre>";print_r($notas);die;
-		return true;
+		return $resultado;
 	}
 
 	private function trataDadosBoletim($dadosBasicos, $faltas, $notas)
@@ -91,7 +87,7 @@ class Boletim_model extends CI_Model
 			$newDados['disciplinas'][ $nota->dis_id ]['nota'. $nota->not_bimestre .'bimestre'] = $nota->nota;
 		}
 
-		echo "<pre>";print_r($newDados);die;
+		return $newDados;
 	}
 
 }

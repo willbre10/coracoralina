@@ -7,8 +7,7 @@ class Dias_letivos_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-		
+				
 		$sql = 'SELECT (CONCAT("<a onclick=\'editarAnoLetivo(this);\' title=\'Editar Dias Letivos\' 
 									data-toggle=\'modal\' data-target=\'#myModal\' 
 									id=\'editar", dil_dia_letivo ,"\' class=\'one-action-grid\' 
@@ -43,8 +42,7 @@ class Dias_letivos_model extends CI_Model
 		$retorno = true;
 		$insert = '';
 
-		$this->load->database();
-
+		
 		if (!$this->validaDisciplinaExistente(array('dis_nome' => $dados['dis_nome']))){
 
 			$dados = array_filter($dados);
@@ -87,8 +85,7 @@ class Dias_letivos_model extends CI_Model
 			unset($dados['type_search']);
 		}
 
-		$this->load->database();
-
+		
 		foreach($dados as $key => $dado){
 			$where .= " AND $key $type ";
 			if(!is_numeric($dado))
@@ -117,8 +114,7 @@ class Dias_letivos_model extends CI_Model
 		$set = '';
 		$auxSet = array();
 
-		$this->load->database();
-
+		
 		if ($this->validaDisciplinaExistente(array('dis_id' => $dados['dis_id']))){
 
 			$dados = array_filter($dados);

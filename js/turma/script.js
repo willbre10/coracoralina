@@ -228,7 +228,10 @@ function preencheCamposEditar(dados){
 	preencheCamposEditarAlunos(dados);
 	preencheCamposEditarDisciplinas(dados);
 
-	var htmlInputAluno = '<input class="form-control addAlunoEditar autocomplete_aluno btn-add-right"><input type="hidden" name="alu_id[]">';
+	var countAlunos = $('.alu_tur_editar').length;
+	var htmlInputAluno = '<input readonly="readonly" class="numero_aluno form-control input-supermini pull-left" name="atd_numero_aluno[]" value="'+ (parseInt(countAlunos)+1) +'" type="text">'+
+						 '<input class="form-control addAlunoEditar autocomplete_aluno btn-add-right"><input type="hidden" name="alu_id[]">';
+
 	var htmlInputDisciplina = '<input class="form-control addDisciplinaEditar autocomplete_disciplina btn-add-right-turma"><input type="hidden" name="dis_id[]">'+
 								'<input class="form-control addDisciplinaEditar autocomplete_professor btn-add-right-turma"><input type="hidden" name="pro_id[]">'+
 								'<select class="form-control input-mini adicionado inline" name="tdp_quantidade_aula[]">'+
@@ -250,7 +253,8 @@ function preencheCamposEditarAlunos(dados){
 	var html = '';
 
 	for(var i = 0; i < cont; i++){
-		html += '<input class="form-control btn-add-right" disabled="disabled" type="text" value="'+ dados.alunos[i].alu_nome +'"/>';
+		html += '<input readonly="readonly" class="numero_aluno form-control input-supermini pull-left" value="'+ dados.alunos[i].atd_numero_aluno +'" type="text">'+
+				'<input class="form-control btn-add-right alu_tur_editar" disabled="disabled" type="text" value="'+ dados.alunos[i].alu_nome +'"/>';
 	}
 
 	$('#auxAddAluno').before(html);
@@ -271,7 +275,8 @@ function preencheCamposEditarDisciplinas(dados){
 }
 
 function limparModal(){
-	var htmlInputAluno = '<input class="form-control autocomplete_aluno btn-add-right""><input type="hidden" name="alu_id[]">';
+	var htmlInputAluno = '<input readonly="readonly" class="numero_aluno form-control input-supermini pull-left" name="atd_numero_aluno[]" value="1" type="text">'+
+						 '<input class="form-control autocomplete_aluno btn-add-right"><input type="hidden" name="alu_id[]">';
 	var htmlInputDisciplina = '<input class="form-control autocomplete_disciplina btn-add-right-turma"><input type="hidden" name="dis_id[]">'+
 								'<input class="form-control autocomplete_professor btn-add-right-turma"><input type="hidden" name="pro_id[]">'+
 								'<select class="form-control adicionado input-mini inline" name="tdp_quantidade_aula[]">'+
@@ -294,7 +299,13 @@ function limparModal(){
 }
 
 function addAluno(){
+	var countAlunos = $('.autocomplete_aluno').length;
+
+	if ($('.alu_tur_editar').length > 0)
+		countAlunos += $('.alu_tur_editar').length;
+
 	var html = '<button type="button" onclick="removeAluno(this);" class="btn adicionado btn-danger btn-circle"><i class="fa fa-minus"></i></button>'+
+				'<input readonly="readonly" class="numero_aluno form-control input-supermini pull-left" name="atd_numero_aluno[]" value="'+ (parseInt(countAlunos)+1) +'" type="text">'+
 				'<input class="form-control adicionado autocomplete_aluno btn-add-right ui-autocomplete-input" autocomplete="off">'+
 				'<input type="hidden" name="alu_id[]">';
 
@@ -304,16 +315,22 @@ function addAluno(){
 }
 
 function removeAluno(elem){
-	var anterior = elem.previousElementSibling;
+	for (var i = 0; i < 3; i++){
+		elem.previousElementSibling.remove();
+	}
 
-	if(anterior == null)
-		anterior = document.getElementById('auxAddAluno');
-
-	if (anterior.previousElementSibling != null)
-		anterior.previousElementSibling.remove();
-
-	elem.previousElementSibling.remove();
 	elem.remove();
+
+	recontarNumeros();
+}
+
+function recontarNumeros(){
+	var i = 1;
+
+	$('.numero_aluno').each(function(){
+		$(this).val(i);
+		i++;
+	})
 }
 
 function addDisciplina(){
@@ -340,5 +357,4 @@ function removeDisciplina(elem){
 	}
 
 	elem.remove();
-
 }

@@ -20,7 +20,7 @@
                             <div class="alert alert-danger all hide">
                                 Houve um erro, favor contatar o administrador.
                             </div>
-                            <form id="data-form" action="#" method="post">
+                            <form id="data-form" target="_blank" method="post">
                                 <div class="alert alert-warning">
                                     Preencha todos os campos obrigatórios (*)
                                 </div>
@@ -39,6 +39,7 @@
 
                                 <!-- observações -->
                                 <span id="auxLancamentos"></span>                                
+                                <input type="hidden" name="alu_id" id="alu_id"/>
                                 <!-- /alunos -->
                             </form>
                         </div>

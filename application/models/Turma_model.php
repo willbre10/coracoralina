@@ -7,8 +7,7 @@ class Turma_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-		
+				
 		$sql = 'SELECT (CONCAT("<a onclick=\'editarTurma(this);\' title=\'Editar Turma\' 
 									data-toggle=\'modal\' data-target=\'#myModal\' 
 									id=\'editar", tur_id ,"\' class=\'one-action-grid\' 
@@ -44,8 +43,7 @@ class Turma_model extends CI_Model
 		$retorno = true;
 		$insert = '';
 
-		$this->load->database();
-
+		
 		if (!$this->validaTurmaExistente(array('tur_nome' => $dados['tur_nome']))){
 
 			$sql = "INSERT INTO turma (tur_nome, tur_ano)
@@ -80,8 +78,7 @@ class Turma_model extends CI_Model
 		$where = '';
 		$resultado = '';
 
-		$this->load->database();
-
+		
 		foreach($dados as $key => $dado){
 			$where .= " AND $key = ";
 			$where .= !is_numeric($dado) ? "'$dado'" : $dado;
@@ -102,8 +99,7 @@ class Turma_model extends CI_Model
 	{
 		$retorno = true;
 
-		$this->load->database();
-		if ($this->validaTurmaExistente(array('tur_id' => $dados['tur_id']))){
+				if ($this->validaTurmaExistente(array('tur_id' => $dados['tur_id']))){
 
 			$sql = "UPDATE turma 
 					SET tur_ano = ". $dados['tur_ano'] .", tur_nome = '". $dados['tur_nome'] ."'
@@ -189,10 +185,11 @@ class Turma_model extends CI_Model
 
 		if(!empty($turma_disciplina_professor)){
 
-			foreach($dados['alu_id'] as $aluno){
+			$contAlunos = count($dados['alu_id']);
+			for($i = 0; $i < $contAlunos; $i++){
 				foreach($turma_disciplina_professor as $tdp){
-					$sql = "INSERT INTO aluno_turma_disciplina_professor (alu_id, tdp_id)
-							VALUES ($aluno, $tdp->tdp_id)";
+					$sql = "INSERT INTO aluno_turma_disciplina_professor (alu_id, tdp_id, atd_numero_aluno)
+							VALUES (".$dados['alu_id'][$i].", $tdp->tdp_id, ".$dados['atd_numero_aluno'][$i].")";
 
 					if(!$this->db->simple_query($sql))
 						$retorno = false;
@@ -256,8 +253,7 @@ class Turma_model extends CI_Model
 		$where = '';
 		$disciplina_professor = array();
 
-		$this->load->database();
-
+		
 		$sql = "SELECT DISTINCT tur.tur_id, tur.tur_nome, tur.tur_ano, dis.dis_id, dis.dis_nome, pro.pro_id, pro.pro_nome, tdp.tdp_quantidade_aula
 				FROM turma tur
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tur_id = tur.tur_id
@@ -271,7 +267,7 @@ class Turma_model extends CI_Model
 		    $disciplina_professor[] = $row;
 		}
 
-		$sql = "SELECT DISTINCT alu.alu_id, alu.alu_nome, alu.alu_data_nascimento
+		$sql = "SELECT DISTINCT alu.alu_id, alu.alu_nome, alu.alu_data_nascimento, atd.atd_numero_aluno
 				FROM turma tur
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tur_id = tur.tur_id
 				INNER JOIN aluno_turma_disciplina_professor atd ON atd.tdp_id = tdp.tdp_id
@@ -294,8 +290,7 @@ class Turma_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-		$this->load->library('session');
+				$this->load->library('session');
 
 		$perfil = $this->session->usuario['per_id'];
 		$usuario = $this->session->usuario['usu_id'];
@@ -350,6 +345,7 @@ class Turma_model extends CI_Model
 		foreach($dados as $dado){
 			$newDados[$i]['alu_id'] = $dado->alu_id;
 			$newDados[$i]['alu_nome'] = $dado->alu_nome;
+			$newDados[$i]['atd_numero_aluno'] = $dado->atd_numero_aluno;
 			$newDados[$i]['alu_data_nascimento'] = $dado->alu_data_nascimento;
 
 			$i++;

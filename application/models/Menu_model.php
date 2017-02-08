@@ -4,8 +4,7 @@ class Menu_model extends CI_Model{
 	
 	public function buscaMenu($id_usuario)
 	{
-		$this->load->database();
-
+		
 		$sql = "SELECT DISTINCT mnp.* , mnf.*
 				FROM menu_pai mnp 
 				LEFT JOIN menu_filha mnf ON mnp.mnp_id = mnf.mnf_id_pai 

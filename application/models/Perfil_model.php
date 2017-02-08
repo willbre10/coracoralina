@@ -6,8 +6,7 @@ class Perfil_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-		
+				
 		$sql = 'SELECT *
 				FROM perfil ';
 

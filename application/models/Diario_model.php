@@ -6,8 +6,7 @@ class Diario_model extends CI_Model
 	{
 		$retorno = true;
 		
-		$this->load->database();
-
+		
 		$turma_disciplina_professor = $this->buscarTurmaDisciplinaProfessor($dados);
 
 		$tdp_id = $turma_disciplina_professor[0]->tdp_id;
@@ -49,8 +48,7 @@ class Diario_model extends CI_Model
 	{
 		$retorno = 'editado';
 
-		$this->load->database();
-
+		
 		if (!empty($dados['obs_id'])){
 			$sql = "UPDATE observacao
 					SET obs_observacao = '" . $dados['observacao'] . "'
@@ -114,8 +112,7 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-
+		
 		$atd_id = implode(',', $atd_ids);
 
 		$sql = "SELECT * 
@@ -137,8 +134,7 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-
+		
 		$sql = "SELECT * 
 				FROM observacao obs
 				WHERE obs.tdp_id = $tdp_id
@@ -157,8 +153,7 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-
+		
 		$sql = "SELECT * 
 				FROM turma_disciplina_professor tdp
 				WHERE tdp.tur_id = " . $dados['tur_id'] . "
@@ -177,8 +172,7 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		$this->load->database();
-
+		
 		$sql = "SELECT * 
 				FROM aluno_turma_disciplina_professor atd
 				WHERE atd.tdp_id = $tdp_id";
