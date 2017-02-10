@@ -64,7 +64,7 @@ class Professor extends MY_Controller {
 		$resultado = $this->professor_model->findBy($post);
 
 		$i = 0;
-		if (count($resultado) > 0 ){
+		if (!empty($resultado) && count($resultado) > 0 ){
 			foreach($resultado as $professor){
 				$professores[$i]['id'] = $professor->pro_id;
 				$professores[$i]['label'] = $professor->pro_nome;

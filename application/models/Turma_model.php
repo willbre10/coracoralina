@@ -252,7 +252,6 @@ class Turma_model extends CI_Model
 	{
 		$where = '';
 		$disciplina_professor = array();
-
 		
 		$sql = "SELECT DISTINCT tur.tur_id, tur.tur_nome, tur.tur_ano, dis.dis_id, dis.dis_nome, pro.pro_id, pro.pro_nome, tdp.tdp_quantidade_aula
 				FROM turma tur

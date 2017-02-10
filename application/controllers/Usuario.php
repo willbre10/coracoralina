@@ -74,7 +74,7 @@ class Usuario extends MY_Controller {
 		$resultado = $this->usuario_model->buscarUsuarioProfessor();
 
 		$i = 0;
-		if (count($resultado) > 0 ){
+		if (!empty($resultado) && count($resultado) > 0 ){
 			foreach($resultado as $usuario){
 				$usuarios[$i]['id'] = $usuario->usu_id;
 				$usuarios[$i]['label'] = $usuario->usu_login;

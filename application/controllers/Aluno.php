@@ -64,7 +64,7 @@ class Aluno extends MY_Controller {
 		$resultado = $this->aluno_model->findBy($post);
 
 		$i = 0;
-		if (count($resultado) > 0 ){
+		if (!empty($resultado) && count($resultado) > 0){
 			foreach($resultado as $aluno){
 				$alunos[$i]['id'] = $aluno->alu_id;
 				$alunos[$i]['label'] = $aluno->alu_nome;

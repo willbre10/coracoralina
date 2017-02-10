@@ -64,7 +64,7 @@ class Disciplina extends MY_Controller {
 		$resultado = $this->disciplina_model->findBy($post);
 
 		$i = 0;
-		if (count($resultado) > 0 ){
+		if (!empty($resultado) && count($resultado) > 0 ){
 			foreach($resultado as $disciplina){
 				$disciplinas[$i]['id'] = $disciplina->dis_id;
 				$disciplinas[$i]['label'] = $disciplina->dis_nome;
