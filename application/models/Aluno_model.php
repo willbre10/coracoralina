@@ -8,7 +8,7 @@ class Aluno_model extends CI_Model
 		$resultado = array();
 
 		$this->load->library('session');
-		log_message('info', 'Busca em Professores => usuário ['. $this->session->usuario['usu_login'] .']');
+		log_message('info', 'Busca em Alunos => usuário ['. $this->session->usuario['usu_login'] .']');
 		
 		$sql = 'SELECT (CONCAT("<a onclick=\'editarAluno(this);\' title=\'Editar Aluno\' 
 									data-toggle=\'modal\' data-target=\'#myModal\' 
@@ -49,7 +49,7 @@ class Aluno_model extends CI_Model
 		$insert = '';
 
 		$this->load->library('session');
-		log_message('info', 'Tentativa de inserção de professor ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+		log_message('info', 'Tentativa de inserção de aluno ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 
 		if (!$this->validaAlunoExistente(array('alu_rg' => $dados['alu_rg']))){
 
@@ -69,13 +69,13 @@ class Aluno_model extends CI_Model
 					VALUES (". $values .")";
 
 			if(!$this->db->simple_query($sql)){
-				log_message('info', 'Inserção de professor não efetuada ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+				log_message('info', 'Inserção de aluno não efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 				$retorno = false;
 			} else {
-				log_message('info', 'Inserção de professor efetuada ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+				log_message('info', 'Inserção de aluno efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 			}
 		} else {
-			log_message('info', 'Professor duplicado ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+			log_message('info', 'Aluno duplicado ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 			$retorno = array('status' => 'duplicado');
 		}
 
@@ -134,7 +134,7 @@ class Aluno_model extends CI_Model
 		$auxSet = array();
 
 		$this->load->library('session');
-		log_message('info', 'Tentativa de atualização de professor ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+		log_message('info', 'Tentativa de atualização de aluno ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 
 		if ($this->validaAlunoExistente(array('alu_id' => $dados['alu_id']))){
 
@@ -165,17 +165,17 @@ class Aluno_model extends CI_Model
 
 
 				if(!$this->db->simple_query($sql)){
-					log_message('info', 'Atualização não efetuada ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+					log_message('info', 'Atualização não efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 					$retorno = false;
 				} else {
-					log_message('info', 'Atualização efetuada com sucesso ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+					log_message('info', 'Atualização efetuada com sucesso ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 				}
 			} else {
-				log_message('info', 'Professor duplicado ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+				log_message('info', 'Aluno duplicado ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 				$retorno = array('status' => 'duplicado');
 			}
 		} else {
-			log_message('info', 'Professor não existe ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+			log_message('info', 'Aluno não existe ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 			$retorno = false;
 		}
 

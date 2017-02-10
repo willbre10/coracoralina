@@ -60,7 +60,7 @@ function imprimirBoletim(alu_id){
 
 	$('input[name="alu_id"]').val(alu_id);
 
-	$('#data-form').attr('action', '../boletim/buscarBoletimAluno').submit();
+	// $('#data-form').attr('action', '../boletim/buscarBoletimAluno').submit();
 }
 
 function validaFormBoletim(){
