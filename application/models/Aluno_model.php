@@ -190,40 +190,45 @@ class Aluno_model extends CI_Model
 		$status['duplicado'] = 0;
 		$row = 1;
 
-		if (($handle = fopen($arquivo['tmp_name'], "r")) !== FALSE) {
-		    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 
-		        $num = count($data);
-		        $row++;
-		        $auxValor = explode(';', utf8_encode($data[0]));
-		        if ($auxValor[0] != 'Nome' && $auxValor[3] != 'RA' && $auxValor[0] != 'Nome' && $auxValor[3] != 'RA')
-		        	$valores[] = $auxValor;
-		    }
-		    fclose($handle);
-		}
+		if (strrev(substr(strrev($arquivo['name']), 0, 3)) == 'csv'){
+			if (($handle = fopen($arquivo['tmp_name'], "r")) !== FALSE) {
+			    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 
-		foreach($valores as $valor){
-			echo "<pre>";print_r($valor);die;
-			$newArray['alu_nome'] = $valor[0];
-			$newArray['alu_rg'] = $valor[1];
-			$newArray['alu_data_nascimento'] = $valor[2];
-			$newArray['alu_ra'] = $valor[3];
-			$newArray['alu_sexo'] = $valor[4];
-			$newArray['alu_estado'] = $valor[5];
-			$newArray['alu_endereco'] = $valor[6];
-			$newArray['alu_bairro'] = $valor[7];
-			$newArray['alu_cidade'] = $valor[8];
-			$newArray['alu_numero'] = $valor[9];
-			$newArray['alu_cep'] = $valor[10];
+			        $num = count($data);
+			        $row++;
+			        $auxValor = explode(';', utf8_encode($data[0]));
+			        if ($auxValor[0] != 'Nome' && $auxValor[3] != 'RA' && $auxValor[0] != 'Nome' && $auxValor[3] != 'RA')
+			        	$valores[] = $auxValor;
+			    }
+			    fclose($handle);
+			}
 
-			$retorno = $this->inserir($newArray);
+			foreach($valores as $valor){
 
-			if (is_array($retorno) && $retorno['status'] == 'duplicado')
-				$status['duplicado']++;
-			else if($retorno)
-				$status['sucesso']++;
-			else
-				$status['erro']++;
+				$newArray['alu_nome'] = $valor[0];
+				$newArray['alu_rg'] = $valor[1];
+				$newArray['alu_data_nascimento'] = $valor[2];
+				$newArray['alu_ra'] = $valor[3];
+				$newArray['alu_sexo'] = $valor[4];
+				$newArray['alu_estado'] = $valor[5];
+				$newArray['alu_endereco'] = $valor[6];
+				$newArray['alu_bairro'] = $valor[7];
+				$newArray['alu_cidade'] = $valor[8];
+				$newArray['alu_numero'] = $valor[9];
+				$newArray['alu_cep'] = $valor[10];
+
+				$retorno = $this->inserir($newArray);
+
+				if (is_array($retorno) && $retorno['status'] == 'duplicado')
+					$status['duplicado']++;
+				else if($retorno)
+					$status['sucesso']++;
+				else
+					$status['erro']++;
+			}
+		} else {
+			$status['arquivoErro'] = "A extensão do arquivo deve ser .csv";
 		}
 
 		return $status;

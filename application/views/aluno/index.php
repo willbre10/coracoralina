@@ -30,6 +30,11 @@
                                 echo '<div class="alert alert-danger importar">
                                         '. $status['erro'] .' aluno(s) com erro não inserido(s).
                                     </div>';
+
+                            if(!empty($status['arquivoErro']))
+                                echo '<div class="alert alert-danger importar">
+                                        '. $status['arquivoErro'] .'
+                                    </div>';
                         }
                     ?>
                     <div class="alert alert-success insercao hide">
