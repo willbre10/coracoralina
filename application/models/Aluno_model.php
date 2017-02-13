@@ -51,32 +51,26 @@ class Aluno_model extends CI_Model
 		$this->load->library('session');
 		log_message('info', 'Tentativa de inserção de aluno ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 
-		if (!$this->validaAlunoExistente(array('alu_rg' => $dados['alu_rg']))){
+		$auxData = explode('/', $dados['alu_data_nascimento']);
+		$dados['alu_data_nascimento'] = $auxData[2] . '-' . $auxData[1] . '-' . $auxData[0];
 
-			$auxData = explode('/', $dados['alu_data_nascimento']);
-			$dados['alu_data_nascimento'] = $auxData[2] . '-' . $auxData[1] . '-' . $auxData[0];
+		if (array_key_exists('alu_cep', $dados))
+			$dados['alu_cep'] = str_replace(array('.', '-'), '', $dados['alu_cep']);
 
-			if (array_key_exists('alu_cep', $dados))
-				$dados['alu_cep'] = str_replace(array('.', '-'), '', $dados['alu_cep']);
+		$dados = array_filter($dados);
+		$keys = implode(', ', array_keys($dados));
 
-			$dados = array_filter($dados);
-			$keys = implode(', ', array_keys($dados));
+		//array_map adiciona aspas simples nos dados
+		$values = implode(', ', array_map(function($value){return "'" . $value . "'";}, $dados));
 
-			//array_map adiciona aspas simples nos dados
-			$values = implode(', ', array_map(function($value){return "'" . $value . "'";}, $dados));
+		$sql = "INSERT INTO aluno (". $keys . ")
+				VALUES (". $values .")";
 
-			$sql = "INSERT INTO aluno (". $keys . ")
-					VALUES (". $values .")";
-
-			if(!$this->db->simple_query($sql)){
-				log_message('info', 'Inserção de aluno não efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
-				$retorno = false;
-			} else {
-				log_message('info', 'Inserção de aluno efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
-			}
+		if(!$this->db->simple_query($sql)){
+			log_message('info', 'Inserção de aluno não efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+			$retorno = false;
 		} else {
-			log_message('info', 'Aluno duplicado ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
-			$retorno = array('status' => 'duplicado');
+			log_message('info', 'Inserção de aluno efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 		}
 
 		return $retorno;
@@ -138,41 +132,33 @@ class Aluno_model extends CI_Model
 
 		if ($this->validaAlunoExistente(array('alu_id' => $dados['alu_id']))){
 
-			//valida aluno duplicado, para aquele id PODE
-			$buscaAlunoEditar = $this->findBy(array('alu_rg' => $dados['alu_rg']));
-			if(empty($buscaAlunoEditar) || $buscaAlunoEditar[0]->alu_id == $dados['alu_id']){
+			$dados = array_filter($dados);
+			$alu_id = $dados['alu_id'];
+			unset($dados['alu_id']);
 
-				$dados = array_filter($dados);
-				$alu_id = $dados['alu_id'];
-				unset($dados['alu_id']);
+			$auxData = explode('/', $dados['alu_data_nascimento']);
+			$dados['alu_data_nascimento'] = $auxData[2] . '-' . $auxData[1] . '-' . $auxData[0];
 
-				$auxData = explode('/', $dados['alu_data_nascimento']);
-				$dados['alu_data_nascimento'] = $auxData[2] . '-' . $auxData[1] . '-' . $auxData[0];
+			$keys = array_keys($dados);
 
-				$keys = array_keys($dados);
+			//array_map adiciona aspas simples nos dados
+			$values = array_map(function($value){return "'" . $value . "'";}, $dados);
 
-				//array_map adiciona aspas simples nos dados
-				$values = array_map(function($value){return "'" . $value . "'";}, $dados);
+			$cont = count($dados);
+			for($i = 0; $i < $cont; $i++)
+				$auxSet[] = $keys[$i] . ' = ' . $values[$keys[$i]];
 
-				$cont = count($dados);
-				for($i = 0; $i < $cont; $i++)
-					$auxSet[] = $keys[$i] . ' = ' . $values[$keys[$i]];
+			$set = implode(', ', $auxSet);
 
-				$set = implode(', ', $auxSet);
-
-				$sql = "UPDATE aluno SET $set
-						WHERE alu_id = $alu_id";
+			$sql = "UPDATE aluno SET $set
+					WHERE alu_id = $alu_id";
 
 
-				if(!$this->db->simple_query($sql)){
-					log_message('info', 'Atualização não efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
-					$retorno = false;
-				} else {
-					log_message('info', 'Atualização efetuada com sucesso ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
-				}
+			if(!$this->db->simple_query($sql)){
+				log_message('info', 'Atualização não efetuada ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
+				$retorno = false;
 			} else {
-				log_message('info', 'Aluno duplicado ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
-				$retorno = array('status' => 'duplicado');
+				log_message('info', 'Atualização efetuada com sucesso ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 			}
 		} else {
 			log_message('info', 'Aluno não existe ['. $dados['alu_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
@@ -187,7 +173,6 @@ class Aluno_model extends CI_Model
 		$retorno = true;
 		$status['sucesso'] = 0;
 		$status['erro'] = 0;
-		$status['duplicado'] = 0;
 		$row = 1;
 
 
@@ -220,9 +205,7 @@ class Aluno_model extends CI_Model
 
 				$retorno = $this->inserir($newArray);
 
-				if (is_array($retorno) && $retorno['status'] == 'duplicado')
-					$status['duplicado']++;
-				else if($retorno)
+				if($retorno)
 					$status['sucesso']++;
 				else
 					$status['erro']++;
