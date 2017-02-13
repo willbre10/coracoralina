@@ -25,8 +25,8 @@ class Aluno_model extends CI_Model
 
 		if (!empty($search)){
 			$sql .= "WHERE alu_nome LIKE '%$search%'
-						OR alu_rg LIK '%$search%'
-						OR alu_ra LIK '%$search%'
+						OR alu_rg LIKE '%$search%'
+						OR alu_ra LIKE '%$search%'
 						OR alu_status LIKE '$search%' ";
 		}
 
@@ -192,6 +192,7 @@ class Aluno_model extends CI_Model
 
 		if (($handle = fopen($arquivo['tmp_name'], "r")) !== FALSE) {
 		    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+
 		        $num = count($data);
 		        $row++;
 		        $auxValor = explode(';', utf8_encode($data[0]));
@@ -202,6 +203,7 @@ class Aluno_model extends CI_Model
 		}
 
 		foreach($valores as $valor){
+			echo "<pre>";print_r($valor);die;
 			$newArray['alu_nome'] = $valor[0];
 			$newArray['alu_rg'] = $valor[1];
 			$newArray['alu_data_nascimento'] = $valor[2];

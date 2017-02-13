@@ -3,7 +3,7 @@
     	<style>
 
             .conteudo h1 {
-                font-family: "Comic Sans MS", "Comic Sans", cursive;
+                font-family: "comicsansms";
                 font-size: 28px;
                 font-weight: bold;
                 margin: 0 0 10px 0;
@@ -12,7 +12,7 @@
             }
 
             .conteudo h2 {
-                font-family: "Comic Sans MS", "Comic Sans", cursive;
+                font-family: "comicsansms";
                 font-size: 22px;
                 font-weight: normal;
                 margin: 0 0 10px 0;
@@ -37,7 +37,7 @@
             }
 
             .boletim table td.comic-sans {
-                font-family: "Comic Sans MS", "Comic Sans", cursive;
+                font-family: "comicsansms";
                 font-size: 15px;
             }
 
@@ -68,7 +68,7 @@
     </head>
     <body>
     	<div class="conteudo">
-    		<h1>COLÉGIO CORA CORALINA</h1>
+    		<h1>COLÉGIO</h1>
             <h2>Boletim Escolar Ensino Fundamental Cilo - 1 / 2016</h2>
     		<div class="boletim">
     			<table border="1">

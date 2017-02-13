@@ -20,7 +20,7 @@ class Boletim extends MY_Controller {
 		$resultado['resultado'] = $this->boletim_model->buscarBoletimAluno($post);
 
 		require('./vendor/mpdf/mpdf.php');
-		$mpdf = new mPDF('c', 'A4-L');
+		$mpdf = new mPDF('pt', 'A4-L');
 
 		$html = $this->load->view('boletim/boletim', $resultado, TRUE);
 
