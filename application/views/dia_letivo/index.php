@@ -122,17 +122,6 @@
                                             </div>
                                         </div>
                                         <div style="clear:both"></div>
-                                        <div class="form-group input-medium">
-                                            <label>Status</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input name="dil_status" id="statusRadioAtivo" value="Ativo" checked="checked" type="radio">Ativo
-                                                </label>
-                                                <label>
-                                                    <input name="dil_status" id="statusRadioInativo" value="Inativo" type="radio">Inativo
-                                                </label>
-                                            </div>
-                                        </div>
                                     </form>
                                 </div>
 
