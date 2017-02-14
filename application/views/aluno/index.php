@@ -58,7 +58,7 @@
                                     </div>
 
                                     <div class="alert alert-danger duplicado hide">
-                                        Já existe esse rg cadastrado.
+                                        Esse aluno já foi cadastrado.
                                     </div>
                                     <div class="alert alert-danger all hide">
                                         Houve um erro na inserção, favor contatar o administrador.

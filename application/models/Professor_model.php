@@ -7,7 +7,6 @@ class Professor_model extends CI_Model
 	{
 		$resultado = array();
 
-		
 		$this->load->library('session');
 		log_message('info', 'Busca em Professores => usuário ['. $this->session->usuario['usu_login'] .']');
 		
@@ -48,7 +47,6 @@ class Professor_model extends CI_Model
 	{
 		$retorno = true;
 		$insert = '';
-
 		
 		$this->load->library('session');
 		log_message('info', 'Tentativa de inserção de professor ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
@@ -135,7 +133,6 @@ class Professor_model extends CI_Model
 		$set = '';
 		$auxSet = array();
 
-		
 		$this->load->library('session');
 		log_message('info', 'Tentativa de atualização de professor ['. $dados['pro_nome'] .'] => usuário ['. $this->session->usuario['usu_login'] .']');
 
