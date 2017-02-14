@@ -205,17 +205,17 @@ class Aluno_model extends CI_Model
 
 			foreach($valores as $valor){
 
-				$newArray['alu_nome'] = $valor[0];
-				$newArray['alu_rg'] = $valor[1];
-				$newArray['alu_data_nascimento'] = $valor[2];
-				$newArray['alu_ra'] = $valor[3];
-				$newArray['alu_sexo'] = $valor[4];
-				$newArray['alu_estado'] = $valor[5];
-				$newArray['alu_endereco'] = $valor[6];
-				$newArray['alu_bairro'] = $valor[7];
-				$newArray['alu_cidade'] = $valor[8];
-				$newArray['alu_numero'] = $valor[9];
-				$newArray['alu_cep'] = $valor[10];
+				$newArray['alu_nome'] = !empty($valor[0]) ? $valor[0] : null;
+				$newArray['alu_rg'] = !empty($valor[1]) ? $valor[1] : null;
+				$newArray['alu_data_nascimento'] = !empty($valor[2]) ? $valor[2] : null;
+				$newArray['alu_ra'] = !empty($valor[3]) ? $valor[3] : null;
+				$newArray['alu_sexo'] = !empty($valor[4]) ? $valor[4] : null;
+				$newArray['alu_estado'] = !empty($valor[5]) ? $valor[5] : null;
+				$newArray['alu_endereco'] = !empty($valor[6]) ? $valor[6] : null;
+				$newArray['alu_bairro'] = !empty($valor[7]) ? $valor[7] : null;
+				$newArray['alu_cidade'] = !empty($valor[8]) ? $valor[8] : null;
+				$newArray['alu_numero'] = !empty($valor[9]) ? $valor[9] : null;
+				$newArray['alu_cep'] = !empty($valor[10]) ? $valor[10] : null;
 
 				$retorno = $this->inserir($newArray);
 
