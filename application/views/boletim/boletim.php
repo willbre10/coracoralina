@@ -1,10 +1,15 @@
 <html>
     <head>
+        <meta charset="utf-8"/>
     	<style>
 
+            .conteudo{
+                width: 700px;
+            }
+
             .conteudo h1 {
-                font-family: "comicsansms";
-                font-size: 28px;
+                font-family: "Comic Sans MS" !important;
+                font-size: 21px;
                 font-weight: bold;
                 margin: 0 0 10px 0;
                 text-align: center;
@@ -12,8 +17,8 @@
             }
 
             .conteudo h2 {
-                font-family: "comicsansms";
-                font-size: 22px;
+                font-family: "Comic Sans MS";
+                font-size: 18px;
                 font-weight: normal;
                 margin: 0 0 10px 0;
                 text-align: center;
@@ -22,23 +27,19 @@
             .boletim table {
                 border-collapse: collapse;
                 font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
-                font-size: 14px;
+                font-size: 11px;
                 margin: 0 0 30px 0;
-                width: 100%;
             }
 
-            .boletim table td {
-                padding: 4px;
-                text-align: center;
-            }
+
 
             .boletim table td.text-left {
                 text-align: left;
             }
 
             .boletim table td.comic-sans {
-                font-family: "comicsansms";
-                font-size: 15px;
+                font-family: "Comic Sans MS";
+                font-size: 13px;
             }
 
             .boletim table td .spacer {
@@ -49,7 +50,21 @@
                 color: #FF0000;
             }
 
+            .container_rotate{
+                position: relative;
+                height: 180px;
+                min-width: 30px;
+            }
+
             .boletim table td .rotate {
+                text-align: center;
+                overflow: hidden;
+                height: 30px;
+                line-height: 30px;
+                width: 200px;
+                position: absolute;
+                bottom: -32px;
+                transform-origin: top left;
                 -webkit-transform: rotate(-90deg);
                 -moz-transform: rotate(-90deg);
                 -ms-transform: rotate(-90deg);
@@ -59,16 +74,16 @@
 
             p.signature {
                 font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
-                font-size: 18px;
+                font-size: 12px;
                 margin: 0 0 10px 0;
-                padding: 0 20px;
+
             }
 
     	</style>
     </head>
     <body>
     	<div class="conteudo">
-    		<h1>COLÉGIO</h1>
+    		<h1>COLÉGIO CORA CORALINA</h1>
             <h2>Boletim Escolar Ensino Fundamental Cilo - 1 / 2016</h2>
     		<div class="boletim">
     			<table border="1">
@@ -85,55 +100,55 @@
     						<td>
     							<i>Disciplinas</i>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate red">NOTAS DO 1º BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">AULAS DADAS NO BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">FALTAS DO BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate red">NOTAS DO 2º BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">AULAS DADAS NO BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">FALTAS DO BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate red">NOTAS DO 3º BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">AULAS DADAS NO BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">FALTAS DO BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate red">NOTAS DO 4º BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">AULAS DADAS NO BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">FALTAS DO BIMESTRE</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate red">MÉDIA ANUAL</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate">TOTAL DE FALTAS</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate red">RECUPERAÇÃO FINAL</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate red">MÉDIA FINAL</div>
     						</td>
-    						<td height="150">
+    						<td class="container_rotate" height="150">
     							<div class="rotate red">SITUAÇÃO FINAL</div>
     						</td>
     					</tr>
@@ -367,7 +382,7 @@
     			</table>
     		</div>
             <p class="signature">
-                CIENTE RESPONSÁVEL: __________________________________________________
+                CIENTE RESPONSÁVEL: _____________________________________________________________________
             </p>
     	</div>
         <?php // echo "<pre>";print_r($resultado);die; ?>
