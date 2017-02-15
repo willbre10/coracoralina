@@ -146,6 +146,7 @@ function autoCompleteProfessor(){
 
 function editarTurma(elem){
 	$('.modal-dialog').css('width', '900px');
+	limparModal();
 	var id = $('#'+elem.id).attr('data-id');
 
 	$.ajax({
