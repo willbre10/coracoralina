@@ -1,4 +1,6 @@
-<html>
+<?php 
+echo "<pre>";print_r($resultado);die;
+?><html>
     <head>
         <meta charset="utf-8"/>
     	<style>
