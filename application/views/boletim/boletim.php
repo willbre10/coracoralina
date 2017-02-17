@@ -1,6 +1,4 @@
-<?php 
-echo "<pre>";print_r($resultado);die;
-?><html>
+<html>
     <head>
         <meta charset="utf-8"/>
     	<style>
@@ -86,16 +84,16 @@ echo "<pre>";print_r($resultado);die;
     <body>
     	<div class="conteudo">
     		<h1>COLÉGIO CORA CORALINA</h1>
-            <h2>Boletim Escolar Ensino Fundamental Cilo - 1 / 2016</h2>
+            <h2>Boletim Escolar <?php echo $resultado['header']['tdp_curso']; ?> / <?php echo $resultado['header']['tur_ano']; ?></h2>
     		<div class="boletim">
     			<table border="1">
     				<thead>
     					<tr>
     						<td colspan="19" class="text-left comic-sans">
-    							Aluno (a): GIOVANNA BARBOSA CASSIANO
-                                <span class="spacer">Número: 03</span>
-                                <span class="spacer">Turma: 1º Ano A</span>
-                                <span class="spacer">R.A - 111815207-4</span>
+    							Aluno (a): <?php echo mb_strtoupper($resultado['header']['alu_nome']); ?>
+                                <span class="spacer">Número: <?php echo $resultado['header']['atd_numero_aluno']; ?></span>
+                                <span class="spacer">Turma: <?php echo $resultado['header']['tur_nome']; ?></span>
+                                <span class="spacer">R.A - <?php echo $resultado['header']['alu_ra']; ?></span>
     						</td>
     					</tr>
     					<tr>
@@ -156,230 +154,64 @@ echo "<pre>";print_r($resultado);die;
     					</tr>
     				</thead>
     				<tbody>
-    					<tr>
-    						<td>
-    							ARTE
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							APROVADA
-    						</td>
-    					</tr>
-    					<tr>
-    						<td>
-    							CIÊNCIAS
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							APROVADA
-    						</td>
-    					</tr>
-    					<tr>
-    						<td>
-    							HISTÓRIA
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							APROVADA
-    						</td>
-    					</tr>
-    					<tr>
-    						<td>
-    							INGLÊS
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							10,0
-    						</td>
-    						<td>
-    							APROVADA
-    						</td>
-    					</tr>
+                        <?php foreach($resultado['disciplinas'] as $disciplina){ ?>
+        					<tr>
+        						<td>
+        							<?php echo mb_strtoupper($disciplina['dis_nome']); ?>
+        						</td>
+        						<td>
+        							<?php echo $disciplina['nota1bimestre']; ?>
+        						</td>
+        						<td>
+        							<?php echo $disciplina['aulas1bimestre']; ?>
+        						</td>
+                                <td>
+                                    <?php echo !empty($disciplina['faltas1bimestre']) ? $disciplina['faltas1bimestre'] : 0; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['nota2bimestre']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['aulas2bimestre']; ?>
+                                </td>
+                                <td>
+                                    <?php echo !empty($disciplina['faltas2bimestre']) ? $disciplina['faltas2bimestre'] : 0; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['nota3bimestre']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['aulas3bimestre']; ?>
+                                </td>
+                                <td>
+                                    <?php echo !empty($disciplina['faltas3bimestre']) ? $disciplina['faltas3bimestre'] : 0; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['nota4bimestre']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['aulas4bimestre']; ?>
+                                </td>
+                                <td>
+                                    <?php echo !empty($disciplina['faltas4bimestre']) ? $disciplina['faltas4bimestre'] : 0; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['media_anual']; ?>
+                                </td>
+                                <td>
+                                    <?php echo !empty($disciplina['total_faltas']) ? $disciplina['total_faltas'] : 0; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['recuperacao_final']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $disciplina['media_final']; ?>
+                                </td>
+        						<td>
+        							APROVADA
+        						</td>
+        					</tr>
+                        <?php } ?>
     				</tbody>
     			</table>
     		</div>

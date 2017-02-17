@@ -81,10 +81,52 @@ class Boletim_model extends CI_Model
 			$newDados['disciplinas'][ $falta->dis_id ]['dis_nome'] = $falta->dis_nome;
 			$newDados['disciplinas'][ $falta->dis_id ]['aulas'. $falta->fal_bimestre .'bimestre'] = $falta->aulas;
 			$newDados['disciplinas'][ $falta->dis_id ]['faltas'. $falta->fal_bimestre .'bimestre'] = $falta->faltas;
+
+			$newDados['disciplinas'][ $falta->dis_id ]['total_faltas'] += $falta->faltas;
+			
 		}
 
 		foreach($notas as $nota){
-			$newDados['disciplinas'][ $nota->dis_id ]['nota'. $nota->not_bimestre .'bimestre'] = $nota->nota;
+			if(empty($newDados['disciplinas'][ $nota->dis_id ]['dis_nome']))
+				$newDados['disciplinas'][ $nota->dis_id ]['dis_nome'] = $nota->dis_nome;
+
+			$valor_nota = round($nota->nota, 2);
+
+			if(substr($valor_nota, 3) == 1 || substr($valor_nota, 3) == 6)
+				$new_nota = $valor_nota - 0.01;
+			elseif(substr($valor_nota, 3) == 2 || substr($valor_nota, 3) == 7)
+				$new_nota = $valor_nota - 0.02;
+			elseif(substr($valor_nota, 3) == 3 || substr($valor_nota, 3) == 8)
+				$new_nota = $valor_nota + 0.02;
+			elseif(substr($valor_nota, 3) == 4 || substr($valor_nota, 3) == 9)
+				$new_nota = $valor_nota + 0.01;
+			else
+				$new_nota = $valor_nota;
+
+			$newDados['disciplinas'][ $nota->dis_id ]['nota'. $nota->not_bimestre .'bimestre'] = number_format($new_nota, 2);
+		}
+
+		foreach($newDados['disciplinas'] as $dis_id => &$dado){
+			$nota = ($dado['nota1bimestre'] + $dado['nota2bimestre'] + $dado['nota3bimestre'] + $dado['nota4bimestre']) / 4;
+
+			$nota = round($nota, 2);
+			$valor_nota = round($nota, 1);
+
+			if(substr($valor_nota, 2) == 1 || substr($valor_nota, 2) == 6)
+				$new_nota = $valor_nota - 0.1;
+			elseif(substr($valor_nota, 2) == 2 || substr($valor_nota, 2) == 7)
+				$new_nota = $valor_nota - 0.2;
+			elseif(substr($valor_nota, 2) == 3 || substr($valor_nota, 2) == 8)
+				$new_nota = $valor_nota + 0.2;
+			elseif(substr($valor_nota, 2) == 4 || substr($valor_nota, 2) == 9)
+				$new_nota = $valor_nota + 0.1;
+			else
+				$new_nota = $valor_nota;
+
+			$newDados['disciplinas'][ $dis_id ]['recuperacao_final'] = '';
+			$newDados['disciplinas'][ $dis_id ]['media_anual'] = number_format($new_nota, 1);
+
+			$newDados['disciplinas'][ $dis_id ]['media_final'] = number_format($new_nota, 1);
 		}
 
 		return $newDados;
