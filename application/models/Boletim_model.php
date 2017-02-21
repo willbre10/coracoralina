@@ -127,6 +127,20 @@ class Boletim_model extends CI_Model
 			$newDados['disciplinas'][ $dis_id ]['media_anual'] = number_format($new_nota, 1);
 
 			$newDados['disciplinas'][ $dis_id ]['media_final'] = number_format($new_nota, 1);
+
+			$situacao = 'APROVADA';
+
+			$total_aulas = ($newDados['disciplinas'][ $dis_id ]['aulas1bimestre'] + 
+							$newDados['disciplinas'][ $dis_id ]['aulas2bimestre'] + 
+							$newDados['disciplinas'][ $dis_id ]['aulas3bimestre'] + 
+							$newDados['disciplinas'][ $dis_id ]['aulas4bimestre']);
+
+			$maximo_faltas = round($total_aulas * (25 / 100));
+			if ($newDados['disciplinas'][ $dis_id ]['total_faltas'] >= $maximo_faltas || 
+					$newDados['disciplinas'][ $dis_id ]['media_final'] < 5)
+				$situacao = 'REPROVADA';
+
+			$newDados['disciplinas'][ $dis_id ]['situacao'] = $situacao;
 		}
 
 		return $newDados;

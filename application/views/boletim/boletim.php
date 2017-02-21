@@ -8,7 +8,7 @@
             }
 
             .conteudo h1 {
-                font-family: "Comic Sans MS" !important;
+                font-family: "Comic Sans MS";
                 font-size: 21px;
                 font-weight: bold;
                 margin: 0 0 10px 0;
@@ -30,8 +30,6 @@
                 font-size: 11px;
                 margin: 0 0 30px 0;
             }
-
-
 
             .boletim table td.text-left {
                 text-align: left;
@@ -76,7 +74,6 @@
                 font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
                 font-size: 12px;
                 margin: 0 0 10px 0;
-
             }
 
     	</style>
@@ -208,7 +205,7 @@
                                     <?php echo $disciplina['media_final']; ?>
                                 </td>
         						<td>
-        							APROVADA
+        							<?php echo $disciplina['situacao']; ?>
         						</td>
         					</tr>
                         <?php } ?>
