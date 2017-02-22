@@ -202,16 +202,15 @@ function setarDiasLayout(month, days){
 	$('#mes'+month).html(html);
 	$('#mes'+month).selectable({
 		selected: function(event, ui){
-			var valor = $('input[name="dias[hidden'+ month +'][]"]').val();
+			var valorAux = '';
+			$('input[name="dias[hidden'+ month +'][]"]').val('');
 
-			$('input[name="dias[hidden'+ month +'][]"]').val(valor+'~'+ui.selected.getAttribute('data-value'));
-			ui.selected.getAttribute('data-value');
-		},
-		start: function(event, ui) {
-			var apagar = event.target.getAttribute('data-mes');
-			$('input[name="dias[hidden'+ apagar +'][]"]').val('');
-			$('input[data-mes="'+ apagar +'"]').val('');
-		},
+			$('#mes'+month+' .ui-selected').each(function(){
+				valorAux += '~'+$(this).attr('data-value')
+			})
+
+			$('input[name="dias[hidden'+ month +'][]"]').val(valorAux);
+		}
 	});
 }
 
