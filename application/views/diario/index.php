@@ -59,7 +59,7 @@
                                     <label>Data * </label>
                                     <input data-required="true" id="data" class="form-control" name="dia_letivo">
                                 </div>
-                                <div class="form-group input-small pull-left" style="margin: 25px 0 0 10px;">
+                                <div class="form-group input-small pull-left">
                                     <button type="button" class="btn btn-info" id="buscarAlunos">Buscar Alunos</button>
                                 </div>
                                 <div class="clear"></div>
