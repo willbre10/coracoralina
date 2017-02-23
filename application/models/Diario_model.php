@@ -6,7 +6,6 @@ class Diario_model extends CI_Model
 	{
 		$retorno = true;
 		
-		
 		$turma_disciplina_professor = $this->buscarTurmaDisciplinaProfessor($dados);
 
 		$tdp_id = $turma_disciplina_professor[0]->tdp_id;
@@ -34,8 +33,8 @@ class Diario_model extends CI_Model
 
 			$atd_id = $turma_disciplina_professor[0]->atd_id;
 
-			$sql = "INSERT INTO falta (atd_id, fal_dia, fal_falta, fal_quantidade_aulas)
-					VALUES ($atd_id, '$dia_letivo', $faltas, ". $dados['fal_quantidade_aulas'] .")";
+			$sql = "INSERT INTO falta (atd_id, fal_dia, fal_falta, fal_bimestre, fal_quantidade_aulas)
+					VALUES ($atd_id, '$dia_letivo', $faltas, ". $dados['fal_bimestre'] .", ". $dados['fal_quantidade_aulas'] .")";
 
 			if(!$this->db->simple_query($sql))
 				$retorno = false;
