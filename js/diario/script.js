@@ -10,7 +10,10 @@ $(function() {
 	$('#lancarDiario').click(function(){
 		var form = $('#data-form');
 
-       	submitAjax(form);
+		if ('input[name="fal_quantidade_aulas"]').val() != '')
+       		submitAjax(form);
+       	else
+       		alert('showMsgQtdAulas');
 	})
 
 	$('#buscarAlunos').click(function(){
@@ -142,6 +145,16 @@ function preencheAlunos(dados){
                 '<div class="form-group input-small pull-left input-right">'+
                 	'<label>Aniversário: </label>'+
                     aniversario+
+                '</div>'+
+                '<div class="clear"></div>'+
+                '<div class="form-group input-small pull-left">'+
+                	'<label>Quantidade de Aulas * </label>'+
+                	'<select data-required="true" class="form-control" name="fal_quantidade_aulas">'+
+                		'<option value="">Selecione</option>'+
+                		'<option value="1">1</option>'+
+                		'<option value="2">2</option>'+
+                		'<option value="3">3</option>'+
+                	'</select>'+
                 '</div>';
 
     $('#auxLancamentos').html(html);
