@@ -51,7 +51,7 @@
                                             <input data-required="true" class="form-control" name="usu_senha" type="password" placeholder="Senha...">
                                         </div>
                                         <div class="form-group pull-left input-small">
-                                            <label>Perfil *</label>
+                                            <label>Perfil</label>
                                             <select class="form-control" name="per_id">
                                                 <option value="">Selecione</option>
                                             </select>

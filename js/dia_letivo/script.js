@@ -86,7 +86,7 @@ function validaFormDiasLetivos(){
 
 	$('.form-group input[data-required="true"]').each(function(){
 		if ($(this).val() == ''){
-			$(this).css('border-color', '#a94442');
+			$(this).css('border-color', '#a94442').prev('label').css('color', '#a94442');
 			retorno = false;
 		}
 	})
@@ -96,10 +96,6 @@ function validaFormDiasLetivos(){
 
 function submitAjax(form){
 	var requisicao = 'insercao';
-
-	// if($('#dil_id').val() != '')
-		// requisicao = 'alteracao';
-
 
 	$.ajax({
 		data: $('#'+form).serialize(),
@@ -143,7 +139,6 @@ function preencheCamposVisualizar(dados){
 		var data_value = mes + '-' + date.getDate();
 
 		$('li[data-value="'+ data_value +'"]').addClass('ui-selected');
-		console.log('coloca esse valor do mes = ' + mes  +' no hidden' + parseInt(date.getMonth()) +' = '+ data_value);
 		$('input[name="dias[hidden'+ parseInt(date.getMonth()) +'][]"]').val(valor+'~'+data_value);
 	}
 
@@ -154,6 +149,9 @@ function preencheCamposVisualizar(dados){
 }
 
 function limparModal(){
+	$('.modal-dialog input').css('border-color', '#ccc');
+	$('.modal-dialog label').css('color', 'black');
+
 	$('.form-group input[type!="radio"]').val('');
 	$('#ano').removeAttr('readonly');
 	for(var i = 0; i < 12; i++){
@@ -165,13 +163,15 @@ function limparModal(){
 
 function gerarDiasLetivos(ano){
 	var days = new Array();
+	var firstDayMonth = '';
 	if (ano != '' && ano != null){
 
 		for (var i = 0; i < 12; i++){
 			days = getDaysMonth(ano, i);
 
-
-			setarDiasLayout(i, days);
+			var firstDayMonth = new Date(ano, i, 1).getDay();
+			console.log('dia da semana do mes '+ i +' : ' + firstDayMonth);
+			setarDiasLayout(i, days, firstDayMonth + 1);
 		}
 
 		$('div.modal-height-letivo').css('height', '870px');
@@ -190,10 +190,16 @@ function getDaysMonth(ano, month){
 	return days;
 }
 
-function setarDiasLayout(month, days){
+function setarDiasLayout(month, days, firstDayMonth){
 	var html = '';
 	var cont = days.length;
 	var monthRight = parseInt(month)+1;
+	var j = 1;
+
+	while(j < firstDayMonth){
+		html += '<li></li>';
+		j++;
+	}
 
 	for (var i = 1; i <= cont; i++){
 		html += '<li data-value="'+ monthRight + '-' + i+'" class="ui-state-default">'+ i +'</li>';

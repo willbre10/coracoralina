@@ -174,7 +174,7 @@ function validaFormTurma(){
 
 	$('.form-group input[data-required="true"]').each(function(){
 		if ($(this).val() == ''){
-			$(this).css('border-color', '#a94442');
+			$(this).css('border-color', '#a94442').prev('label').css('color', '#a94442');
 			retorno = false;
 		}
 	})
@@ -286,6 +286,9 @@ function limparModal(){
 
 	if ($('#auxAddDisciplina').prevAll('input').length < 1)
 		$('#auxAddDisciplina').before(htmlInputDisciplina);
+
+	$('.modal-dialog label').css('color', 'black');
+	$('.modal-dialog input').css('border-color', '#ccc');
 }
 
 function addAluno(){

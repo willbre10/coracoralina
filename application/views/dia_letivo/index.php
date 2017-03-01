@@ -62,61 +62,159 @@
                                         <div class="form-group pull-left input-medium" id="dias">
                                             <div class="pull-left paddingMes">
                                                 <label>Janeiro </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden0][]"/>
                                                 <ol id="mes0" data-mes="0" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Fevereiro </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden1][]"/>
                                                 <ol id="mes1" data-mes="1" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Março </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden2][]"/>
                                                 <ol id="mes2" data-mes="2" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Abril </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden3][]"/>
                                                 <ol id="mes3" data-mes="3" class="mes"></ol>
                                             </div>
+                                            <div class="clear"></div>
                                             <div class="pull-left paddingMes">
                                                 <label>Maio </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden4][]"/>
                                                 <ol id="mes4" data-mes="4" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Junho </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden5][]"/>
                                                 <ol id="mes5" data-mes="5" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Julho </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden6][]"/>
                                                 <ol id="mes6" data-mes="6" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Agosto </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden7][]"/>
                                                 <ol id="mes7" data-mes="7" class="mes"></ol>
                                             </div>
+                                            <div class="clear"></div>
                                             <div class="pull-left paddingMes">
                                                 <label>Setembro </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden8][]"/>
                                                 <ol id="mes8" data-mes="8" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Outubro </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden9][]"/>
                                                 <ol id="mes9" data-mes="9" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Novembro </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden10][]"/>
                                                 <ol id="mes10" data-mes="10" class="mes"></ol>
                                             </div>
                                             <div class="pull-left paddingMes">
                                                 <label>Dezembro </label>
+                                                <br>
+                                                <label class="dia_semana">D</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">T</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">Q</label>
+                                                <label class="dia_semana">S</label>
+                                                <label class="dia_semana">S</label>
                                                 <input type="hidden" name="dias[hidden11][]"/>
                                                 <ol id="mes11" data-mes="11" class="mes"></ol>
                                             </div>
