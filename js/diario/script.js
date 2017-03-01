@@ -182,7 +182,8 @@ function validaMinDate(){
 	var perfil = $('input[name="per"]').val();
 	var minDate = new Date(new Date().getFullYear(), 0, 1);
 
-	if (perfil == 4){
+	//if (perfil == 4){
+	if (4==4)
 		var today = new Date();
 		var first = today.getDate() - today.getDay();
 		first = today.getDay() == 0 ? first - 6 : first + 1;
