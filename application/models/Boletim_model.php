@@ -27,7 +27,7 @@ class Boletim_model extends CI_Model
 		    $dadosBasicos[] = $row;
 		}
 
-		$sql = "SELECT dis.dis_id, dis.dis_nome, fal.fal_bimestre, COUNT(fal_id) AS aulas, SUM(fal_falta) AS faltas
+		$sql = "SELECT dis.dis_id, dis.dis_nome, fal.fal_bimestre, SUM(fal_quantidade_aulas) AS aulas, SUM(fal_falta) AS faltas
 				FROM aluno_turma_disciplina_professor atd 
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id 
 				INNER JOIN falta fal ON fal.atd_id = atd.atd_id 
@@ -136,6 +136,7 @@ class Boletim_model extends CI_Model
 							$newDados['disciplinas'][ $dis_id ]['aulas4bimestre']);
 
 			$maximo_faltas = round($total_aulas * (25 / 100));
+
 			if ($newDados['disciplinas'][ $dis_id ]['total_faltas'] >= $maximo_faltas || 
 					$newDados['disciplinas'][ $dis_id ]['media_final'] < 5)
 				$situacao = 'REPROVADA';

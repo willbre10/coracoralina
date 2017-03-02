@@ -174,7 +174,7 @@ function validaFormTurma(){
 
 	$('.form-group input[data-required="true"]').each(function(){
 		if ($(this).val() == ''){
-			$(this).css('border-color', '#a94442');
+			$(this).css('border-color', '#a94442').prev('label').css('color', '#a94442');
 			retorno = false;
 		}
 	})
@@ -234,12 +234,7 @@ function preencheCamposEditar(dados){
 						 '<input class="form-control addAlunoEditar autocomplete_aluno btn-add-right"><input type="hidden" name="alu_id[]">';
 
 	var htmlInputDisciplina = '<input class="form-control addDisciplinaEditar autocomplete_disciplina btn-add-right-turma"><input type="hidden" name="dis_id[]">'+
-								'<input class="form-control addDisciplinaEditar autocomplete_professor btn-add-right-turma"><input type="hidden" name="pro_id[]">'+
-								'<select class="form-control input-mini adicionado inline" name="tdp_quantidade_aula[]">'+
-									'<option value=""></option>'+
-									'<option value="1">1</option>'+
-									'<option value="2">2</option>'+
-								'</select>';
+								'<input class="form-control addDisciplinaEditar autocomplete_professor btn-add-right-turma"><input type="hidden" name="pro_id[]">';
 
 	$('#auxAddAluno').before(htmlInputAluno);
 	$('#auxAddDisciplina').before(htmlInputDisciplina);
@@ -268,8 +263,7 @@ function preencheCamposEditarDisciplinas(dados){
 	for(var i = 0; i < cont; i++){
 
 		html += '<input class="form-control btn-add-right-turma" disabled="disabled" type="text" value="'+ dados.disciplinas[i].dis_nome +'"/>'+
-				'<input class="form-control btn-add-right-turma" disabled="disabled" type="text" value="'+ dados.professores[i].pro_nome +'"/>'+
-				'<input class="form-control input-mini inline" disabled="disabled" type="text" value="'+ dados.disciplinas[i].tdp_quantidade_aula +'"/>';
+				'<input class="form-control btn-add-right-turma" disabled="disabled" type="text" value="'+ dados.professores[i].pro_nome +'"/>';
 	}
 
 	$('#auxAddDisciplina').before(html);
@@ -279,12 +273,7 @@ function limparModal(){
 	var htmlInputAluno = '<input readonly="readonly" class="numero_aluno form-control input-supermini pull-left" name="atd_numero_aluno[]" value="1" type="text">'+
 						 '<input class="form-control autocomplete_aluno btn-add-right"><input type="hidden" name="alu_id[]">';
 	var htmlInputDisciplina = '<input class="form-control autocomplete_disciplina btn-add-right-turma"><input type="hidden" name="dis_id[]">'+
-								'<input class="form-control autocomplete_professor btn-add-right-turma"><input type="hidden" name="pro_id[]">'+
-								'<select class="form-control adicionado input-mini inline" name="tdp_quantidade_aula[]">'+
-									'<option value=""></option>'+
-									'<option value="1">1</option>'+
-									'<option value="2">2</option>'+
-								'</select>';
+								'<input class="form-control autocomplete_professor btn-add-right-turma"><input type="hidden" name="pro_id[]">';
 
 	$('.form-group input[type!="radio"]').val('');
 	$('#statusRadioAtivo').click();
@@ -297,6 +286,9 @@ function limparModal(){
 
 	if ($('#auxAddDisciplina').prevAll('input').length < 1)
 		$('#auxAddDisciplina').before(htmlInputDisciplina);
+
+	$('.modal-dialog label').css('color', 'black');
+	$('.modal-dialog input').css('border-color', '#ccc');
 }
 
 function addAluno(){
@@ -339,12 +331,7 @@ function addDisciplina(){
 				'<input class="form-control adicionado autocomplete_disciplina btn-add-right-turma ui-autocomplete-input" autocomplete="off">'+
 				'<input type="hidden" name="dis_id[]">'+
 				'<input class="form-control adicionado autocomplete_professor btn-add-right-turma ui-autocomplete-input" autocomplete="off">'+
-				'<input type="hidden" name="pro_id[]">'+
-				'<select class="form-control input-mini adicionado inline" name="tdp_quantidade_aula[]">'+
-					'<option value=""></option>'+
-					'<option value="1">1</option>'+
-					'<option value="2">2</option>'+
-				'</select>';
+				'<input type="hidden" name="pro_id[]">';
 
 
 	$('#auxAddDisciplina').before(html);
@@ -353,7 +340,7 @@ function addDisciplina(){
 }
 
 function removeDisciplina(elem){
-	for (var i = 0; i < 5; i++){
+	for (var i = 0; i < 4; i++){
 		elem.previousElementSibling.remove();
 	}
 

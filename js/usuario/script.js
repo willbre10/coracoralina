@@ -66,7 +66,7 @@ function validaFormUsuario(){
 
 	$('.form-group input[data-required="true"]').each(function(){
 		if ($(this).val() == ''){
-			$(this).css('border-color', '#a94442');
+			$(this).css('border-color', '#a94442').prev('label').css('color', '#a94442');
 			retorno = false;
 		}
 	})
@@ -118,6 +118,8 @@ function preencheCamposEditar(dados){
 }
 
 function limparModal(){
+	$('.modal-dialog input').css('border-color', '#ccc');
+	$('.modal-dialog label').css('color', 'black');
 	$('.form-group input[type!="radio"]').val('');
 	$('#statusRadioAtivo').click();
 }

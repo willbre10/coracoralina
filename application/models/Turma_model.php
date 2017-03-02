@@ -115,7 +115,6 @@ class Turma_model extends CI_Model
 
 			$dados['dis_id'] = array_filter($dados['dis_id']);
 			$dados['pro_id'] = array_filter($dados['pro_id']);
-			$dados['tdp_quantidade_aula'] = array_filter($dados['tdp_quantidade_aula']);
 
 			if (!empty($dados['dis_id']))
 				$this->atualizarDisciplinas($dados);
@@ -134,8 +133,8 @@ class Turma_model extends CI_Model
 		$cont = count($dados['dis_id']);
 
 		for($i = 0; $i < $cont; $i++){
-			$sql = "INSERT INTO turma_disciplina_professor (tur_id, dis_id, pro_id, tdp_quantidade_aula)
-					VALUES (". $dados['tur_id'] .", ". $dados['dis_id'][$i] .", ". $dados['pro_id'][$i] .", ". $dados['tdp_quantidade_aula'][$i] .")";
+			$sql = "INSERT INTO turma_disciplina_professor (tur_id, dis_id)
+					VALUES (". $dados['tur_id'] .", ". $dados['dis_id'][$i] .", ". $dados['pro_id'][$i] .")";
 
 			if(!$this->db->simple_query($sql))
 				$retorno = false;
@@ -210,11 +209,12 @@ class Turma_model extends CI_Model
 		$dados['pro_id'] = array_filter($dados['pro_id']);
 		
 		$i = 0;
+
 		foreach ($dados['dis_id'] as $dis_id){
 
-			$sql = "INSERT INTO turma_disciplina_professor (tur_id, dis_id, pro_id, tdp_quantidade_aula)
-					VALUES (". $id .", ". $dis_id .", ". $dados['pro_id'][$i] .", ". $dados['tdp_quantidade_aula'][$i] .")";
-
+			$sql = "INSERT INTO turma_disciplina_professor (tur_id, dis_id, pro_id)
+					VALUES (". $id .", ". $dis_id .", ". $dados['pro_id'][$i] .")";
+		
 			if(!$this->db->simple_query($sql))
 				$retorno = false;
 			else
@@ -236,9 +236,10 @@ class Turma_model extends CI_Model
 
 		foreach ($ids as $id){
 
-			foreach($dados['alu_id'] as $alu_id){
-				$sql = "INSERT INTO aluno_turma_disciplina_professor (tdp_id, alu_id)
-						VALUES (". $id .", ". $alu_id .")";
+			$cont = count($dados['alu_id']);
+			for($i = 0; $i < $cont; $i++){
+				$sql = "INSERT INTO aluno_turma_disciplina_professor (tdp_id, alu_id, atd_numero_aluno)
+						VALUES (". $id .", ". $dados['alu_id'][$i] .", ". $dados['atd_numero_aluno'][$i] .")";
 
 				if(!$this->db->simple_query($sql))
 					$retorno = false;
@@ -253,7 +254,7 @@ class Turma_model extends CI_Model
 		$where = '';
 		$disciplina_professor = array();
 		
-		$sql = "SELECT DISTINCT tur.tur_id, tur.tur_nome, tur.tur_ano, dis.dis_id, dis.dis_nome, pro.pro_id, pro.pro_nome, tdp.tdp_quantidade_aula
+		$sql = "SELECT DISTINCT tur.tur_id, tur.tur_nome, tur.tur_ano, dis.dis_id, dis.dis_nome, pro.pro_id, pro.pro_nome
 				FROM turma tur
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tur_id = tur.tur_id
 				INNER JOIN disciplina dis ON dis.dis_id = tdp.dis_id
@@ -326,7 +327,6 @@ class Turma_model extends CI_Model
 
 			$newDados['disciplinas'][$i]['dis_id'] = $dado->dis_id;
 			$newDados['disciplinas'][$i]['dis_nome'] = $dado->dis_nome;
-			$newDados['disciplinas'][$i]['tdp_quantidade_aula'] = $dado->tdp_quantidade_aula;
 
 			$newDados['professores'][$i]['pro_id'] = $dado->pro_id;
 			$newDados['professores'][$i]['pro_nome'] = $dado->pro_nome;

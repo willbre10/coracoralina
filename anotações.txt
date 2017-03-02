@@ -1,0 +1,48 @@
+﻿Melhorias
+	- Campos obrigatórios colocar cor no descritivo do campo - OK
+	- Deixar o obrigatório mais chamativo - OK
+	- Colocar semanas no calendário dos dias letivos  (começar por domingo) - OK
+	- Criar 2 lançamentos de dias letivos
+		1 para Infantil e Ciclo 1/Fund 1
+		1 para Fundamental 2
+	- Combos de curso (Fundamental -> 1º Ano)
+	- Bloqueio de aluno já cadastrado
+	- Reclassificação (o aluno fica em 2 turmas, mas em 1 fica como reclassificado) não lança nota nem nada (eh soh um status para o aluno na turma)
+	- Situação do bloqueio do aluno na escola
+	- Criar um conteúdo do dia (obigatório), tarefa de casa, igualzinho observação
+	- Arrendamento nota bimestral de 8,655 para 8,7.... de 8,645 para 8,6 - OK
+	
+Correções
+	- Validar Edições
+	- Datas em português
+	- Número na turma - OK
+	- Bloquear edição de dias letivos - OK
+	- Não mostrar inativos nos autocompletes
+	- Duplicações dos autocompletes
+	- Número do aluno na turma, fixo - OK
+
+A Fazer
+	- Lançamento de Notas (esta certo nota quebrada assim?)
+	- Impressão de Boletim
+	- Revisão Icones - OK
+	- Edição Turma - OK
+	- Número de aulas para o dia - OK
+
+Próxima Versão
+	- Relatório Notas e Faltas
+	- Relatório de Turma ** alunos dela
+	- Impressão Diário
+	- Clonar ano letivo
+	- Clonar turma
+	- Módulo Financeiro
+	- Histórico do Aluno
+	- Lançamento de Ocorrências
+	- Tela com Log (histórico)
+
+Melhorias Código
+	- Arrumar caminhos para /
+	- Add alerta com css
+	- Usar active record codeigniter
+	- Não trazer tudo na grid
+	- Melhorar add/remove aluno/disciplina na turma
+	- Retirar css inline e nos javascript

@@ -18,7 +18,7 @@ class Diario extends MY_Controller {
 
 		$this->load->model('diario_model');
 
-		if (!empty($post['obs_id']) || !empty($post['atds_id']))
+		if (!empty($post['con_id']) || !empty($post['atds_id']))
 			$resultado = $this->diario_model->editar($post);
 		else
 			$resultado = $this->diario_model->salvar($post);
