@@ -12,8 +12,20 @@ class Diario_model extends CI_Model
 		$auxDia = explode('/', $dados['dia_letivo']);
 		$dia_letivo = $auxDia[2] . '-' . $auxDia[1] . '-' . $auxDia[0];
 
+		$sql = "INSERT INTO conteudo (tdp_id, con_dia, con_conteudo)
+				VALUES ($tdp_id, '$dia_letivo', '" . $dados['conteudo'] . "')";
+
+		if(!$this->db->simple_query($sql))
+			$retorno = false;
+
 		$sql = "INSERT INTO observacao (tdp_id, obs_dia, obs_observacao)
 				VALUES ($tdp_id, '$dia_letivo', '" . $dados['observacao'] . "')";
+
+		if(!$this->db->simple_query($sql))
+			$retorno = false;
+
+		$sql = "INSERT INTO tarefa (tdp_id, tar_dia, tar_tarefa)
+				VALUES ($tdp_id, '$dia_letivo', '" . $dados['tarefa'] . "')";
 
 		if(!$this->db->simple_query($sql))
 			$retorno = false;
@@ -48,10 +60,28 @@ class Diario_model extends CI_Model
 		$retorno = 'editado';
 
 		
+		if (!empty($dados['con_id'])){
+			$sql = "UPDATE conteudo
+					SET con_conteudo = '" . $dados['conteudo'] . "'
+					WHERE con_id = " . $dados['con_id'];
+
+			if(!$this->db->simple_query($sql))
+				$retorno = false;
+		}
+
 		if (!empty($dados['obs_id'])){
 			$sql = "UPDATE observacao
 					SET obs_observacao = '" . $dados['observacao'] . "'
 					WHERE obs_id = " . $dados['obs_id'];
+
+			if(!$this->db->simple_query($sql))
+				$retorno = false;
+		}
+
+		if (!empty($dados['tar_id'])){
+			$sql = "UPDATE tarefa
+					SET tar_tarefa = '" . $dados['tarefa'] . "'
+					WHERE tar_id = " . $dados['tar_id'];
 
 			if(!$this->db->simple_query($sql))
 				$retorno = false;
@@ -91,7 +121,9 @@ class Diario_model extends CI_Model
 			$auxDia = explode('/', $post['dia']);
 			$dia_letivo = $auxDia[2] . '-' . $auxDia[1] . '-' . $auxDia[0];
 
-			$retorno['observacao'] = current($this->buscarObservacao($tdp_id, $dia_letivo));			
+			$retorno['conteudo'] = current($this->buscarConteudo($tdp_id, $dia_letivo));
+			$retorno['observacao'] = current($this->buscarObservacao($tdp_id, $dia_letivo));
+			$retorno['tarefa'] = current($this->buscarTarefa($tdp_id, $dia_letivo));
 
 			$atd_ids = array();
 
@@ -129,6 +161,25 @@ class Diario_model extends CI_Model
 		return $resultado;
 	}
 
+	public function buscarConteudo($tdp_id, $dia)
+	{
+		$resultado = array();
+
+		
+		$sql = "SELECT * 
+				FROM conteudo con
+				WHERE con.tdp_id = $tdp_id
+				AND con.con_dia = '$dia'";
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultado[] = $row;
+		}
+
+		return $resultado;
+	}
+
 	public function buscarObservacao($tdp_id, $dia)
 	{
 		$resultado = array();
@@ -148,11 +199,29 @@ class Diario_model extends CI_Model
 		return $resultado;
 	}
 
-	private function buscarTurmaDisciplinaProfessor($dados)
+	public function buscarTarefa($tdp_id, $dia)
 	{
 		$resultado = array();
 
 		
+		$sql = "SELECT * 
+				FROM tar tar
+				WHERE tar.tdp_id = $tdp_id
+				AND tar.tar_dia = '$dia'";
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultado[] = $row;
+		}
+
+		return $resultado;
+	}
+
+	private function buscarTurmaDisciplinaProfessor($dados)
+	{
+		$resultado = array();
+
 		$sql = "SELECT * 
 				FROM turma_disciplina_professor tdp
 				WHERE tdp.tur_id = " . $dados['tur_id'] . "

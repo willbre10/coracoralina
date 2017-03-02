@@ -125,9 +125,20 @@ function preencheAlunos(dados){
 	}
 
 	var html = '<div class="form-group input-extralarge pull-left">'+
-                    '<label>Observações: </label>'+
-                    '<textarea class="form-control" name="observacao" rows="3" style="resize: none"></textarea>'+
+                    '<label>Conteúdo: </label>'+
+                    '<textarea class="form-control" name="conteudo" rows="3" style="resize: none"></textarea>'+
                 '</div>'+
+                '<div class="clear"></div>'+
+                '<div class="form-group input-large pull-left">'+
+                    '<label>Tarefa/Casa: </label>'+
+                    '<textarea class="form-control" name="tarefa" rows="2" style="resize: none"></textarea>'+
+                '</div>'+
+                '<div class="clear"></div>'+
+                '<div class="form-group input-large pull-left">'+
+                    '<label>Observações: </label>'+
+                    '<textarea class="form-control" name="observacao" rows="2" style="resize: none"></textarea>'+
+                '</div>'+
+                '<div class="clear"></div>'+
                 '<div class="clear"></div>'+
                 '<!-- alunos -->'+
                 '<div class="form-group">'+
@@ -263,7 +274,7 @@ function validaDiarioEditar(){
 		dataType: 'json',
 		async: false,
 		success: function(r){
-			if (r && r.observacao){
+			if (r && r.conteudo){
 				preencheCamposEditar(r);
 				if(perfil == 4)
 					removeValoresEditar();
@@ -276,8 +287,14 @@ function preencheCamposEditar(dados){
 	var cont = dados.faltas.length;
 	var faltas = '';
 
+	$('textarea[name="conteudo"]').val(dados.conteudo.con_conteudo);
+	$('input[name="con_id"]').val(dados.conteudo.con_id);
+
 	$('textarea[name="observacao"]').val(dados.observacao.obs_observacao);
 	$('input[name="obs_id"]').val(dados.observacao.obs_id);
+
+	$('textarea[name="tarefa"]').val(dados.tarefa.tar_tarefa);
+	$('input[name="tar_id"]').val(dados.tarefa.tar_id);
 
 	for(var i = 0; i < cont; i++){
 		$('input[name="faltas['+ dados.faltas[i].alu_id +']"]').val(dados.faltas[i].fal_falta);
@@ -287,6 +304,6 @@ function preencheCamposEditar(dados){
 }
 
 function removeValoresEditar(){
-	$('input[name="obs_id"], input[name="atds_id"]').val('');
+	$('input[name="con_id"], input[name="atds_id"], input[name="obs_id"], input[name="tar_id"]').val('');
 	$('#lancarDiario').attr('disabled', 'disabled');
 }

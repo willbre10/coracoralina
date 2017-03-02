@@ -63,7 +63,7 @@
                                     <button type="button" class="btn btn-info" id="buscarAlunos">Buscar Alunos</button>
                                 </div>
                                 <div class="clear"></div>
-                                <!-- observações -->
+                                <!-- conteúdo -->
                                 <span id="auxLancamentos"></span>                                
                                 <!-- /alunos -->
                                 <div class="clear"></div>
