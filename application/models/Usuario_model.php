@@ -183,19 +183,18 @@ class Usuario_model extends CI_Model
 		return $retorno;
 	}
 
-	function buscarUsuarioProfessor()
+	function buscarUsuarioProfessor($dados)
 	{
 		$resultado = '';
 
-		
 		$this->load->library('session');
 		log_message('info', 'Busca de usuario por perfil => usuário ['. $this->session->usuario['usu_login'] .']');
 
 		$sql = "SELECT *
 				FROM usuario usu 
-				WHERE per_id = ? AND usu_status = ?";
+				WHERE per_id = 4 AND usu_status = 'Ativo' AND usu_login LIKE '%".$dados['usu_nome']."%'";
 
-		$query = $this->db->query($sql, array(4, 'Ativo'));
+		$query = $this->db->query($sql);
 
 		foreach ($query->result() as $row){
 		    $resultado[] = $row;

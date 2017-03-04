@@ -69,9 +69,10 @@ class Usuario extends MY_Controller {
 	function buscarUsuarioProfessor()
 	{
 		$usuarios = array();
+		$post = $this->input->post();
 
 		$this->load->model('usuario_model');
-		$resultado = $this->usuario_model->buscarUsuarioProfessor();
+		$resultado = $this->usuario_model->buscarUsuarioProfessor($post);
 
 		$i = 0;
 		if (!empty($resultado) && count($resultado) > 0 ){
