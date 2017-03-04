@@ -106,17 +106,22 @@ class Professor_model extends CI_Model
 
 		
 		foreach($dados as $key => $dado){
-			$where .= " AND $key $type ";
-			if(!is_numeric($dado))
-				if ($type === 'like')
-					$where .= "'%$dado%'";
+			if (!is_array($dado)){
+				$where .= " AND $key $type ";
+				if(!is_numeric($dado))
+					if ($type === 'like')
+						$where .= "'%$dado%'";
+					else
+						$where .= "'$dado'";
 				else
-					$where .= "'$dado'";
-			else
-				$where .= $dado;
+					$where .= $dado;
+			}
 		}
 
 		$sql = "SELECT * FROM professor pro LEFT JOIN usuario usu ON pro.usu_id = usu.usu_id WHERE 1=1 $where";
+
+		if (!empty($dados['status']))
+			$sql .= " AND pro_status = '". $dados['status'][0]. "'";
 
 		$query = $this->db->query($sql);
 

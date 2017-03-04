@@ -59,6 +59,7 @@ class Aluno extends MY_Controller {
 	{
 		$alunos = array();
 		$post = $this->input->post();
+		$post['status'] = array('Ativo');
 
 		$this->load->model('aluno_model');
 		$resultado = $this->aluno_model->findBy($post);

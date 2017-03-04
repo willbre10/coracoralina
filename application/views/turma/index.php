@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group pull-left input-large">
-                                            <label>Disciplinas / Professores / Quantidade de Aulas * </label>
+                                            <label>Disciplinas / Professores * </label>
                                             <div id="disciplinas" style="display:block">
                                                 <span id="auxAddDisciplina"></span>
                                                 <button onclick="addDisciplina();" type="button" class="btn btn-success btn-circle">

@@ -59,6 +59,7 @@ class Disciplina extends MY_Controller {
 	{
 		$disciplinas = array();
 		$post = $this->input->post();
+		$post['status'] = array('Ativo');
 
 		$this->load->model('disciplina_model');
 		$resultado = $this->disciplina_model->findBy($post);

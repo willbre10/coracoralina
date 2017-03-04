@@ -59,6 +59,7 @@ class Professor extends MY_Controller {
 	{
 		$professores = array();
 		$post = $this->input->post();
+		$post['status'] = array('Ativo');
 
 		$this->load->model('professor_model');
 		$resultado = $this->professor_model->findBy($post);
