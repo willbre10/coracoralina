@@ -195,6 +195,8 @@ class Disciplina_model extends CI_Model
 			$sql .= " AND pro.usu_id = $usuario";
 		}
 
+		$sql .= " ORDER BY dis_nome";
+
 		$query = $this->db->query($sql);
 
 		foreach ($query->result() as $row){

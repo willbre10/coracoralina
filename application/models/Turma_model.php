@@ -305,6 +305,8 @@ class Turma_model extends CI_Model
 			$sql .= "AND pro.usu_id = $usuario";
 		}
 
+		$sql .= " ORDER BY tur_nome";
+
 		$query = $this->db->query($sql);
 
 		foreach ($query->result() as $row){

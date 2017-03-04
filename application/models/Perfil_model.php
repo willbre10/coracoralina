@@ -2,13 +2,13 @@
 
 class Perfil_model extends CI_Model
 {
-	public function BuscarPerfil()
+	public function buscarPerfil()
 	{
 		$resultado = array();
 
-				
 		$sql = 'SELECT *
-				FROM perfil ';
+				FROM perfil
+				ORDER BY per_nome';
 
 		$query = $this->db->query($sql);
 
