@@ -1,6 +1,6 @@
 <?php
 
-class Dia_letivo_infantil_model extends CI_Model
+class Dia_letivo_fundamental_model extends CI_Model
 {
 
 	public function findAllGrid($search, $order, $dir)
@@ -9,20 +9,20 @@ class Dia_letivo_infantil_model extends CI_Model
 
 		$sql = 'SELECT (CONCAT("<a onclick=\'visualizarAnoLetivo(this);\' title=\'Visualizar Dias Letivos\' 
 									data-toggle=\'modal\' data-target=\'#myModal\' 
-									id=\'editar", dii_id ,"\' class=\'one-action-grid\' 
-									href=\'#\' data-id=\'", dii_id, "\'>
+									id=\'editar", dif_id ,"\' class=\'one-action-grid\' 
+									href=\'#\' data-id=\'", dif_id, "\'>
 										<p class=\'fa fa-14x fa-search\'></p>
 								</a>")) AS acao
-						, YEAR(dii_dia_letivo) AS ano
-						, dii_status
-				FROM dia_letivo_infantil ';
+						, YEAR(dif_dia_letivo) AS ano
+						, dif_status
+				FROM dia_letivo_fundamental ';
 
 		if (!empty($search)){
-			$sql .= "WHERE YEAR(dii_dia_letivo) LIKE '%$search%'
-						OR dii_status LIKE '$search%' ";
+			$sql .= "WHERE YEAR(dif_dia_letivo) LIKE '%$search%'
+						OR dif_status LIKE '$search%' ";
 		}
 
-		$sql .= "GROUP BY YEAR(dii_dia_letivo) ";
+		$sql .= "GROUP BY YEAR(dif_dia_letivo) ";
 
 		if (!empty($order)){
 			$sql .= "ORDER BY $order $dir";
@@ -54,13 +54,13 @@ class Dia_letivo_infantil_model extends CI_Model
 
 					foreach($dias as $dia){
 
-						$sql = "INSERT INTO dia_letivo_infantil (dii_dia_letivo)
+						$sql = "INSERT INTO dia_letivo_fundamental (dif_dia_letivo)
 								VALUES ('". $dados['ano'] . "-" . $dia ."')";
 
 						if(!$this->db->simple_query($sql)){
 							$retorno = false;
 
-							$sql = "DELETE FROM dia_letivo_infantil WHERE YEAR(dii_dia_letivo) = ". $dados['ano'];
+							$sql = "DELETE FROM dia_letivo_fundamental WHERE YEAR(dif_dia_letivo) = ". $dados['ano'];
 							$this->db->simple_query($sql);
 						}
 					}
@@ -78,10 +78,10 @@ class Dia_letivo_infantil_model extends CI_Model
 		$resultado = array();
 
 		
-		$sql = "SELECT *  FROM dia_letivo_infantil WHERE YEAR(dii_dia_letivo) =
-					(SELECT YEAR(dii_dia_letivo)
-					FROM dia_letivo_infantil 
-					WHERE dii_id = ". $dados['dii_id'] .")";
+		$sql = "SELECT *  FROM dia_letivo_fundamental WHERE YEAR(dif_dia_letivo) =
+					(SELECT YEAR(dif_dia_letivo)
+					FROM dia_letivo_fundamental 
+					WHERE dif_id = ". $dados['dif_id'] .")";
 
 		$query = $this->db->query($sql);
 
@@ -110,7 +110,7 @@ class Dia_letivo_infantil_model extends CI_Model
 		$resultado = array();
 		
 		
-		$sql = "SELECT * FROM dia_letivo_infantil WHERE YEAR(dii_dia_letivo) = $ano";
+		$sql = "SELECT * FROM dia_letivo_fundamental WHERE YEAR(dif_dia_letivo) = $ano";
 
 		$query = $this->db->query($sql);
 
@@ -164,7 +164,7 @@ class Dia_letivo_infantil_model extends CI_Model
 		$data = $auxData[2] . '-' . $auxData['1'] . '-' . $auxData[0];
 
 		
-		$sql = "SELECT * FROM dia_letivo_infantil WHERE dii_dia_letivo = '$data'";
+		$sql = "SELECT * FROM dia_letivo_fundamental WHERE dif_dia_letivo = '$data'";
 
 		$query = $this->db->query($sql);
 
