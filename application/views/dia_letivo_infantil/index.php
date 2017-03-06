@@ -13,7 +13,7 @@
             <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
             <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
-            <script src="../js/dia_letivo/script.js"></script>
+            <script src="../js/dia_letivo_infantil/script.js"></script>
 
             <div class="row">
                 <div class="col-lg-12">

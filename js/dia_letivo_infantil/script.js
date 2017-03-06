@@ -43,7 +43,7 @@ $(function() {
 		"processing": true,
         "serverSide": true,
 		"ajax": {
-			url: '../dia_letivo/buscarTodosAnosLetivos',
+			url: '../dia_letivo_infantil/buscarTodosAnosLetivos',
 			async: false
 		},
 		"columns": [
@@ -99,7 +99,7 @@ function submitAjax(form){
 
 	$.ajax({
 		data: $('#'+form).serialize(),
-		url: '../dia_letivo/salvar',
+		url: '../dia_letivo_infantil/salvar',
 		type: 'POST',
 		dataType: 'json',
 		async: false,

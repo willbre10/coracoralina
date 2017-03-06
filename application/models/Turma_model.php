@@ -102,7 +102,7 @@ class Turma_model extends CI_Model
 				if ($this->validaTurmaExistente(array('tur_id' => $dados['tur_id']))){
 
 			$sql = "UPDATE turma 
-					SET tur_ano = ". $dados['tur_ano'] .", tur_nome = '". $dados['tur_nome'] ."'
+					SET tur_ano = ". $dados['tur_ano'] .", tur_nome = '". $dados['tur_nome'] ."', tur_curso = '". $dados['tur_curso'] ."'
 					WHERE tur_id = ". $dados['tur_id'];
 
 			if(!$this->db->simple_query($sql))
@@ -254,7 +254,7 @@ class Turma_model extends CI_Model
 		$where = '';
 		$disciplina_professor = array();
 		
-		$sql = "SELECT DISTINCT tur.tur_id, tur.tur_nome, tur.tur_ano, dis.dis_id, dis.dis_nome, pro.pro_id, pro.pro_nome
+		$sql = "SELECT DISTINCT tur.tur_id, tur.tur_nome, tur.tur_ano, tur.tur_curso, dis.dis_id, dis.dis_nome, pro.pro_id, pro.pro_nome
 				FROM turma tur
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tur_id = tur.tur_id
 				INNER JOIN disciplina dis ON dis.dis_id = tdp.dis_id
@@ -290,11 +290,12 @@ class Turma_model extends CI_Model
 	{
 		$resultado = array();
 
-				$this->load->library('session');
+		$this->load->library('session');
 
 		$perfil = $this->session->usuario['per_id'];
 		$usuario = $this->session->usuario['usu_id'];
-		$sql = "SELECT distinct tur.*
+
+		$sql = "SELECT DISTINCT tur.*
 				FROM turma tur
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tur_id = tur.tur_id
 				INNER JOIN disciplina dis ON dis.dis_id = tdp.dis_id
@@ -323,6 +324,7 @@ class Turma_model extends CI_Model
 		$newDados['tur_id'] = $dados[0]->tur_id;
 		$newDados['tur_nome'] = $dados[0]->tur_nome;
 		$newDados['tur_ano'] = $dados[0]->tur_ano;
+		$newDados['tur_curso'] = $dados[0]->tur_curso;
 
 		$i = 0;
 		foreach($dados as $dado){

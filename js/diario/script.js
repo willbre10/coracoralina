@@ -189,7 +189,7 @@ function validaFormDiario(){
 function validaDiaLetivo(dia_letivo){
 	$.ajax({
 		data: 'dia_letivo='+dia_letivo,
-		url: '../dia_letivo/buscarDiaLetivo',
+		url: '../dia_letivo_infatil/buscarDiaLetivo',
 		type: 'POST',
 		dataType: 'json',
 		async: false,

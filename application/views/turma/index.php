@@ -50,6 +50,15 @@
                                             <label>Ano * </label>
                                             <input data-required="true" class="form-control" name="tur_ano" placeholder="Ano...">
                                         </div>
+                                        <div class="form-group pull-left input-right input-medium">
+                                            <label>Curso * </label>
+                                            <select data-required="true" class="form-control" name="tur_curso">
+                                                <option value="">Selecione</option>
+                                                <option value="1">Educação Infantil</option>
+                                                <option value="2">Fundamental 1</option>
+                                                <option value="3">Fundamental 2</option>
+                                            </select>
+                                        </div>
                                         <div class="clear"></div>
                                         <div class="form-group pull-left input-semilarge">
                                             <label>Alunos * </label>
