@@ -37,7 +37,7 @@ class Dia_letivo_infantil extends MY_Controller {
 
 		$this->load->model('dia_letivo_infantil_model');
 
-		// if(empty($post['dil_id']))
+		// if(empty($post['dif_id']))
 			$resultado = $this->dia_letivo_infantil_model->inserir($post);
 		// else 
 			// $resultado = $this->dia_letivo_infantil_model->atualizar($post);

@@ -17,7 +17,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dias Letivos</h1>
+                    <h1 class="page-header">Dias Letivos Infantil</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -51,7 +51,7 @@
                                     </div>
 
                                     <form role="form" id="formNew" onsubmit="return false;">
-                                        <input type="hidden" id="dil_id" name="dil_id" value="" />
+                                        <input type="hidden" id="dif_id" name="dif_id" value="" />
                                         <div class="form-group input-small pull-left">
                                             <label>Ano * </label>
                                             <input data-required="true" maxlength="4" id="ano" class="form-control" name="ano" placeholder="Ano...">
