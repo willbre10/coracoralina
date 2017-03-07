@@ -9,7 +9,7 @@ $(function() {
 		$('.alert-success, .alert-danger.duplicado, .alert-danger.all').addClass('hide');
 		$('.modal-height-letivo').css('height', '380px');
 		limparModal();
-		$('#dii_dia_letivo').val('');
+		$('#dil_dia_letivo').val('');
 	})
 
 	$('#ano').on('input', function (event) { 
@@ -43,13 +43,13 @@ $(function() {
 		"processing": true,
         "serverSide": true,
 		"ajax": {
-			url: '../dia_letivo_infantil/buscarTodosAnosLetivos',
+			url: '../dia_letivo/buscarTodosAnosLetivos',
 			async: false
 		},
 		"columns": [
 			{data: "acao"},
 			{data: "ano"},
-			{data: "dii_status"}
+			{data: "dil_status"}
 		]
 	})
 	$('thead tr[role="row"] th').first().css('width', '100px');
@@ -59,8 +59,8 @@ function visualizarAnoLetivo(elem){
 	var id = $('#'+elem.id).attr('data-id');
 
 	$.ajax({
-		data: 'dii_id='+id,
-		url: '../dia_letivo_infantil/buscarAnoLetivo',
+		data: 'dil_id='+id,
+		url: '../dia_letivo/buscarAnoLetivo',
 		type: 'POST',
 		dataType: 'json',
 		async: false,
@@ -99,7 +99,7 @@ function submitAjax(form){
 
 	$.ajax({
 		data: $('#'+form).serialize(),
-		url: '../dia_letivo_infantil/salvar',
+		url: '../dia_letivo/salvar',
 		type: 'POST',
 		dataType: 'json',
 		async: false,
@@ -123,9 +123,9 @@ function regrasSucesso(requisicao){
 }
 
 function preencheCamposVisualizar(dados){
-	var year = new Date(dados[0].dii_dia_letivo);
+	var year = new Date(dados[0].dil_dia_letivo);
 
-	$('#dii_id').val(dados[0].dii_id);
+	$('#dil_id').val(dados[0].dil_id);
 
 	$('input[name="ano"]').val(year.getFullYear()).attr('readonly', 'readonly');
 	gerarDiasLetivos(year.getFullYear());
@@ -133,7 +133,7 @@ function preencheCamposVisualizar(dados){
 	var cont = dados.length;
 
 	for(var i = 0; i < cont; i++){
-		var date = new Date(dados[i].dii_dia_letivo + ' 00:00:00');
+		var date = new Date(dados[i].dil_dia_letivo + ' 00:00:00');
 		var mes = parseInt(date.getMonth()) + 1;
 		var valor = $('input[name="dias[hidden'+ parseInt(date.getMonth()) +'][]"]').val();
 		var data_value = mes + '-' + date.getDate();

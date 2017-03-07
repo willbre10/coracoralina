@@ -13,7 +13,7 @@
             <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
             <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
-            <script src="../js/dia_letivo_infantil/script.js"></script>
+            <script src="../js/dia_letivo/script.js"></script>
 
             <div class="row">
                 <div class="col-lg-12">
@@ -51,7 +51,7 @@
                                     </div>
 
                                     <form role="form" id="formNew" onsubmit="return false;">
-                                        <input type="hidden" id="dii_id" name="dii_id" value="" />
+                                        <input type="hidden" id="dil_id" name="dil_id" value="" />
                                         <div class="form-group input-small pull-left">
                                             <label>Ano * </label>
                                             <input data-required="true" maxlength="4" id="ano" class="form-control" name="ano" placeholder="Ano...">
