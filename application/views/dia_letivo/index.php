@@ -17,7 +17,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dias Letivos Infantil</h1>
+                    <h1 class="page-header">Dias Letivos</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -55,6 +55,14 @@
                                         <div class="form-group input-small pull-left">
                                             <label>Ano * </label>
                                             <input data-required="true" maxlength="4" id="ano" class="form-control" name="ano" placeholder="Ano...">
+                                        </div>
+                                        <div class="form-group pull-left input-right input-small">
+                                            <label>Tipo * </label>
+                                            <select data-required="true" class="form-control" name="fal_bimestre">
+                                                <option value="">Selecione</option>
+                                                <option value="1">Infantil/Fund 1</option>
+                                                <option value="2">Fund 2</option>
+                                            </select>
                                         </div>
                                         <div class="form-group input-small pull-left" style="margin: 25px 0 0 10px;">
                                             <button type="button" class="btn btn-info" id="gerarDias">Gerar Dias</button>

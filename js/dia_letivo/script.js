@@ -84,7 +84,7 @@ function validaFormDiasLetivos(){
 
 	$('.form-group input').css('border-color', '#ccc');
 
-	$('.form-group input[data-required="true"]').each(function(){
+	$('.form-group input[data-required="true"]', '.form-group select[data-required="true"]').each(function(){
 		if ($(this).val() == ''){
 			$(this).css('border-color', '#a94442').prev('label').css('color', '#a94442');
 			retorno = false;
