@@ -94,7 +94,8 @@ function preencheAlunos(dados){
 
 	var html = 	'<!-- alunos -->'+
 				'<div class="alert alert-warning">'+
-                    'As notas devem ser lançadas entre 0.00 e 10.00.'+
+                    'As notas das PROVAS devem ser lançadas entre 0.00 e 7.00.<br>'+
+                    'As notas dos TRABALHOS devem ser lançadas entre 0.00 e 3.00.'+
                 '</div>'+
                 '<div class="form-group">'+
                 '<div class="form-group input-xxlarge pull-left">'+
@@ -117,10 +118,10 @@ function preencheAlunos(dados){
 
 		html += '<div class="input-xxlarge pull-left">'+
 		            '<input disabled="disabled" class="form-control input-medium pull-left" value="'+ dados.alunos[i].alu_nome +'" '+ mtop +'>'+
-		            '<input class="form-control nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[pm]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
-		            '<input class="form-control nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[tm]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
-		            '<input class="form-control nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[pb]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
-		            '<input class="form-control nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[tb]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
+		            '<input class="form-control prova nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[pm]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
+		            '<input class="form-control trabalho nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[tm]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
+		            '<input class="form-control prova nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[pb]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
+		            '<input class="form-control trabalho nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[tb]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
 		            '<input class="form-control input-notas notaMedia pull-left input-right" disabled="disabled" data-aluno="'+ dados.alunos[i].alu_id +'" placeholder="00.00" '+ mtop +'>'+
 		        '</div>';
 	}
@@ -138,7 +139,8 @@ function validaNota(){
 	$('.nota').each(function(){
 		var valor = $(this).val().replace('.', '')
 
-		if(!verificaNotaValida(valor)){
+		var valida = $(this).hasClass('prova') ? verificaNotaValidaProva(valor) : verificaNotaValidaTrabalho(valor);
+		if(!valida){
 			retorno = false;
 			$(this).css('border-color', 'red');
 		}
@@ -147,21 +149,37 @@ function validaNota(){
 	return retorno;
 }
 
-function verificaNotaValida(valor){
+function verificaNotaValidaProva(valor){
 	var retorno = true;
 	var cont = valor.length;
 	var notaSplit = valor.split('');
 
-	if(cont == 4){
-		if(notaSplit[3] != 5 && notaSplit[3] != 0){
+	if(cont == 3){
+		if(notaSplit[2] != 5 && notaSplit[2] != 0){
 			$(this).css('border-color', 'red');
 			retorno = false;
-		} else if(valor > 1000){
+		} else if(valor > 700){
 			$(this).css('border-color', 'red');
 			retorno = false;
 		}
-	} else if(cont == 3){
+	} else {
+		$(this).css('border-color', 'red');
+		retorno = false;
+	}
+
+	return retorno;
+}
+
+function verificaNotaValidaTrabalho(valor){
+	var retorno = true;
+	var cont = valor.length;
+	var notaSplit = valor.split('');
+
+	if(cont == 3){
 		if(notaSplit[2] != 5 && notaSplit[2] != 0){
+			$(this).css('border-color', 'red');
+			retorno = false;
+		} else if(valor > 300){
 			$(this).css('border-color', 'red');
 			retorno = false;
 		}

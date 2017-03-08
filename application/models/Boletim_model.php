@@ -12,7 +12,6 @@ class Boletim_model extends CI_Model
 					, tur.tur_nome
 					, tur.tur_ano
 					, atd.atd_numero_aluno
-					, 'tur.tur_ensino' AS tur_ensino
 					, tur.tur_curso AS tur_curso
 				FROM aluno_turma_disciplina_professor atd
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id
@@ -42,7 +41,7 @@ class Boletim_model extends CI_Model
 		    $faltas[] = $row;
 		}
 
-		$sql = "SELECT dis.dis_id, dis.dis_nome, not1.not_bimestre, (not_prova_mensal + not_trabalho_mensal + not_prova_bimestral + not_trabalho_bimestral) / 4 nota
+		$sql = "SELECT dis.dis_id, dis.dis_nome, not1.not_bimestre, (not_prova_mensal + not_trabalho_mensal + not_prova_bimestral + not_trabalho_bimestral) / 2 nota
 				FROM aluno_turma_disciplina_professor atd
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id
 				INNER JOIN nota not1 ON not1.atd_id = atd.atd_id
@@ -72,8 +71,7 @@ class Boletim_model extends CI_Model
 			'alu_ra' => $dadosBasicos->alu_ra,
 			'tur_nome' => $dadosBasicos->tur_nome,
 			'tur_ano' => $dadosBasicos->tur_ano,
-			'atd_numero_aluno' => $dadosBasicos->atd_numero_aluno,
-			'ensino' => $dadosBasicos->tur_ensino
+			'atd_numero_aluno' => $dadosBasicos->atd_numero_aluno
 		);
 
 		switch($dadosBasicos->tur_curso){
@@ -94,7 +92,6 @@ class Boletim_model extends CI_Model
 			$newDados['disciplinas'][ $falta->dis_id ]['faltas'. $falta->fal_bimestre .'bimestre'] = $falta->faltas;
 
 			$newDados['disciplinas'][ $falta->dis_id ]['total_faltas'] += $falta->faltas;
-			
 		}
 
 		foreach($notas as $nota){
