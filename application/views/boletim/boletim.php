@@ -81,7 +81,7 @@
     <body>
     	<div class="conteudo">
     		<h1>COLÉGIO CORA CORALINA</h1>
-            <h2>Boletim Escolar <?php echo $resultado['header']['tdp_curso']; ?> / <?php echo $resultado['header']['tur_ano']; ?></h2>
+            <h2>Boletim Escolar <?php echo $resultado['header']['tur_curso']; ?> / <?php echo $resultado['header']['tur_ano']; ?></h2>
     		<div class="boletim">
     			<table border="1">
     				<thead>

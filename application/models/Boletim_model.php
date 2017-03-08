@@ -13,7 +13,7 @@ class Boletim_model extends CI_Model
 					, tur.tur_ano
 					, atd.atd_numero_aluno
 					, 'tur.tur_ensino' AS tur_ensino
-					, 'tdp.tdp_curso' AS tdp_curso
+					, tur.tur_curso AS tur_curso
 				FROM aluno_turma_disciplina_professor atd
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id
 				INNER JOIN aluno alu ON alu.alu_id = atd.alu_id
@@ -73,9 +73,20 @@ class Boletim_model extends CI_Model
 			'tur_nome' => $dadosBasicos->tur_nome,
 			'tur_ano' => $dadosBasicos->tur_ano,
 			'atd_numero_aluno' => $dadosBasicos->atd_numero_aluno,
-			'ensino' => $dadosBasicos->alu_ra,
-			'tdp_curso' => $dadosBasicos->tdp_curso
+			'ensino' => $dadosBasicos->tur_ensino
 		);
+
+		switch($dadosBasicos->tur_curso){
+			case 1:
+				$newDados['header']['tur_curso'] = "Ensino Infantil";
+				break;
+			case 2:
+				$newDados['header']['tur_curso'] = "Ensino Fundamental 1";
+				break;
+			case 3:
+				$newDados['header']['tur_curso'] = "Ensino Fundamental 2";
+				break;
+		}
 
 		foreach($faltas as $falta){
 			$newDados['disciplinas'][ $falta->dis_id ]['dis_nome'] = $falta->dis_nome;
