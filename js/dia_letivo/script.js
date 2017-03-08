@@ -1,3 +1,4 @@
+
 $(function() {
 	$('.form-group input').focus(function(){
 		$(this).css('border-color', '#ccc');
@@ -49,6 +50,7 @@ $(function() {
 		"columns": [
 			{data: "acao"},
 			{data: "ano"},
+			{data: "dil_tipo"},
 			{data: "dil_status"}
 		]
 	})
@@ -126,6 +128,7 @@ function preencheCamposVisualizar(dados){
 	var year = new Date(dados[0].dil_dia_letivo);
 
 	$('#dil_id').val(dados[0].dil_id);
+	$('select[name="dil_tipo"]').val(dados[0].dil_tipo);
 
 	$('input[name="ano"]').val(year.getFullYear()).attr('readonly', 'readonly');
 	gerarDiasLetivos(year.getFullYear());
@@ -153,6 +156,7 @@ function limparModal(){
 	$('.modal-dialog label').css('color', 'black');
 
 	$('.form-group input[type!="radio"]').val('');
+	$('.form-group select').val('');
 	$('#ano').removeAttr('readonly');
 	for(var i = 0; i < 12; i++){
 		$('input[name="dias[hidden'+ i +'][]"]').val('');

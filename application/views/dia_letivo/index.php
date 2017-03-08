@@ -58,7 +58,7 @@
                                         </div>
                                         <div class="form-group pull-left input-right input-small">
                                             <label>Tipo * </label>
-                                            <select data-required="true" class="form-control" name="fal_bimestre">
+                                            <select data-required="true" class="form-control" name="dil_tipo">
                                                 <option value="">Selecione</option>
                                                 <option value="1">Infantil/Fund 1</option>
                                                 <option value="2">Fund 2</option>
@@ -255,6 +255,7 @@
                                     <tr>
                                         <th>Ação</th>
                                         <th>Ano</th>
+                                        <th>Tipo</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>

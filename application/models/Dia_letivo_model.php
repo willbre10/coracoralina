@@ -14,6 +14,12 @@ class Dia_letivo_model extends CI_Model
 										<p class=\'fa fa-14x fa-search\'></p>
 								</a>")) AS acao
 						, YEAR(dil_dia_letivo) AS ano
+						, (CASE 
+							WHEN dil_tipo = 1
+							THEN "Infantil/Fund 1"
+						 		ELSE
+						  		"Fund 2"
+						  END) AS dil_tipo
 						, dil_status
 				FROM dia_letivo ';
 
@@ -54,8 +60,8 @@ class Dia_letivo_model extends CI_Model
 
 					foreach($dias as $dia){
 
-						$sql = "INSERT INTO dia_letivo (dil_dia_letivo)
-								VALUES ('". $dados['ano'] . "-" . $dia ."')";
+						$sql = "INSERT INTO dia_letivo (dil_dia_letivo, dil_tipo)
+								VALUES ('". $dados['ano'] . "-" . $dia ."', ".$dados['dil_tipo'].")";
 
 						if(!$this->db->simple_query($sql)){
 							$retorno = false;
