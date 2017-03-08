@@ -32,6 +32,7 @@ $(function() {
 			{data: "acao"},
 			{data: "tur_nome"},
 			{data: "tur_ano"},
+			{data: "tur_curso"},
 			{data: "tur_status"}
 		]
 	})

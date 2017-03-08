@@ -16,12 +16,18 @@ class Turma_model extends CI_Model
 								</a>")) AS acao
 						, tur_nome
 						, tur_ano
+						, (CASE 
+								WHEN tur_curso = 1 THEN "Educação Infantil"
+								WHEN tur_curso = 2 THEN "Fundamental 1"
+								ELSE "Fundamental 2"
+							END) AS tur_curso
 						, tur_status
 				FROM turma ';
 
 		if (!empty($search)){
 			$sql .= "WHERE tur_nome LIKE '%$search%'
 						OR tur_ano LIKE '$search%''
+						OR tur_curso LIKE '$search%''
 						OR tur_status LIKE '$search%' ";
 		}
 

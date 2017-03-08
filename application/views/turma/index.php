@@ -118,6 +118,7 @@
                                         <th>Ação</th>
                                         <th>Nome</th>
                                         <th>Ano</th>
+                                        <th>Curso</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
