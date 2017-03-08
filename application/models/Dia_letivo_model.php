@@ -28,7 +28,7 @@ class Dia_letivo_model extends CI_Model
 						OR dil_status LIKE '$search%' ";
 		}
 
-		$sql .= "GROUP BY YEAR(dil_dia_letivo) ";
+		$sql .= "GROUP BY YEAR(dil_dia_letivo), dil_tipo ";
 
 		if (!empty($order)){
 			$sql .= "ORDER BY $order $dir";
@@ -48,8 +48,7 @@ class Dia_letivo_model extends CI_Model
 		$retorno = true;
 		$insert = '';
 
-		
-		if (!$this->validaAnoLetivoExistente($dados['ano'])){
+		if (!$this->validaAnoLetivoExistente($dados)){
 
 			foreach($dados['dias'] as $meses){
 
@@ -84,8 +83,13 @@ class Dia_letivo_model extends CI_Model
 		$resultado = array();
 
 		
-		$sql = "SELECT *  FROM dia_letivo WHERE YEAR(dil_dia_letivo) =
+		$sql = "SELECT *  FROM dia_letivo 
+				WHERE YEAR(dil_dia_letivo) =
 					(SELECT YEAR(dil_dia_letivo)
+					FROM dia_letivo 
+					WHERE dil_id = ". $dados['dil_id'] .")
+				AND dil_tipo =
+					(SELECT dil_tipo
 					FROM dia_letivo 
 					WHERE dil_id = ". $dados['dil_id'] .")";
 
@@ -98,25 +102,24 @@ class Dia_letivo_model extends CI_Model
 		return $resultado;
 	}
 
-	function validaAnoLetivoExistente($ano)
+	function validaAnoLetivoExistente($dados)
 	{
 		$retorno = false;
+		$search = array('ano' => $dados['ano'], 'dil_tipo' => $dados['dil_tipo']);
 
-		$resultado = $this->findByAno($ano);
+		$resultado = $this->findByAno($search);
 
 		if (!empty($resultado))
 			$retorno = true;
 
-
 		return $retorno;
 	}
 
-	function findByAno($ano)
+	function findByAno($search)
 	{
 		$resultado = array();
 		
-		
-		$sql = "SELECT * FROM dia_letivo WHERE YEAR(dil_dia_letivo) = $ano";
+		$sql = "SELECT * FROM dia_letivo WHERE YEAR(dil_dia_letivo) = ".$search['ano']." AND dil_tipo = ".$search['dil_tipo'];
 
 		$query = $this->db->query($sql);
 
@@ -163,14 +166,15 @@ class Dia_letivo_model extends CI_Model
 		return $retorno;
 	}
 
-	function buscarDiaLetivo($dia)
+	function buscarDiaLetivo($dados)
 	{
 		$resultado = array();
-		$auxData = explode('/', $dia['dia_letivo']);
+
+		$dil_tipo = ($dados['tur_curso'] == 3) ? 2 : 1;
+		$auxData = explode('/', $dados['dia_letivo']);
 		$data = $auxData[2] . '-' . $auxData['1'] . '-' . $auxData[0];
 
-		
-		$sql = "SELECT * FROM dia_letivo WHERE dil_dia_letivo = '$data'";
+		$sql = "SELECT * FROM dia_letivo WHERE dil_dia_letivo = '$data' AND dil_tipo = '$dil_tipo'";
 
 		$query = $this->db->query($sql);
 

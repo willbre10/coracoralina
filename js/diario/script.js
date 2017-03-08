@@ -187,19 +187,26 @@ function validaFormDiario(){
 }
 
 function validaDiaLetivo(dia_letivo){
-	$.ajax({
-		data: 'dia_letivo='+dia_letivo,
-		url: '../dia_letivo/buscarDiaLetivo',
-		type: 'POST',
-		dataType: 'json',
-		async: false,
-		success: function(r){
-			if (r.length < 1){
-				$('#data').val('');
-				alert('A data selecionada não é um dia letivo.');
+	var tur_id = $('select[name="tur_id"]').val();
+
+	if (tur_id){
+		$.ajax({
+			data: 'dia_letivo='+dia_letivo+'&tur_id='+tur_id,
+			url: '../dia_letivo/buscarDiaLetivo',
+			type: 'POST',
+			dataType: 'json',
+			async: false,
+			success: function(r){
+				if (r.length < 1){
+					$('#data').val('');
+					alert('A data selecionada não é um dia letivo.');
+				}
 			}
-		}
-	})
+		})
+	} else {
+		alert('Selecione uma turma antes de selcionar uma data');
+		$('#data').val('');
+	}
 }
 
 function validaMinDate(){
@@ -240,25 +247,29 @@ function buscarTurmas(){
 }
 
 function buscarDisciplinaPorTurmaProfessor(tur_id){
-	$.ajax({
-		data: 'tur_id='+tur_id,
-		url: '../disciplina/buscarDisciplinaPorTurmaProfessor',
-		type: 'POST',
-		dataType: 'json',
-		async: false,
-		success: function(r){
-			if (r){
-				var html = '<option value="">Selecione</option>';
-				var cont = r.length;
+	$('#data').val('');
 
-				for(var i = 0; i < cont; i++){
-					html += "<option value='"+ r[i].dis_id +"'>"+ r[i].dis_nome +"</option>";
+	if(tur_id){
+		$.ajax({
+			data: 'tur_id='+tur_id,
+			url: '../disciplina/buscarDisciplinaPorTurmaProfessor',
+			type: 'POST',
+			dataType: 'json',
+			async: false,
+			success: function(r){
+				if (r){
+					var html = '<option value="">Selecione</option>';
+					var cont = r.length;
+
+					for(var i = 0; i < cont; i++){
+						html += "<option value='"+ r[i].dis_id +"'>"+ r[i].dis_nome +"</option>";
+					}
+
+					$('select[name="dis_id"]').html(html);
 				}
-
-				$('select[name="dis_id"]').html(html);
 			}
-		}
-	})
+		})
+	}
 }
 
 function validaDiarioEditar(){

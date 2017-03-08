@@ -59,6 +59,9 @@ class Dia_letivo extends MY_Controller {
 	{
 		$post = $this->input->post();
 
+		$this->load->model('turma_model');
+		$post['tur_curso'] = current($this->turma_model->findBy(array('tur_id' => $post['tur_id'])))->tur_curso;
+
 		$this->load->model('dia_letivo_model');
 		$resultado = $this->dia_letivo_model->buscarDiaLetivo($post);
 
