@@ -3,6 +3,12 @@
         <meta charset="utf-8"/>
     	<style>
 
+            @media print {    
+                #imprimir{
+                    display: none !important;
+                }
+            }
+
             .conteudo{
                 width: 700px;
             }
@@ -216,6 +222,11 @@
                 CIENTE RESPONSÁVEL: _____________________________________________________________________
             </p>
     	</div>
-        <?php // echo "<pre>";print_r($resultado);die; ?>
+        <input type="button" value="Imprimir" id="imprimir" onclick="imprimir();"/>
     </body>
+    <script type="text/javascript">
+        function imprimir(){
+            window.print();
+        }
+    </script>
 </html>

@@ -278,7 +278,7 @@ class Turma_model extends CI_Model
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tur_id = tur.tur_id
 				INNER JOIN aluno_turma_disciplina_professor atd ON atd.tdp_id = tdp.tdp_id
 				INNER JOIN aluno alu ON alu.alu_id = atd.alu_id
-				WHERE tur.tur_id = ". $idTurma['tur_id'];
+				WHERE tur.tur_id = ". $idTurma['tur_id'] . " GROUP BY alu.alu_id ORDER BY atd.atd_numero_aluno";
 
 		$query = $this->db->query($sql);
 
