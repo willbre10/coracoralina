@@ -157,63 +157,65 @@
     					</tr>
     				</thead>
     				<tbody>
-                        <?php foreach($resultado['disciplinas'] as $disciplina){ ?>
-        					<tr>
-        						<td>
-        							<?php echo mb_strtoupper($disciplina['dis_nome']); ?>
-        						</td>
-        						<td>
-        							<?php echo $disciplina['nota1bimestre']; ?>
-        						</td>
-        						<td>
-        							<?php echo $disciplina['aulas1bimestre']; ?>
-        						</td>
-                                <td>
-                                    <?php echo !empty($disciplina['faltas1bimestre']) ? $disciplina['faltas1bimestre'] : 0; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['nota2bimestre']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['aulas2bimestre']; ?>
-                                </td>
-                                <td>
-                                    <?php echo !empty($disciplina['faltas2bimestre']) ? $disciplina['faltas2bimestre'] : 0; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['nota3bimestre']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['aulas3bimestre']; ?>
-                                </td>
-                                <td>
-                                    <?php echo !empty($disciplina['faltas3bimestre']) ? $disciplina['faltas3bimestre'] : 0; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['nota4bimestre']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['aulas4bimestre']; ?>
-                                </td>
-                                <td>
-                                    <?php echo !empty($disciplina['faltas4bimestre']) ? $disciplina['faltas4bimestre'] : 0; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['media_anual']; ?>
-                                </td>
-                                <td>
-                                    <?php echo !empty($disciplina['total_faltas']) ? $disciplina['total_faltas'] : 0; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['recuperacao_final']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $disciplina['media_final']; ?>
-                                </td>
-        						<td>
-        							<?php echo $disciplina['situacao']; ?>
-        						</td>
-        					</tr>
+                        <?php if(!empty($resultado['disciplinas'])){?>
+                            <?php foreach($resultado['disciplinas'] as $disciplina){ ?>
+            					<tr>
+            						<td>
+            							<?php echo mb_strtoupper($disciplina['dis_nome']); ?>
+            						</td>
+            						<td>
+            							<?php echo $disciplina['nota1bimestre']; ?>
+            						</td>
+            						<td>
+            							<?php echo $disciplina['aulas1bimestre']; ?>
+            						</td>
+                                    <td>
+                                        <?php echo !empty($disciplina['faltas1bimestre']) ? $disciplina['faltas1bimestre'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['nota2bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['aulas2bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['faltas2bimestre']) ? $disciplina['faltas2bimestre'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['nota3bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['aulas3bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['faltas3bimestre']) ? $disciplina['faltas3bimestre'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['nota4bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['aulas4bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['faltas4bimestre']) ? $disciplina['faltas4bimestre'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['media_anual']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['total_faltas']) ? $disciplina['total_faltas'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['recuperacao_final']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['media_final']; ?>
+                                    </td>
+            						<td>
+            							<?php echo $disciplina['situacao']; ?>
+            						</td>
+            					</tr>
+                            <?php } ?>
                         <?php } ?>
     				</tbody>
     			</table>

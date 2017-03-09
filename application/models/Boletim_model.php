@@ -114,42 +114,44 @@ class Boletim_model extends CI_Model
 			$newDados['disciplinas'][ $nota->dis_id ]['nota'. $nota->not_bimestre .'bimestre'] = number_format($new_nota, 2);
 		}
 
-		foreach($newDados['disciplinas'] as $dis_id => &$dado){
-			$nota = ($dado['nota1bimestre'] + $dado['nota2bimestre'] + $dado['nota3bimestre'] + $dado['nota4bimestre']) / 4;
+		if (!empty($newDados['disciplinas'])){
+			foreach($newDados['disciplinas'] as $dis_id => &$dado){
+				$nota = ($dado['nota1bimestre'] + $dado['nota2bimestre'] + $dado['nota3bimestre'] + $dado['nota4bimestre']) / 4;
 
-			$nota = round($nota, 2);
-			$valor_nota = round($nota, 1);
+				$nota = round($nota, 2);
+				$valor_nota = round($nota, 1);
 
-			if(substr($valor_nota, 2) == 1 || substr($valor_nota, 2) == 6)
-				$new_nota = $valor_nota - 0.1;
-			elseif(substr($valor_nota, 2) == 2 || substr($valor_nota, 2) == 7)
-				$new_nota = $valor_nota - 0.2;
-			elseif(substr($valor_nota, 2) == 3 || substr($valor_nota, 2) == 8)
-				$new_nota = $valor_nota + 0.2;
-			elseif(substr($valor_nota, 2) == 4 || substr($valor_nota, 2) == 9)
-				$new_nota = $valor_nota + 0.1;
-			else
-				$new_nota = $valor_nota;
+				if(substr($valor_nota, 2) == 1 || substr($valor_nota, 2) == 6)
+					$new_nota = $valor_nota - 0.1;
+				elseif(substr($valor_nota, 2) == 2 || substr($valor_nota, 2) == 7)
+					$new_nota = $valor_nota - 0.2;
+				elseif(substr($valor_nota, 2) == 3 || substr($valor_nota, 2) == 8)
+					$new_nota = $valor_nota + 0.2;
+				elseif(substr($valor_nota, 2) == 4 || substr($valor_nota, 2) == 9)
+					$new_nota = $valor_nota + 0.1;
+				else
+					$new_nota = $valor_nota;
 
-			$newDados['disciplinas'][ $dis_id ]['recuperacao_final'] = '';
-			$newDados['disciplinas'][ $dis_id ]['media_anual'] = number_format($new_nota, 1);
+				$newDados['disciplinas'][ $dis_id ]['recuperacao_final'] = '';
+				$newDados['disciplinas'][ $dis_id ]['media_anual'] = number_format($new_nota, 1);
 
-			$newDados['disciplinas'][ $dis_id ]['media_final'] = number_format($new_nota, 1);
+				$newDados['disciplinas'][ $dis_id ]['media_final'] = number_format($new_nota, 1);
 
-			$situacao = 'APROVADA';
+				$situacao = 'APROVADA';
 
-			$total_aulas = ($newDados['disciplinas'][ $dis_id ]['aulas1bimestre'] + 
-							$newDados['disciplinas'][ $dis_id ]['aulas2bimestre'] + 
-							$newDados['disciplinas'][ $dis_id ]['aulas3bimestre'] + 
-							$newDados['disciplinas'][ $dis_id ]['aulas4bimestre']);
+				$total_aulas = ($newDados['disciplinas'][ $dis_id ]['aulas1bimestre'] + 
+								$newDados['disciplinas'][ $dis_id ]['aulas2bimestre'] + 
+								$newDados['disciplinas'][ $dis_id ]['aulas3bimestre'] + 
+								$newDados['disciplinas'][ $dis_id ]['aulas4bimestre']);
 
-			$maximo_faltas = round($total_aulas * (25 / 100));
+				$maximo_faltas = round($total_aulas * (25 / 100));
 
-			if ($newDados['disciplinas'][ $dis_id ]['total_faltas'] >= $maximo_faltas || 
-					$newDados['disciplinas'][ $dis_id ]['media_final'] < 5)
-				$situacao = 'REPROVADA';
+				if ($newDados['disciplinas'][ $dis_id ]['total_faltas'] >= $maximo_faltas || 
+						$newDados['disciplinas'][ $dis_id ]['media_final'] < 5)
+					$situacao = 'REPROVADA';
 
-			$newDados['disciplinas'][ $dis_id ]['situacao'] = $situacao;
+				$newDados['disciplinas'][ $dis_id ]['situacao'] = $situacao;
+			}
 		}
 
 		return $newDados;
