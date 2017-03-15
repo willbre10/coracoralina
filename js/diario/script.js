@@ -308,6 +308,8 @@ function preencheCamposEditar(dados){
 	$('textarea[name="tarefa"]').val(dados.tarefa.tar_tarefa);
 	$('input[name="tar_id"]').val(dados.tarefa.tar_id);
 
+	$('select[name="fal_quantidade_aulas"]').val(dados.faltas[0].fal_quantidade_aulas);
+
 	for(var i = 0; i < cont; i++){
 		$('input[name="faltas['+ dados.faltas[i].alu_id +']"]').val(dados.faltas[i].fal_falta);
 		faltas = $('input[name="atds_id"]').val();
