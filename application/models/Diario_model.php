@@ -205,7 +205,7 @@ class Diario_model extends CI_Model
 
 		
 		$sql = "SELECT * 
-				FROM tar tar
+				FROM tarefa tar
 				WHERE tar.tdp_id = $tdp_id
 				AND tar.tar_dia = '$dia'";
 

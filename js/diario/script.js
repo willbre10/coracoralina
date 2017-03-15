@@ -10,7 +10,7 @@ $(function() {
 	$('#lancarDiario').click(function(){
 		var form = $('#data-form');
 
-		if (('input[name="fal_quantidade_aulas"]').val() != '')
+		if ($('select[name="fal_quantidade_aulas"]').val() != '')
        		submitAjax(form);
        	else
        		alert('showMsgQtdAulas');
