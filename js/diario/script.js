@@ -13,7 +13,7 @@ $(function() {
 		if ($('select[name="fal_quantidade_aulas"]').val() != '')
        		submitAjax(form);
        	else
-       		alert('showMsgQtdAulas');
+       		alert('Selecione a quantidade de aulas.');
 	})
 
 	$('#buscarAlunos').click(function(){
