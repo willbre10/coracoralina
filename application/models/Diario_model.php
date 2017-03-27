@@ -58,7 +58,6 @@ class Diario_model extends CI_Model
 	public function editar($dados)
 	{
 		$retorno = 'editado';
-
 		
 		if (!empty($dados['con_id'])){
 			$sql = "UPDATE conteudo
@@ -98,7 +97,7 @@ class Diario_model extends CI_Model
 				$alu_id = $ids[0];
 
 				$sql = "UPDATE falta
-						SET fal_falta = $num_falta
+						SET fal_falta = $num_falta, fal_quantidade_aulas = ". $dados['fal_quantidade_aulas'] ."
 						WHERE fal_id = " . $alu_id;
 
 				if(!$this->db->simple_query($sql))

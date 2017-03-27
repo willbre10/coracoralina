@@ -31,6 +31,8 @@
                                     Preencha todos os campos obrigatórios (*)
                                 </div>
                                 <input type="hidden" name="obs_id">
+                                <input type="hidden" name="tar_id">
+                                <input type="hidden" name="con_id">
                                 <input type="hidden" name="atds_id">
                                 <input type="hidden" value="<?php echo $perfil; ?>" name="per">
                                 <div class="form-group pull-left input-medium">
