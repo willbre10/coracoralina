@@ -139,7 +139,7 @@ class Turma_model extends CI_Model
 		$cont = count($dados['dis_id']);
 
 		for($i = 0; $i < $cont; $i++){
-			$sql = "INSERT INTO turma_disciplina_professor (tur_id, dis_id)
+			$sql = "INSERT INTO turma_disciplina_professor (tur_id, dis_id, pro_id)
 					VALUES (". $dados['tur_id'] .", ". $dados['dis_id'][$i] .", ". $dados['pro_id'][$i] .")";
 
 			if(!$this->db->simple_query($sql))

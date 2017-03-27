@@ -84,6 +84,7 @@ function buscarAlunos(){
 function preencheAlunos(dados){
 	var cont = dados.alunos.length;
 	var alunos = '';
+	var numeros = '';
 	var faltas = '';
 	var mtop = '';
 	var aniversario = '';
@@ -100,6 +101,8 @@ function preencheAlunos(dados){
 
 	for(var i = 0; i < cont; i++){
 		mtop = (i > 0) ? ' style="margin-top: 5px" ' : '';
+
+		numeros += '<input disabled="disabled" class="form-control input-num-aluno" value="'+ dados.alunos[i].atd_numero_aluno +'" '+ mtop +'>';
 
 		alunos += '<input disabled="disabled" class="form-control" value="'+ dados.alunos[i].alu_nome +'" '+ mtop +'>';
 
@@ -145,6 +148,10 @@ function preencheAlunos(dados){
                 '<i class="fa fa-birthday-cake fa-5" aria-hidden="true"></i>'+
 				'<label class="input-right">Aniversariantes da Semana</label>'+
 				'</div>'+
+				'<div class="form-group input-num-aluno pull-left">'+
+                    '<label class="num-vazio"></label>'+
+                    numeros+
+                '</div>'+
                 '<div class="form-group input-medium pull-left">'+
                     '<label>Aluno: </label>'+
                     alunos+

@@ -69,7 +69,7 @@ function buscarAlunos(){
 
 function blurNota(){
 	$('.nota').blur(function(){
-		$('.notaMedia[data-aluno="'+ alu_id +'"]').val('');
+		$('.total[data-aluno="'+ alu_id +'"]').val('');
 		var alu_id = $(this).attr('data-aluno');
 		var calculaMedia = true;
 		var soma = 0;
@@ -82,8 +82,31 @@ function blurNota(){
 		})
 
 		if (calculaMedia){
-			var total = (parseFloat(soma) / 4);
-			$('.notaMedia[data-aluno="'+ alu_id +'"]').val(total.toFixed(2));
+			var total = (parseFloat(soma) / 2);
+			$('.total[data-aluno="'+ alu_id +'"]').val(total.toFixed(2));
+		}
+	})
+}
+
+function blurNotaSimulado(){
+	$('.notasm').blur(function(){
+		var alu_id = $(this).attr('data-aluno');
+		var total = $('.total[data-aluno="'+ alu_id +'"]').val();
+		var media = parseFloat($(this).val()) + parseFloat(total);
+		var calculaMedia = true;
+
+		$('.nota[data-aluno="'+ alu_id +'"]').each(function(){
+			if ($(this).val() == '')
+				calculaMedia = false;
+		})
+
+		if (calculaMedia){
+			if ($(this).val() == '')
+				$('.notaMedia[data-aluno="'+ alu_id +'"]').val(parseFloat(total).toFixed(2));
+			else if (media > 10)
+				$('.notaMedia[data-aluno="'+ alu_id +'"]').val('10.00');
+			else
+				$('.notaMedia[data-aluno="'+ alu_id +'"]').val(media.toFixed(2));
 		}
 	})
 }
@@ -99,6 +122,8 @@ function preencheAlunos(dados){
                 '</div>'+
                 '<div class="form-group">'+
                 '<div class="form-group input-xxlarge pull-left">'+
+                	'<label class="input-num-aluno"></label>'+
+                	// numero_aluno+
                     '<label class="input-medium">Aluno: </label>'+
                     // alunos+
                     '<label class="input-notas input-right">Prova 1: </label>'+
@@ -109,19 +134,26 @@ function preencheAlunos(dados){
                     // provab+
                     '<label class="input-notas input-right">Trabalho 2: </label>'+
                     // trabalhob+
+                    '<label class="input-notas input-right">Total: </label>'+
+                    // total+
+                    '<label class="input-notas input-right">Simulado: </label>'+
+                    // simulado+
                     '<label class="input-notas input-right">Média: </label>'+
-                    // media+
+                    // notaMedia+
                 '</div>';
 
 	for(var i = 0; i < cont; i++){
 		mtop = (i > 0) ? ' style="margin-top: 5px" ' : '';
 
 		html += '<div class="input-xxlarge pull-left">'+
+					'<input disabled="disabled" class="form-control input-num-aluno pull-left" value="'+ dados.alunos[i].atd_numero_aluno +'" '+ mtop +'>'+
 		            '<input disabled="disabled" class="form-control input-medium pull-left" value="'+ dados.alunos[i].alu_nome +'" '+ mtop +'>'+
 		            '<input class="form-control prova nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[pm]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
 		            '<input class="form-control trabalho nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[tm]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
 		            '<input class="form-control prova nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[pb]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
 		            '<input class="form-control trabalho nota input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[tb]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
+		            '<input class="form-control input-notas total pull-left input-right" disabled="disabled" data-aluno="'+ dados.alunos[i].alu_id +'" placeholder="00.00" '+ mtop +'>'+
+		            '<input class="form-control simulado notasm input-notas pull-left input-right" data-aluno="'+ dados.alunos[i].alu_id +'" maxlength="5" name="notas[sm]['+ dados.alunos[i].alu_id +']" placeholder="00.00" '+ mtop +'>'+
 		            '<input class="form-control input-notas notaMedia pull-left input-right" disabled="disabled" data-aluno="'+ dados.alunos[i].alu_id +'" placeholder="00.00" '+ mtop +'>'+
 		        '</div>';
 	}
@@ -129,7 +161,9 @@ function preencheAlunos(dados){
     $('#auxLancamentos').html(html);
 
     $('.nota').mask('00.00', {reverse: true});
+    $('.notasm').mask('00.00', {reverse: true});
     blurNota();
+    blurNotaSimulado();
 }
 
 function validaNota(){
@@ -146,6 +180,16 @@ function validaNota(){
 		}
 	})
 
+	$('.notasm').each(function(){
+		var valor = $(this).val().replace('.', '')
+
+		var valida = verificaNotaValidaSimulado(valor);
+		if(!valida){
+			retorno = false;
+			$(this).css('border-color', 'red');
+		}
+	})
+
 	return retorno;
 }
 
@@ -155,10 +199,7 @@ function verificaNotaValidaProva(valor){
 	var notaSplit = valor.split('');
 
 	if(cont == 3){
-		if(notaSplit[2] != 5 && notaSplit[2] != 0){
-			$(this).css('border-color', 'red');
-			retorno = false;
-		} else if(valor > 700){
+		if(valor > 700){
 			$(this).css('border-color', 'red');
 			retorno = false;
 		}
@@ -176,10 +217,7 @@ function verificaNotaValidaTrabalho(valor){
 	var notaSplit = valor.split('');
 
 	if(cont == 3){
-		if(notaSplit[2] != 5 && notaSplit[2] != 0){
-			$(this).css('border-color', 'red');
-			retorno = false;
-		} else if(valor > 300){
+		if(valor > 300){
 			$(this).css('border-color', 'red');
 			retorno = false;
 		}
@@ -202,6 +240,24 @@ function validaFormNota(){
 			retorno = false;
 		}
 	})
+
+	return retorno;
+}
+
+function verificaNotaValidaSimulado(valor){
+	var retorno = true;
+	var cont = valor.length;
+	var notaSplit = valor.split('');
+
+	if(cont == 3){
+		if(valor > 200){
+			$(this).css('border-color', 'red');
+			retorno = false;
+		}
+	} else {
+		$(this).css('border-color', 'red');
+		retorno = false;
+	}
 
 	return retorno;
 }
@@ -281,12 +337,17 @@ function preencheCamposEditar(dados){
 		$('input[name="notas[tm]['+ dados[i].alu_id +']"]').val(dados[i].not_trabalho_mensal);
 		$('input[name="notas[pb]['+ dados[i].alu_id +']"]').val(dados[i].not_prova_bimestral);
 		$('input[name="notas[tb]['+ dados[i].alu_id +']"]').val(dados[i].not_trabalho_bimestral);
+		$('input[name="notas[sm]['+ dados[i].alu_id +']"]').val(dados[i].not_simulado);
 
 		notas = $('input[name="atds_id"]').val();
 		$('input[name="atds_id"]').val(dados[i].not_id + '/' + dados[i].alu_id + '@' + notas);
 	}
 
 	$('.nota').each(function(){
+		$(this).blur();
+	})
+
+	$('.notasm').each(function(){
 		$(this).blur();
 	})
 }

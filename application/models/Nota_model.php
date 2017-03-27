@@ -6,7 +6,6 @@ class Nota_model extends CI_Model
 	{
 		$retorno = true;
 		
-		
 		$turma_disciplina_professor = $this->buscarTurmaDisciplinaProfessor($dados);
 
 		$tdp_id = $turma_disciplina_professor[0]->tdp_id;
@@ -31,9 +30,10 @@ class Nota_model extends CI_Model
 			$tm = $dados['notas']['tm'][$alu_id];
 			$pb = $dados['notas']['pb'][$alu_id];
 			$tb = $dados['notas']['tb'][$alu_id];
+			$sm = $dados['notas']['sm'][$alu_id];
 
-			$sql = "INSERT INTO nota (atd_id, not_bimestre, not_prova_mensal, not_trabalho_mensal, not_prova_bimestral, not_trabalho_bimestral)
-					VALUES ($atd_id, " . $dados['bimestre'] . ", '" . $pm . "', '" . $tm . "', '" . $pb . "', '" . $tb . "')";
+			$sql = "INSERT INTO nota (atd_id, not_bimestre, not_prova_mensal, not_trabalho_mensal, not_prova_bimestral, not_trabalho_bimestral, not_simulado)
+					VALUES ($atd_id, " . $dados['bimestre'] . ", '" . $pm . "', '" . $tm . "', '" . $pb . "', '" . $tb . "', '" . $sm . "')";
 
 			if(!$this->db->simple_query($sql))
 				$retorno = false;
@@ -46,7 +46,6 @@ class Nota_model extends CI_Model
 	{
 		$retorno = 'editado';
 
-		
 		if (!empty($dados['atds_id'])){
 			$valores = explode('@', $dados['atds_id']);
 			$valores = array_filter($valores);
@@ -58,13 +57,15 @@ class Nota_model extends CI_Model
 				$nota_tm = $dados['notas']['tm'][$ids[1]];
 				$nota_pb = $dados['notas']['pb'][$ids[1]];
 				$nota_tb = $dados['notas']['tb'][$ids[1]];
+				$nota_sm = $dados['notas']['sm'][$ids[1]];
 				$not_id = $ids[0];
 
 				$sql = "UPDATE nota
 						SET not_prova_mensal = '$nota_pm',
 							not_trabalho_mensal = '$nota_tm',
 							not_prova_bimestral = '$nota_pb',
-							not_trabalho_bimestral = '$nota_tb'
+							not_trabalho_bimestral = '$nota_tb',
+							not_simulado = '$nota_sm'
 						WHERE not_id = " . $not_id;
 
 				if(!$this->db->simple_query($sql))
