@@ -106,7 +106,7 @@ function preencheAlunos(dados){
 
 		alunos += '<input disabled="disabled" class="form-control" value="'+ dados.alunos[i].alu_nome +'" '+ mtop +'>';
 
-		faltas += '<input class="form-control" maxlength="2" name="faltas['+ dados.alunos[i].alu_id +']" value="0" '+ mtop +'>';
+		faltas += '<input class="form-control qtd_faltas" maxlength="1" name="faltas['+ dados.alunos[i].alu_id +']" value="0" '+ mtop +'>';
 
 		dataAluno = new Date(dados.alunos[i].alu_data_nascimento + ' 00:00:00');
 		dataAluno = new Date(dataAluno.setFullYear(year));
@@ -142,6 +142,15 @@ function preencheAlunos(dados){
                     '<textarea class="form-control" name="observacao" rows="2" style="resize: none"></textarea>'+
                 '</div>'+
                 '<div class="clear"></div>'+
+                '<div class="form-group input-small pull-left">'+
+                	'<label>Quantidade de Aulas * </label>'+
+                	'<select data-required="true" class="form-control" name="fal_quantidade_aulas">'+
+                		'<option value="">Selecione</option>'+
+                		'<option value="1">1</option>'+
+                		'<option value="2">2</option>'+
+                		'<option value="3">3</option>'+
+                	'</select>'+
+                '</div>'+
                 '<div class="clear"></div>'+
                 '<!-- alunos -->'+
                 '<div class="form-group">'+
@@ -163,19 +172,19 @@ function preencheAlunos(dados){
                 '<div class="form-group input-small pull-left input-right">'+
                 	'<label>Aniversário: </label>'+
                     aniversario+
-                '</div>'+
-                '<div class="clear"></div>'+
-                '<div class="form-group input-small pull-left">'+
-                	'<label>Quantidade de Aulas * </label>'+
-                	'<select data-required="true" class="form-control" name="fal_quantidade_aulas">'+
-                		'<option value="">Selecione</option>'+
-                		'<option value="1">1</option>'+
-                		'<option value="2">2</option>'+
-                		'<option value="3">3</option>'+
-                	'</select>'+
                 '</div>';
 
     $('#auxLancamentos').html(html);
+    validaFaltas();
+}
+
+function validaFaltas(){
+	$('.qtd_faltas').change(function(){
+		if ($(this).val() > $('select[name="fal_quantidade_aulas"]').val()){
+			$(this).val(0);
+			alert("O número de faltas não pode ser maior que a quantidade de aulas.");
+		}
+	})
 }
 
 function validaFormDiario(){

@@ -10,7 +10,6 @@ class Usuario_model extends CI_Model
 		$login = $this->input->post('login');
 		$senha = $this->input->post('senha');
 
-		
 		log_message('info', 'Tentativa de Login => usuário ['. $login .']');
 
 		$sql = "SELECT * FROM usuario WHERE usu_login = ? AND usu_senha = ? AND usu_status = ?";
@@ -27,7 +26,6 @@ class Usuario_model extends CI_Model
 	{
 		$resultado = array();
 
-		
 		$this->load->library('session');
 		log_message('info', 'Busca em Usuarios => usuário ['. $this->session->usuario['usu_login'] .']');
 
