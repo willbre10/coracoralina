@@ -144,7 +144,7 @@ class Aluno_model extends CI_Model
 
 			//valida aluno duplicado, para aquele id PODE
 			$buscaAlunoEditar = $this->findBy(array('alu_nome' => $dados['alu_nome']));
-			if(empty($buscaAlunoEditar) || $buscaAlunoEditar[0]->pro_id == $dados['alu_id']){
+			if(empty($buscaAlunoEditar) || $buscaAlunoEditar[0]->alu_id == $dados['alu_id']){
 				$dados = array_filter($dados);
 				$alu_id = $dados['alu_id'];
 				unset($dados['alu_id']);

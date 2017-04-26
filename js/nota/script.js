@@ -71,43 +71,45 @@ function blurNota(){
 	$('.nota').blur(function(){
 		$('.total[data-aluno="'+ alu_id +'"]').val('');
 		var alu_id = $(this).attr('data-aluno');
-		var calculaMedia = true;
 		var soma = 0;
 
 		$('.nota[data-aluno="'+ alu_id +'"]').each(function(){
-			if ($(this).val() == '')
-				calculaMedia = false;
-			else 
-				soma = parseFloat(soma) + parseFloat($(this).val());
+			soma = parseFloat(soma) + parseFloat($(this).val());
 		})
 
-		if (calculaMedia){
-			var total = (parseFloat(soma) / 2);
+		var total = (parseFloat(soma) / 2);
+		if (!isNaN(total)){
 			$('.total[data-aluno="'+ alu_id +'"]').val(total.toFixed(2));
+
+			var simulado = $('.notasm[data-aluno="'+ alu_id +'"]').val();
+			var media = parseFloat(simulado) + parseFloat(total);
+			var $notaMedia = $('.notaMedia[data-aluno="'+ alu_id +'"]');
+
+			if (simulado == '')
+				$notaMedia.val(parseFloat(total).toFixed(2));
+			else if(media > 10)
+				$notaMedia.val('10.00');
+			else
+				$notaMedia.val(media.toFixed(2));
+
 		}
 	})
 }
+
 
 function blurNotaSimulado(){
 	$('.notasm').blur(function(){
 		var alu_id = $(this).attr('data-aluno');
 		var total = $('.total[data-aluno="'+ alu_id +'"]').val();
 		var media = parseFloat($(this).val()) + parseFloat(total);
-		var calculaMedia = true;
+		var $notaMedia = $('.notaMedia[data-aluno="'+ alu_id +'"]');
 
-		$('.nota[data-aluno="'+ alu_id +'"]').each(function(){
-			if ($(this).val() == '')
-				calculaMedia = false;
-		})
-
-		if (calculaMedia){
-			if ($(this).val() == '')
-				$('.notaMedia[data-aluno="'+ alu_id +'"]').val(parseFloat(total).toFixed(2));
-			else if (media > 10)
-				$('.notaMedia[data-aluno="'+ alu_id +'"]').val('10.00');
-			else
-				$('.notaMedia[data-aluno="'+ alu_id +'"]').val(media.toFixed(2));
-		}
+		if ($(this).val() == '')
+			$notaMedia.val(parseFloat(total).toFixed(2));
+		else if (media > 10)
+			$notaMedia.val('10.00');
+		else
+			$notaMedia.val(media.toFixed(2));
 	})
 }
 
@@ -254,7 +256,7 @@ function verificaNotaValidaSimulado(valor){
 			$(this).css('border-color', 'red');
 			retorno = false;
 		}
-	} else {
+	} else if(cont > 0) {
 		$(this).css('border-color', 'red');
 		retorno = false;
 	}

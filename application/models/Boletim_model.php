@@ -65,6 +65,7 @@ class Boletim_model extends CI_Model
 	{
 		$newDados = array();
 		$newFaltas = array();
+		$todasNotas = false;
 
 		$newDados['header'] = array(
 			'alu_nome' => $dadosBasicos->alu_nome,
@@ -119,6 +120,9 @@ class Boletim_model extends CI_Model
 		if (!empty($newDados['disciplinas'])){
 			foreach($newDados['disciplinas'] as $dis_id => &$dado){
 				$nota = ($dado['nota1bimestre'] + $dado['nota2bimestre'] + $dado['nota3bimestre'] + $dado['nota4bimestre']) / 4;
+				
+				if (!empty($dado['nota1bimestre']) && !empty($dado['nota2bimestre']) && !empty($dado['nota3bimestre']) && !empty($dado['nota4bimestre']))
+					$todasNotas = true;
 
 				$nota = round($nota, 2);
 				$valor_nota = round($nota, 1);
@@ -135,11 +139,11 @@ class Boletim_model extends CI_Model
 					$new_nota = $valor_nota;
 
 				$newDados['disciplinas'][ $dis_id ]['recuperacao_final'] = '';
-				$newDados['disciplinas'][ $dis_id ]['media_anual'] = number_format($new_nota, 1);
+				$newDados['disciplinas'][ $dis_id ]['media_anual'] = ($todasNotas) ? number_format($new_nota, 1) : '0';
 
-				$newDados['disciplinas'][ $dis_id ]['media_final'] = number_format($new_nota, 1);
+				$newDados['disciplinas'][ $dis_id ]['media_final'] = ($todasNotas) ? number_format($new_nota, 1) : '0';
 
-				$situacao = 'APROVADA';
+				$situacao = '';
 
 				$total_aulas = ($newDados['disciplinas'][ $dis_id ]['aulas1bimestre'] + 
 								$newDados['disciplinas'][ $dis_id ]['aulas2bimestre'] + 
@@ -151,8 +155,10 @@ class Boletim_model extends CI_Model
 				if ($newDados['disciplinas'][ $dis_id ]['total_faltas'] >= $maximo_faltas || 
 						$newDados['disciplinas'][ $dis_id ]['media_final'] < 5)
 					$situacao = 'REPROVADA';
+				else
+					$situacao = 'APROVADA';
 
-				$newDados['disciplinas'][ $dis_id ]['situacao'] = $situacao;
+				$newDados['disciplinas'][ $dis_id ]['situacao'] = ($todasNotas) ? $situacao : '';
 			}
 		}
 

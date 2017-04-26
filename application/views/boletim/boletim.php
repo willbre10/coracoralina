@@ -33,7 +33,7 @@
             .boletim table {
                 border-collapse: collapse;
                 font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
-                font-size: 11px;
+                font-size: 10px;
                 margin: 0 0 30px 0;
             }
 
@@ -224,6 +224,146 @@
                 CIENTE RESPONSÁVEL: _____________________________________________________________________
             </p>
     	</div>
+        <br><br><br><br>
+        <div class="conteudo">
+            <h1>COLÉGIO CORA CORALINA</h1>
+            <h2>Boletim Escolar <?php echo $resultado['header']['tur_curso']; ?> / <?php echo $resultado['header']['tur_ano']; ?></h2>
+            <div class="boletim">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <td colspan="19" class="text-left comic-sans">
+                                Aluno (a): <?php echo mb_strtoupper($resultado['header']['alu_nome']); ?>
+                                <span class="spacer">Número: <?php echo $resultado['header']['atd_numero_aluno']; ?></span>
+                                <span class="spacer">Turma: <?php echo $resultado['header']['tur_nome']; ?></span>
+                                <span class="spacer">R.A - <?php echo $resultado['header']['alu_ra']; ?></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>Disciplinas</i>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate red">NOTAS DO 1º BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">AULAS DADAS NO BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">FALTAS DO BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate red">NOTAS DO 2º BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">AULAS DADAS NO BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">FALTAS DO BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate red">NOTAS DO 3º BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">AULAS DADAS NO BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">FALTAS DO BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate red">NOTAS DO 4º BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">AULAS DADAS NO BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">FALTAS DO BIMESTRE</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate red">MÉDIA ANUAL</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate">TOTAL DE FALTAS</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate red">RECUPERAÇÃO FINAL</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate red">MÉDIA FINAL</div>
+                            </td>
+                            <td class="container_rotate" height="150">
+                                <div class="rotate red">SITUAÇÃO FINAL</div>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if(!empty($resultado['disciplinas'])){?>
+                            <?php foreach($resultado['disciplinas'] as $disciplina){ ?>
+                                <tr>
+                                    <td>
+                                        <?php echo mb_strtoupper($disciplina['dis_nome']); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['nota1bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['aulas1bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['faltas1bimestre']) ? $disciplina['faltas1bimestre'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['nota2bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['aulas2bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['faltas2bimestre']) ? $disciplina['faltas2bimestre'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['nota3bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['aulas3bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['faltas3bimestre']) ? $disciplina['faltas3bimestre'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['nota4bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['aulas4bimestre']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['faltas4bimestre']) ? $disciplina['faltas4bimestre'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['media_anual']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo !empty($disciplina['total_faltas']) ? $disciplina['total_faltas'] : 0; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['recuperacao_final']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['media_final']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $disciplina['situacao']; ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+            <p class="signature">
+                CIENTE RESPONSÁVEL: _____________________________________________________________________
+            </p>
+        </div>
         <input type="button" value="Imprimir" id="imprimir" onclick="imprimir();"/>
     </body>
     <script type="text/javascript">
