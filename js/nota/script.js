@@ -128,13 +128,13 @@ function preencheAlunos(dados){
                 	// numero_aluno+
                     '<label class="input-medium">Aluno: </label>'+
                     // alunos+
-                    '<label class="input-notas input-right">Prova 1: </label>'+
+                    '<label class="input-notas input-right">Prova Mensal: </label>'+
                     // provam+
-                    '<label class="input-notas input-right">Trabalho 1: </label>'+
+                    '<label class="input-notas input-right">Avaliativa Mensal: </label>'+
                     // trabalhom+
-                    '<label class="input-notas input-right">Prova 2: </label>'+
+                    '<label class="input-notas input-right">Prova Bimestral: </label>'+
                     // provab+
-                    '<label class="input-notas input-right">Trabalho 2: </label>'+
+                    '<label class="input-notas input-right">Avaliativa Bimestral: </label>'+
                     // trabalhob+
                     '<label class="input-notas input-right">Total: </label>'+
                     // total+

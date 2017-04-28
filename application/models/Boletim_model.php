@@ -29,7 +29,7 @@ class Boletim_model extends CI_Model
 		$sql = "SELECT dis.dis_id, dis.dis_nome, fal.fal_bimestre, SUM(fal_quantidade_aulas) AS aulas, SUM(fal_falta) AS faltas
 				FROM aluno_turma_disciplina_professor atd 
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id 
-				INNER JOIN falta fal ON fal.atd_id = atd.atd_id 
+				LEFT JOIN falta fal ON fal.atd_id = atd.atd_id 
 				INNER JOIN disciplina dis ON dis.dis_id = tdp.dis_id
 				WHERE atd.alu_id = ". $post['alu_id'] ."
 				AND tdp.tur_id = ". $post['tur_id'] ."
@@ -44,7 +44,7 @@ class Boletim_model extends CI_Model
 		$sql = "SELECT dis.dis_id, dis.dis_nome, not1.not_bimestre, (not_prova_mensal + not_trabalho_mensal + not_prova_bimestral + not_trabalho_bimestral) / 2 + not_simulado nota
 				FROM aluno_turma_disciplina_professor atd
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id
-				INNER JOIN nota not1 ON not1.atd_id = atd.atd_id
+				LEFT JOIN nota not1 ON not1.atd_id = atd.atd_id
 				INNER JOIN disciplina dis ON dis.dis_id = tdp.dis_id
 				WHERE atd.alu_id = ". $post['alu_id'] ."
 				AND tdp.tur_id = ". $post['tur_id'] ."
@@ -89,10 +89,23 @@ class Boletim_model extends CI_Model
 
 		foreach($faltas as $falta){
 			$newDados['disciplinas'][ $falta->dis_id ]['dis_nome'] = $falta->dis_nome;
-			$newDados['disciplinas'][ $falta->dis_id ]['aulas'. $falta->fal_bimestre .'bimestre'] = $falta->aulas;
-			$newDados['disciplinas'][ $falta->dis_id ]['faltas'. $falta->fal_bimestre .'bimestre'] = $falta->faltas;
+			$newDados['disciplinas'][ $falta->dis_id ] = array(
+				'aulas1bimestre' =>  0,
+				'aulas2bimestre' =>  0,
+				'aulas3bimestre' =>  0,
+				'aulas4bimestre' =>  0,
+				'faltas1bimestre' => 0,
+				'faltas2bimestre' => 0,
+				'faltas3bimestre' => 0,
+				'faltas4bimestre' => 0
+			);
 
-			$newDados['disciplinas'][ $falta->dis_id ]['total_faltas'] += $falta->faltas;
+			if (!empty($falta->fal_bimestre)){
+				$newDados['disciplinas'][ $falta->dis_id ]['aulas'. $falta->fal_bimestre .'bimestre'] = $falta->aulas;
+				$newDados['disciplinas'][ $falta->dis_id ]['faltas'. $falta->fal_bimestre .'bimestre'] = $falta->faltas;
+
+				$newDados['disciplinas'][ $falta->dis_id ]['total_faltas'] += $falta->faltas;
+			}
 		}
 
 		foreach($notas as $nota){
