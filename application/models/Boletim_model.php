@@ -89,21 +89,18 @@ class Boletim_model extends CI_Model
 
 		foreach($faltas as $falta){
 			$newDados['disciplinas'][ $falta->dis_id ]['dis_nome'] = $falta->dis_nome;
-			$newDados['disciplinas'][ $falta->dis_id ] = array(
-				'aulas1bimestre' =>  0,
-				'aulas2bimestre' =>  0,
-				'aulas3bimestre' =>  0,
-				'aulas4bimestre' =>  0,
-				'faltas1bimestre' => 0,
-				'faltas2bimestre' => 0,
-				'faltas3bimestre' => 0,
-				'faltas4bimestre' => 0
-			);
 
+			for ($i = 1; $i <= 4; $i++)
+				if (empty($newDados['disciplinas'][ $falta->dis_id ]['aulas'. $i .'bimestre']))
+					$newDados['disciplinas'][ $falta->dis_id ]['aulas'. $i .'bimestre'] = 0;
+
+			for ($i = 1; $i <= 4; $i++)
+				if (empty($newDados['disciplinas'][ $falta->dis_id ]['faltas'. $i .'bimestre']))
+					$newDados['disciplinas'][ $falta->dis_id ]['faltas'. $i .'bimestre'] = 0;
+			
 			if (!empty($falta->fal_bimestre)){
 				$newDados['disciplinas'][ $falta->dis_id ]['aulas'. $falta->fal_bimestre .'bimestre'] = $falta->aulas;
 				$newDados['disciplinas'][ $falta->dis_id ]['faltas'. $falta->fal_bimestre .'bimestre'] = $falta->faltas;
-
 				$newDados['disciplinas'][ $falta->dis_id ]['total_faltas'] += $falta->faltas;
 			}
 		}
