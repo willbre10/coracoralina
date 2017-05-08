@@ -172,7 +172,38 @@ class Boletim_model extends CI_Model
 			}
 		}
 
-		return $newDados;
+		$dadosOrdenados = $this->ordenacao($newDados);
+
+		// gambeta retirar após inserção de inicio e fim dos bimestres
+		foreach ($dadosOrdenados['disciplinas'] as &$dados) {
+			unset($dados['aulas2bimestre']);
+			unset($dados['aulas3bimestre']);
+			unset($dados['aulas4bimestre']);
+			unset($dados['faltas2bimestre']);
+			unset($dados['faltas3bimestre']);
+			unset($dados['faltas4bimestre']);
+		}
+
+		return $dadosOrdenados;
 	}
 
+	private function ordenacao($dados)
+	{
+		$dadosOrdenados = array();
+
+		$dadosOrdenados['header'] = $dados['header'];
+
+		// Português
+		$dadosOrdenados['disciplinas']['19'] = $dados['disciplinas']['19'];
+
+		// Téc Redação
+		if (isset($dados['disciplinas']['25']))
+			$dadosOrdenados['disciplinas']['25'] = $dados['disciplinas']['25'];
+
+		foreach ($dados['disciplinas'] as $key => $dado)
+			if (!isset($dadosOrdenados['disciplinas'][$key]))
+				$dadosOrdenados['disciplinas'][] = $dados['disciplinas'][$key];
+
+		return $dadosOrdenados;
+	}
 }
