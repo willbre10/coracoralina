@@ -55,6 +55,8 @@ class Boletim_model extends CI_Model
 		foreach ($query->result() as $row){
 			if ($row->simulado + $row->nota > '10.00')
 				$row->nota = '10.00';
+			else
+				$row->nota = $row->simulado + $row->nota;
 		    $notas[] = $row;
 		}
 
