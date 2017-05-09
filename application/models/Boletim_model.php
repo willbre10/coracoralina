@@ -191,6 +191,7 @@ class Boletim_model extends CI_Model
 
 	private function ordenacao($dados)
 	{
+
 		$dadosOrdenados = array();
 
 		$dadosOrdenados['header'] = $dados['header'];
@@ -204,7 +205,7 @@ class Boletim_model extends CI_Model
 
 		foreach ($dados['disciplinas'] as $key => $dado)
 			if (!isset($dadosOrdenados['disciplinas'][$key]))
-				$dadosOrdenados['disciplinas'][] = $dados['disciplinas'][$key];
+				$dadosOrdenados['disciplinas'][$key] = $dados['disciplinas'][$key];
 
 		return $dadosOrdenados;
 	}
