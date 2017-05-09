@@ -41,7 +41,7 @@ class Boletim_model extends CI_Model
 		    $faltas[] = $row;
 		}
 
-		$sql = "SELECT dis.dis_id, dis.dis_nome, not1.not_bimestre, (not_prova_mensal + not_trabalho_mensal + not_prova_bimestral + not_trabalho_bimestral) / 2 + not_simulado nota
+		$sql = "SELECT dis.dis_id, dis.dis_nome, not1.not_bimestre, (not_prova_mensal + not_trabalho_mensal + not_prova_bimestral + not_trabalho_bimestral) / 2 nota, + not_simulado simulado
 				FROM aluno_turma_disciplina_professor atd
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id
 				LEFT JOIN nota not1 ON not1.atd_id = atd.atd_id
@@ -53,6 +53,8 @@ class Boletim_model extends CI_Model
 		$query = $this->db->query($sql);
 
 		foreach ($query->result() as $row){
+			if ($row->simulado + $row->nota > '10.00')
+				$row->nota = '10.00';
 		    $notas[] = $row;
 		}
 
