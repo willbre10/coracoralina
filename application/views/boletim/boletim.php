@@ -14,20 +14,22 @@
             }
 
             .conteudo h1 {
+                float: right;
                 font-family: "Comic Sans MS";
                 font-size: 21px;
                 font-weight: bold;
-                margin: 0 0 10px 0;
-                text-align: center;
+                margin: 15px 0 0 0;
                 text-decoration: underline;
+                width: 500px;
             }
 
             .conteudo h2 {
                 font-family: "Comic Sans MS";
                 font-size: 18px;
                 font-weight: normal;
-                margin: 0 0 10px 0;
-                text-align: center;
+                width: 545px;
+                margin: 15px 0 20px;
+                float: right;
             }
 
             .boletim table {
@@ -82,10 +84,17 @@
                 margin: 0 0 10px 0;
             }
 
+            img{
+                width: 80px;
+                height: 80px;
+                float: left;
+            }
+
     	</style>
     </head>
     <body>
     	<div class="conteudo">
+            <img src="/img/logo.png">
     		<h1>COLÉGIO CORA CORALINA</h1>
             <h2>Boletim Escolar <?php echo $resultado['header']['tur_curso']; ?> / <?php echo $resultado['header']['tur_ano']; ?></h2>
     		<div class="boletim">
@@ -226,6 +235,7 @@
     	</div>
         <br><br><br><br>
         <div class="conteudo">
+            <img src="/img/logo.png">
             <h1>COLÉGIO CORA CORALINA</h1>
             <h2>Boletim Escolar <?php echo $resultado['header']['tur_curso']; ?> / <?php echo $resultado['header']['tur_ano']; ?></h2>
             <div class="boletim">
