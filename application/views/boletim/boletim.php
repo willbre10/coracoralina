@@ -233,7 +233,7 @@
                 CIENTE RESPONSÁVEL: _____________________________________________________________________
             </p>
     	</div>
-        <br><br><br><br>
+        <br><br>
         <div class="conteudo">
             <img src="/img/logo.png">
             <h1>COLÉGIO CORA CORALINA</h1>

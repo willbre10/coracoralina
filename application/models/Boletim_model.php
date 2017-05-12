@@ -105,8 +105,12 @@ class Boletim_model extends CI_Model
 			if (!empty($falta->fal_bimestre)){
 				$newDados['disciplinas'][ $falta->dis_id ]['aulas'. $falta->fal_bimestre .'bimestre'] = $falta->aulas;
 				$newDados['disciplinas'][ $falta->dis_id ]['faltas'. $falta->fal_bimestre .'bimestre'] = $falta->faltas;
-				$newDados['disciplinas'][ $falta->dis_id ]['total_faltas'] += $falta->faltas;
+
+				// o if é gambeta retirar após inserção de inicio e fim dos bimestres
+				if ($falta->fal_bimestre == 1)
+					$newDados['disciplinas'][ $falta->dis_id ]['total_faltas'] += $falta->faltas;
 			}
+
 		}
 
 		foreach($notas as $nota){
@@ -193,13 +197,13 @@ class Boletim_model extends CI_Model
 
 	private function ordenacao($dados)
 	{
-
 		$dadosOrdenados = array();
 
 		$dadosOrdenados['header'] = $dados['header'];
 
 		// Português
-		$dadosOrdenados['disciplinas']['19'] = $dados['disciplinas']['19'];
+		if (isset($dados['disciplinas']['19']))
+			$dadosOrdenados['disciplinas']['19'] = $dados['disciplinas']['19'];
 
 		// Téc Redação
 		if (isset($dados['disciplinas']['25']))
