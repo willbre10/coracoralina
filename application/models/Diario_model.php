@@ -132,6 +132,7 @@ class Diario_model extends CI_Model
 				$atd_ids[] = $dado->atd_id;
 
 			$retorno['faltas'] = $this->buscarFalta($atd_ids, $dia_letivo);
+			// echo "<pre>";print_r($retorno);die;
 		}
 
 		return $retorno;
@@ -142,7 +143,6 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		
 		$atd_id = implode(',', $atd_ids);
 
 		$sql = "SELECT * 
@@ -164,7 +164,6 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		
 		$sql = "SELECT * 
 				FROM conteudo con
 				WHERE con.tdp_id = $tdp_id
@@ -183,7 +182,6 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		
 		$sql = "SELECT * 
 				FROM observacao obs
 				WHERE obs.tdp_id = $tdp_id
@@ -202,7 +200,6 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		
 		$sql = "SELECT * 
 				FROM tarefa tar
 				WHERE tar.tdp_id = $tdp_id
@@ -239,7 +236,6 @@ class Diario_model extends CI_Model
 	{
 		$resultado = array();
 
-		
 		$sql = "SELECT * 
 				FROM aluno_turma_disciplina_professor atd
 				WHERE atd.tdp_id = $tdp_id";

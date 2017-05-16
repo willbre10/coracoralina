@@ -192,7 +192,7 @@ function validaFormDiario(){
 
 	$('.form-group input, .form-group select').css('border-color', '#ccc');
 
-	$('input[data-required="true"], select[data-required="true"]').each(function(){
+	$('input[data-required="true"], select[data-required="true"], select[name!="fal_quantidade_aulas"]').each(function(){
 		if ($(this).val() == ''){
 			$(this).css('border-color', '#a94442');
 			retorno = false;
@@ -324,8 +324,6 @@ function preencheCamposEditar(dados){
 	$('textarea[name="tarefa"]').val(dados.tarefa.tar_tarefa);
 	$('input[name="tar_id"]').val(dados.tarefa.tar_id);
 
-console.log(dados.faltas);
-	console.log(dados.faltas[0].fal_quantidade_aulas);
 	$('select[name="fal_quantidade_aulas"]').val(dados.faltas[0].fal_quantidade_aulas);
 
 	for(var i = 0; i < cont; i++){

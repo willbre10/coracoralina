@@ -173,7 +173,14 @@
             							<?php echo mb_strtoupper($disciplina['dis_nome']); ?>
             						</td>
             						<td>
-            							<?php echo $disciplina['nota1bimestre']; ?>
+                                        <span
+                                            <?php
+                                                if (!empty($disciplina['nota1bimestre']) && $disciplina['nota1bimestre'] < "6.00")
+                                                    echo 'class="red"'
+                                            ?>
+                                        >
+                                            <?php echo $disciplina['nota1bimestre']; ?>
+                                        </span>
             						</td>
             						<td>
             							<?php echo $disciplina['aulas1bimestre']; ?>
@@ -182,7 +189,14 @@
                                         <?php echo !empty($disciplina['faltas1bimestre']) ? $disciplina['faltas1bimestre'] : 0; ?>
                                     </td>
                                     <td>
-                                        <?php echo $disciplina['nota2bimestre']; ?>
+                                        <span
+                                            <?php
+                                                if (!empty($disciplina['nota2bimestre']) && $disciplina['nota2bimestre'] < "6.00")
+                                                    echo 'class="red"'
+                                            ?>
+                                        >
+                                            <?php echo $disciplina['nota2bimestre']; ?>
+                                        </span>
                                     </td>
                                     <td>
                                         <?php echo $disciplina['aulas2bimestre']; ?>
@@ -191,7 +205,14 @@
                                         <?php echo !empty($disciplina['faltas2bimestre']) ? $disciplina['faltas2bimestre'] : 0; ?>
                                     </td>
                                     <td>
-                                        <?php echo $disciplina['nota3bimestre']; ?>
+                                        <span
+                                            <?php
+                                                if (!empty($disciplina['nota3bimestre']) && $disciplina['nota3bimestre'] < "6.00")
+                                                    echo 'class="red"'
+                                            ?>
+                                        >
+                                            <?php echo $disciplina['nota3bimestre']; ?>
+                                        </span>
                                     </td>
                                     <td>
                                         <?php echo $disciplina['aulas3bimestre']; ?>
@@ -200,7 +221,14 @@
                                         <?php echo !empty($disciplina['faltas3bimestre']) ? $disciplina['faltas3bimestre'] : 0; ?>
                                     </td>
                                     <td>
-                                        <?php echo $disciplina['nota4bimestre']; ?>
+                                        <span
+                                            <?php
+                                                if (!empty($disciplina['nota4bimestre']) && $disciplina['nota4bimestre'] < "6.00")
+                                                    echo 'class="red"'
+                                            ?>
+                                        >
+                                            <?php echo $disciplina['nota4bimestre']; ?>
+                                        </span>
                                     </td>
                                     <td>
                                         <?php echo $disciplina['aulas4bimestre']; ?>
