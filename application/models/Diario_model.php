@@ -12,20 +12,20 @@ class Diario_model extends CI_Model
 		$auxDia = explode('/', $dados['dia_letivo']);
 		$dia_letivo = $auxDia[2] . '-' . $auxDia[1] . '-' . $auxDia[0];
 
-		$sql = "INSERT INTO conteudo (tdp_id, con_dia, con_conteudo)
-				VALUES ($tdp_id, '$dia_letivo', '" . $dados['conteudo'] . "')";
+		$sql = "INSERT INTO conteudo (tdp_id, con_dia, con_conteudo, con_bimestre)
+				VALUES ($tdp_id, '$dia_letivo', '" . $dados['conteudo'] . "', ". $dados['fal_bimestre'] .")";
 
 		if(!$this->db->simple_query($sql))
 			$retorno = false;
 
-		$sql = "INSERT INTO observacao (tdp_id, obs_dia, obs_observacao)
-				VALUES ($tdp_id, '$dia_letivo', '" . $dados['observacao'] . "')";
+		$sql = "INSERT INTO observacao (tdp_id, obs_dia, obs_observacao, obs_bimestre)
+				VALUES ($tdp_id, '$dia_letivo', '" . $dados['observacao'] . "', ". $dados['fal_bimestre'] .")";
 
 		if(!$this->db->simple_query($sql))
 			$retorno = false;
 
-		$sql = "INSERT INTO tarefa (tdp_id, tar_dia, tar_tarefa)
-				VALUES ($tdp_id, '$dia_letivo', '" . $dados['tarefa'] . "')";
+		$sql = "INSERT INTO tarefa (tdp_id, tar_dia, tar_tarefa, tar_bimestre)
+				VALUES ($tdp_id, '$dia_letivo', '" . $dados['tarefa'] . "', ". $dados['fal_bimestre'] .")";
 
 		if(!$this->db->simple_query($sql))
 			$retorno = false;
@@ -119,10 +119,11 @@ class Diario_model extends CI_Model
 
 			$auxDia = explode('/', $post['dia']);
 			$dia_letivo = $auxDia[2] . '-' . $auxDia[1] . '-' . $auxDia[0];
+			$bimestre = $post['fal_bimestre'];
 
-			$retorno['conteudo'] = current($this->buscarConteudo($tdp_id, $dia_letivo));
-			$retorno['observacao'] = current($this->buscarObservacao($tdp_id, $dia_letivo));
-			$retorno['tarefa'] = current($this->buscarTarefa($tdp_id, $dia_letivo));
+			$retorno['conteudo'] = current($this->buscarConteudo($tdp_id, $dia_letivo, $bimestre));
+			$retorno['observacao'] = current($this->buscarObservacao($tdp_id, $dia_letivo, $bimestre));
+			$retorno['tarefa'] = current($this->buscarTarefa($tdp_id, $dia_letivo, $bimestre));
 
 			$atd_ids = array();
 
@@ -131,15 +132,14 @@ class Diario_model extends CI_Model
 			foreach($aluno_turma_disciplina_professor as $dado)
 				$atd_ids[] = $dado->atd_id;
 
-			$retorno['faltas'] = $this->buscarFalta($atd_ids, $dia_letivo);
-			// echo "<pre>";print_r($retorno);die;
+			$retorno['faltas'] = $this->buscarFalta($atd_ids, $dia_letivo, $bimestre);
 		}
 
 		return $retorno;
 		
 	}
 
-	public function buscarFalta($atd_ids, $dia)
+	public function buscarFalta($atd_ids, $dia, $bimestre)
 	{
 		$resultado = array();
 
@@ -149,7 +149,8 @@ class Diario_model extends CI_Model
 				FROM falta fal
 				INNER JOIN aluno_turma_disciplina_professor atd ON atd.atd_id = fal.atd_id
 				WHERE fal.atd_id IN ($atd_id)
-				AND fal.fal_dia = '$dia'";
+				AND fal.fal_dia = '$dia'
+				AND fal.fal_bimestre = $bimestre";
 
 		$query = $this->db->query($sql);
 
@@ -160,14 +161,15 @@ class Diario_model extends CI_Model
 		return $resultado;
 	}
 
-	public function buscarConteudo($tdp_id, $dia)
+	public function buscarConteudo($tdp_id, $dia, $bimestre)
 	{
 		$resultado = array();
 
 		$sql = "SELECT * 
 				FROM conteudo con
 				WHERE con.tdp_id = $tdp_id
-				AND con.con_dia = '$dia'";
+				AND con.con_dia = '$dia'
+				AND con.con_bimestre = $bimestre";
 
 		$query = $this->db->query($sql);
 
@@ -178,14 +180,15 @@ class Diario_model extends CI_Model
 		return $resultado;
 	}
 
-	public function buscarObservacao($tdp_id, $dia)
+	public function buscarObservacao($tdp_id, $dia, $bimestre)
 	{
 		$resultado = array();
 
 		$sql = "SELECT * 
 				FROM observacao obs
 				WHERE obs.tdp_id = $tdp_id
-				AND obs.obs_dia = '$dia'";
+				AND obs.obs_dia = '$dia'
+				AND obs.obs_bimestre = $bimestre";
 
 		$query = $this->db->query($sql);
 
@@ -196,14 +199,15 @@ class Diario_model extends CI_Model
 		return $resultado;
 	}
 
-	public function buscarTarefa($tdp_id, $dia)
+	public function buscarTarefa($tdp_id, $dia, $bimestre)
 	{
 		$resultado = array();
 
 		$sql = "SELECT * 
 				FROM tarefa tar
 				WHERE tar.tdp_id = $tdp_id
-				AND tar.tar_dia = '$dia'";
+				AND tar.tar_dia = '$dia'
+				AND tar.tar_bimestre = $bimestre";
 
 		$query = $this->db->query($sql);
 
@@ -250,5 +254,46 @@ class Diario_model extends CI_Model
 		}
 
 		return $resultado;
+	}
+
+	public function excluirDiario($dados)
+	{
+		$retorno = 'excluido';
+
+		if (!empty($dados['con_id'])){
+			$sql = "DELETE FROM conteudo
+					WHERE con_id = " . $dados['con_id'];
+
+			if(!$this->db->simple_query($sql))
+				$retorno = false;
+		}
+
+		if (!empty($dados['tar_id'])){
+			$sql = "DELETE FROM tarefa
+					WHERE tar_id = " . $dados['tar_id'];
+
+			if(!$this->db->simple_query($sql))
+				$retorno = false;
+		}
+
+		if (!empty($dados['obs_id'])){
+			$sql = "DELETE FROM observacao
+					WHERE obs_id = " . $dados['obs_id'];
+
+			if(!$this->db->simple_query($sql))
+				$retorno = false;
+		}
+
+		$ids = explode('@', $dados['atds_id']);
+		$atds_id = array_filter($ids);
+
+		foreach($atds_id as $atd_id){
+			$id = explode('/', $atd_id);
+
+			$sql = "DELETE FROM falta
+					WHERE fal_id = ".$id[0];
+		}
+
+		return $retorno;
 	}
 }

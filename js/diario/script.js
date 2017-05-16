@@ -8,12 +8,22 @@ $(function() {
 	});
 
 	$('#lancarDiario').click(function(){
-		var form = $('#data-form');
+		$('input[name="editar"]').val(0);
 
-		if ($('select[name="fal_quantidade_aulas"]').val() != '')
-       		submitAjax(form);
-       	else
-       		alert('Selecione a quantidade de aulas.');
+		if ($('#auxLancamentos').html().length > 0){
+			var form = $('#data-form');
+
+			if ($('select[name="fal_quantidade_aulas"]').val() != '')
+	       		submitAjax(form);
+	       	else
+	       		alert('Selecione a quantidade de aulas.');
+	    }
+	})
+
+	$('#excluirDiario').click(function(){
+		if ($('input[name="editar"]').val() == 1){
+			excluirDiario();
+		}
 	})
 
 	$('#buscarAlunos').click(function(){
@@ -22,6 +32,7 @@ $(function() {
 		$(".alert-success, .alert-danger").addClass('hide');
 		if(validaFormDiario()){
 			$('#lancarDiario').removeAttr('disabled');
+			$('#excluirDiario').removeAttr('disabled');
 			buscarAlunos();
 			validaDiarioEditar();
 		}
@@ -30,6 +41,10 @@ $(function() {
 	$('#data').change(function(){
 		$('#auxLancamentos').html('');
 		validaDiaLetivo($(this).val());
+	})
+
+	$('select[name="fal_bimestre"]').change(function(){
+		$('#auxLancamentos').html('');
 	})
 
 	buscarTurmas();
@@ -43,6 +58,36 @@ $(function() {
 		$('#auxLancamentos').html('');
 	})
 });
+
+function excluirDiario(){
+	console.log('vai');
+	var tur_id = $('select[name="tur_id"]').val();
+	var con_id = $('input[name="con_id"]').val();
+	var tar_id = $('input[name="tar_id"]').val();
+	var obs_id = $('input[name="obs_id"]').val();
+	var dis_id = $('select[name="dis_id"]').val();
+	var dia = $('input[name="dia_letivo"]').val();
+	var bimestre = $('select[name="fal_bimestre"]').val();
+	var atds_id = $('input[name="atds_id"]').val();
+
+	$.ajax({
+		data: 'tur_id='+tur_id+'&dis_id='+dis_id+'&dia='+dia+'&fal_bimestre='+bimestre+'&con_id='+con_id+'&tar_id='+tar_id+'&obs_id='+obs_id+'&atds_id='+atds_id,
+		url: '../diario/excluirDiario',
+		type: 'POST',
+		dataType: 'json',
+		async: false,
+		success: function(r){
+			console.log(r);
+			console.log(typeof r);
+			if(r == 'excluido')
+				$(".alert-success.excluido").removeClass('hide');
+			else
+				$(".alert-danger").removeClass('hide');
+
+			$('#auxLancamentos').html('');
+		}
+	})
+}
 
 function submitAjax(form){
 	$.ajax({
@@ -291,12 +336,13 @@ function buscarDisciplinaPorTurmaProfessor(tur_id){
 function validaDiarioEditar(){
 
 	var tur_id = $('select[name="tur_id"]').val();
+	var bimestre = $('select[name="fal_bimestre"]').val();
 	var dis_id = $('select[name="dis_id"]').val();
 	var dia = $('input[name="dia_letivo"]').val();
 	var perfil = $('input[name="per"]').val();
 
 	$.ajax({
-		data: 'tur_id='+tur_id+'&dis_id='+dis_id+'&dia='+dia,
+		data: 'tur_id='+tur_id+'&dis_id='+dis_id+'&dia='+dia+'&fal_bimestre='+bimestre,
 		url: '../diario/buscarDiario',
 		type: 'POST',
 		dataType: 'json',
@@ -314,6 +360,9 @@ function validaDiarioEditar(){
 function preencheCamposEditar(dados){
 	var cont = dados.faltas.length;
 	var faltas = '';
+
+	if(dados.faltas[0].fal_quantidade_aulas)
+		$('input[name="editar"]').val(1);
 
 	$('textarea[name="conteudo"]').val(dados.conteudo.con_conteudo);
 	$('input[name="con_id"]').val(dados.conteudo.con_id);
@@ -335,5 +384,5 @@ function preencheCamposEditar(dados){
 
 function removeValoresEditar(){
 	$('input[name="con_id"], input[name="atds_id"], input[name="obs_id"], input[name="tar_id"]').val('');
-	$('#lancarDiario').attr('disabled', 'disabled');
+	$('#excluirDiario').attr('disabled', 'disabled');
 }

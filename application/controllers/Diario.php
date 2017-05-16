@@ -37,4 +37,14 @@ class Diario extends MY_Controller {
 		echo json_encode($resultado);
 	}
 
+	public function excluirDiario()
+	{
+		$post = $this->input->post();
+
+		$this->load->model('diario_model');
+
+		$resultado = $this->diario_model->excluirDiario($post);
+
+		echo json_encode($resultado);
+	}
 }

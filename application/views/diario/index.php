@@ -23,6 +23,9 @@
                             <div class="alert alert-success editado hide">
                                 Diário editado com sucesso.
                             </div>
+                            <div class="alert alert-success excluido hide">
+                                Diário excluído com sucesso.
+                            </div>
                             <div class="alert alert-danger all hide">
                                 Houve um erro na inserção, favor contatar o administrador.
                             </div>
@@ -34,6 +37,7 @@
                                 <input type="hidden" name="tar_id">
                                 <input type="hidden" name="con_id">
                                 <input type="hidden" name="atds_id">
+                                <input type="hidden" name="editar" value="0">
                                 <input type="hidden" value="<?php echo $perfil; ?>" name="per">
                                 <div class="form-group pull-left input-medium">
                                     <label>Turma * </label>
@@ -71,6 +75,9 @@
                                 <div class="clear"></div>
                                 <div class="form-group input-small pull-left">
                                     <button type="button" class="btn btn-info" disabled="disabled" id="lancarDiario">Lançar Diário</button>
+                                </div>
+                                <div class="form-group input-small pull-left">
+                                    <button type="button" class="btn btn-info" disabled="disabled" id="excluirDiario">Excluir Diário</button>
                                 </div>
                             </form>
                         </div>
