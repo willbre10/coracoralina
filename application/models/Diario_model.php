@@ -260,8 +260,11 @@ class Diario_model extends CI_Model
 	{
 		$retorno = 'excluido';
 
+		$this->load->library('session');
+
 		if (!empty($dados['con_id'])){
-			$sql = "DELETE FROM conteudo
+			$sql = "UPDATE conteudo
+					SET con_status = 'I', con_qdo_inativo = NOW(), con_qem_inativo = ". $this->session->usuario['usu_id'] ."
 					WHERE con_id = " . $dados['con_id'];
 
 			if(!$this->db->simple_query($sql))
@@ -269,7 +272,8 @@ class Diario_model extends CI_Model
 		}
 
 		if (!empty($dados['tar_id'])){
-			$sql = "DELETE FROM tarefa
+			$sql = "UPDATE tarefa
+					SET tar_status = 'I', tar_qdo_inativo = NOW(), tar_qem_inativo = ". $this->session->usuario['usu_id'] ."
 					WHERE tar_id = " . $dados['tar_id'];
 
 			if(!$this->db->simple_query($sql))
@@ -277,7 +281,8 @@ class Diario_model extends CI_Model
 		}
 
 		if (!empty($dados['obs_id'])){
-			$sql = "DELETE FROM observacao
+			$sql = "UPDATE observacao
+					SET obs_status = 'I', obs_qdo_inativo = NOW(), obs_qem_inativo = ". $this->session->usuario['usu_id'] ."
 					WHERE obs_id = " . $dados['obs_id'];
 
 			if(!$this->db->simple_query($sql))
@@ -290,8 +295,12 @@ class Diario_model extends CI_Model
 		foreach($atds_id as $atd_id){
 			$id = explode('/', $atd_id);
 
-			$sql = "DELETE FROM falta
+			$sql = "UPDATE falta
+					SET fal_status = 'I', fal_qdo_inativo = NOW(), fal_qem_inativo = ". $this->session->usuario['usu_id'] ."
 					WHERE fal_id = ".$id[0];
+
+			if(!$this->db->simple_query($sql))
+				$retorno = false;
 		}
 
 		return $retorno;
