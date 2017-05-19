@@ -33,6 +33,7 @@ class Boletim_model extends CI_Model
 				INNER JOIN disciplina dis ON dis.dis_id = tdp.dis_id
 				WHERE atd.alu_id = ". $post['alu_id'] ."
 				AND tdp.tur_id = ". $post['tur_id'] ."
+				AND fal.fal_status = 'A'
 				GROUP BY atd.atd_id, fal.fal_bimestre";
 
 		$query = $this->db->query($sql);
@@ -190,6 +191,18 @@ class Boletim_model extends CI_Model
 			unset($dados['faltas2bimestre']);
 			unset($dados['faltas3bimestre']);
 			unset($dados['faltas4bimestre']);
+		}
+
+		//põe total de faltas q n existe pra 0
+		foreach($dadosOrdenados['disciplinas'] as &$disc){
+			if (empty($disc['total_faltas']))
+				$disc['total_faltas'] = 0;
+
+			if (empty($disc['aulas1bimestre']))
+				$disc['aulas1bimestre'] = 0;
+
+			if (empty($disc['faltas1bimestre']))
+				$disc['faltas1bimestre'] = 0;
 		}
 
 		return $dadosOrdenados;

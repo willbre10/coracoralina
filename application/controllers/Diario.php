@@ -12,6 +12,12 @@ class Diario extends MY_Controller {
 		loadInternalView('diario/index', array('perfil' => $perfil));
 	}
 
+	public function impressao()
+	{
+		$this->load->helper('custom_helper');
+		loadInternalView('diario/impressao', array('perfil' => $perfil));
+	}
+
 	public function salvar()
 	{
 		$post = $this->input->post();
