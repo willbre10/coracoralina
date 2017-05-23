@@ -55,6 +55,11 @@ class Diario_model extends CI_Model
 		return $retorno;
 	}
 
+	public function imprimirDiario($dados)
+	{
+		return $dados;
+	}
+
 	public function editar($dados)
 	{
 		$retorno = 'editado';

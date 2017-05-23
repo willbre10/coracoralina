@@ -8,10 +8,24 @@ $(function() {
 		$('#gerarDias, .btn-primary.submit').removeClass('hide');
 		$('.modal-dialog').css('width', '1170px');
 		$('.alert-success, .alert-danger.duplicado, .alert-danger.all').addClass('hide');
-		$('.modal-height-letivo').css('height', '380px');
+		$('.modal-height-letivo').css('height', '580px');
 		limparModal();
 		$('#dil_dia_letivo').val('');
 	})
+
+	$(".dataBimestre").datepicker({
+        monthNames: [ "Janeiro", "Fevereiro", "Março", "Abril",
+                   "Maio", "Junho", "Julho", "Agosto", "Setembro",
+                   "Outubro", "Novembro", "Dezembro" ],
+		dateFormat: "dd/mm",
+		onSelect: function(){
+			var ano = $('input[name="ano"]').val();
+			if (ano == ''){
+				$(this).val('');
+				alert("Selecione o ano primeiro.");
+			}
+		}
+	});
 
 	$('#ano').on('input', function (event) { 
     	this.value = this.value.replace(/[^0-9]/g, '');
@@ -24,6 +38,7 @@ $(function() {
 			gerarDiasLetivos(ano);
 		} else {
 			alert('Este ano não é valido.');
+			limpaDiasLetivos();
 			$('#ano').val('');
 		}
     })
@@ -36,8 +51,9 @@ $(function() {
 		$('.alert-success, .alert-danger.duplicado, .alert-danger.all').addClass('hide');
         var form = $(this).attr('data-form');
 
-		if(validaFormDiasLetivos())
+		if(validaFormDiasLetivos()){
         	submitAjax(form);
+		}
     })
 
 	$('#dataTables-letivo').DataTable({
@@ -69,7 +85,7 @@ function visualizarAnoLetivo(elem){
 		success: function(r){
 			if (r){
 				$('.modal-dialog').css('width', '1170px');
-				$('div.modal-height-letivo').css('height', '870px');
+				$('div.modal-height-letivo').css('height', '1025px');
 				preencheCamposVisualizar(r);
 				$('#gerarDias, .btn-primary.submit').addClass('hide');
 			} else {
@@ -84,11 +100,11 @@ function visualizarAnoLetivo(elem){
 function validaFormDiasLetivos(){
 	var retorno = true;
 
-	$('.form-group input').css('border-color', '#ccc');
+	$('.form-group input, .form-group select').css('border-color', '#ccc');
 
-	$('.form-group input[data-required="true"]', '.form-group select[data-required="true"]').each(function(){
+	$('.form-group input[data-required="true"], .form-group select[data-required="true"]').each(function(){
 		if ($(this).val() == ''){
-			$(this).css('border-color', '#a94442').prev('label').css('color', '#a94442');
+			$(this).css('border-color', '#a94442');
 			retorno = false;
 		}
 	})
@@ -149,6 +165,8 @@ function preencheCamposVisualizar(dados){
 		$('#statusRadioInativo').click();
 	else
 		$('#statusRadioAtivo').click();
+
+	preencherDatasBimestres(dados);
 }
 
 function limparModal(){
@@ -174,11 +192,10 @@ function gerarDiasLetivos(ano){
 			days = getDaysMonth(ano, i);
 
 			var firstDayMonth = new Date(ano, i, 1).getDay();
-			console.log('dia da semana do mes '+ i +' : ' + firstDayMonth);
 			setarDiasLayout(i, days, firstDayMonth + 1);
 		}
 
-		$('div.modal-height-letivo').css('height', '870px');
+		$('div.modal-height-letivo').css('height', '1025px');
 	}
 }
 
@@ -226,7 +243,7 @@ function setarDiasLayout(month, days, firstDayMonth){
 
 function limpaDiasLetivos(){
 	$('.mes').html('');
-	$('div.modal-height-letivo').css('height', '380px');	
+	$('div.modal-height-letivo').css('height', '540px');	
 }
 
 function yearIsValid(year) {
@@ -241,4 +258,8 @@ function yearIsValid(year) {
 		retorno = false;
 
 	return retorno;
+}
+
+function preencherDatasBimestres(dados){
+	console.log(dados);
 }

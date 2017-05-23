@@ -18,6 +18,17 @@ class Diario extends MY_Controller {
 		loadInternalView('diario/impressao', array('perfil' => $perfil));
 	}
 
+	public function imprimirDiario()
+	{
+		$post = $this->input->post();
+
+		$this->load->model('diario_model');
+
+		$resultado['resultado'] = $this->diario_model->imprimirDiario($post);
+
+		$this->load->view('diario/diarioImpresso', $resultado);
+	}
+
 	public function salvar()
 	{
 		$post = $this->input->post();

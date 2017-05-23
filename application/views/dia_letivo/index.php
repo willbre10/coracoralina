@@ -3,6 +3,7 @@
                 #feedback { font-size: 1.4em; }
                 .mes .ui-selecting { background: #FECA40; }
                 .mes .ui-selected { background: #F39814; color: white; }
+                .ui-datepicker-year {display: none}
                 .mes { list-style-type: none; margin: 0; padding: 0; width: 280px; }
                 .mes li { margin: 3px; padding: 1px; float: left; width: 30px; height: 25px; font-size: 16px; text-align: center; }
                 #dias {width: 100%}
@@ -227,7 +228,35 @@
                                                 <ol id="mes11" data-mes="11" class="mes"></ol>
                                             </div>
                                         </div>
-                                        <div style="clear:both"></div>
+                                        <div style="clear:both"></div><br>
+                                        <div class="form-group pull-left input-small input-right">
+                                            <label>1º Bimestre</label><br>
+                                            <label>Início</label>
+                                            <input class="form-control dataBimestre" data-required="true" id="1b_inicio" name="1b_inicio">
+                                            <label>Fim</label>
+                                            <input class="form-control dataBimestre" data-required="true" id="1b_fim" name="1b_fim">
+                                        </div>
+                                        <div class="form-group pull-left input-small input-right">
+                                            <label>2º Bimestre</label><br>
+                                            <label>Início</label>
+                                            <input class="form-control dataBimestre" data-required="true" id="2b_inicio" name="2b_inicio">
+                                            <label>Fim</label>
+                                            <input class="form-control dataBimestre" data-required="true" id="2b_fim" name="2b_fim">
+                                        </div>
+                                        <div class="form-group pull-left input-small input-right">
+                                            <label>3º Bimestre</label><br>
+                                            <label>Início</label>
+                                            <input class="form-control dataBimestre" data-required="true" id="3b_inicio" name="3b_inicio">
+                                            <label>Fim</label>
+                                            <input class="form-control dataBimestre" data-required="true" id="3b_fim" name="3b_fim">
+                                        </div>
+                                        <div class="form-group pull-left input-small input-right">
+                                            <label>4º Bimestre</label><br>
+                                            <label>Início</label>
+                                            <input class="form-control dataBimestre" data-required="true" id="4b_inicio" name="4b_inicio">
+                                            <label>Fim</label>
+                                            <input class="form-control dataBimestre" data-required="true" id="4b_fim" name="4b_fim">
+                                        </div>
                                     </form>
                                 </div>
 

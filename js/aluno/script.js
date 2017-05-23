@@ -8,6 +8,9 @@ $(function() {
 	$('.cep').mask('00.000-000', {reverse: true});
 
 	$("#data_nascimento").datepicker({
+		monthNames: [ "Janeiro", "Fevereiro", "Março", "Abril",
+                   "Maio", "Junho", "Julho", "Agosto", "Setembro",
+                   "Outubro", "Novembro", "Dezembro" ],
 		dateFormat: "dd/mm/yy",
 		maxDate: today
 	});

@@ -71,6 +71,13 @@ class Dia_letivo_model extends CI_Model
 					}
 				}
 			}
+
+			for ($i = 1; $i <= 4; $i++){
+				$sql = "INSERT INTO bimestre (bim_bimestre, bim_inicio, bim_fim, bim_ano)
+						VALUES (".$i.", '". $dados[$i.'b_inicio'] . "', '". $dados[$i.'b_fim'] . "', '". $dados['ano'] . "')";
+
+				$this->db->simple_query($sql);
+			}
 		} else {
 			$retorno = array('status' => 'duplicado');
 		}
@@ -82,8 +89,7 @@ class Dia_letivo_model extends CI_Model
 	{
 		$resultado = array();
 
-		
-		$sql = "SELECT *  FROM dia_letivo 
+		$sql = "SELECT * FROM dia_letivo 
 				WHERE YEAR(dil_dia_letivo) =
 					(SELECT YEAR(dil_dia_letivo)
 					FROM dia_letivo 
@@ -92,6 +98,22 @@ class Dia_letivo_model extends CI_Model
 					(SELECT dil_tipo
 					FROM dia_letivo 
 					WHERE dil_id = ". $dados['dil_id'] .")";
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultado[] = $row;
+		}
+
+		return $resultado;
+	}
+
+	function buscarBimestre($dados)
+	{
+		$resultado = array();
+	echo "<pre>";print_r($dados);die;
+		$sql = "SELECT * FROM bimestre
+				WHERE bim_ano = 10";
 
 		$query = $this->db->query($sql);
 
@@ -128,42 +150,6 @@ class Dia_letivo_model extends CI_Model
 		}
 
 		return $resultado;
-	}
-
-	function atualizar($dados)
-	{
-		$retorno = true;
-		$set = '';
-		$auxSet = array();
-
-		
-		if ($this->validaDisciplinaExistente(array('dis_id' => $dados['dis_id']))){
-
-			$dados = array_filter($dados);
-			$dis_id = $dados['dis_id'];
-			unset($dados['dis_id']);
-			$keys = array_keys($dados);
-
-			//array_map adiciona aspas simples nos dados
-			$values = array_map(function($value){return "'" . $value . "'";}, $dados);
-
-			$cont = count($dados);
-			for($i = 0; $i < $cont; $i++)
-				$auxSet[] = $keys[$i] . ' = ' . $values[$keys[$i]];
-
-			$set = implode(', ', $auxSet);
-
-			$sql = "UPDATE disciplina SET $set
-					WHERE dis_id = $dis_id";
-
-
-			if(!$this->db->simple_query($sql))
-				$retorno = false;
-		} else {
-			$retorno = false;
-		}
-
-		return $retorno;
 	}
 
 	function buscarDiaLetivo($dados)

@@ -2,6 +2,9 @@ $(function() {
 	var today = new Date();
 
 	$("#data").datepicker({
+		monthNames: [ "Janeiro", "Fevereiro", "Março", "Abril",
+                   "Maio", "Junho", "Julho", "Agosto", "Setembro",
+                   "Outubro", "Novembro", "Dezembro" ],
 		dateFormat: "dd/mm/yy",
 		minDate: validaMinDate(),
 		maxDate: today
@@ -18,6 +21,12 @@ $(function() {
 	       	else
 	       		alert('Selecione a quantidade de aulas.');
 	    }
+	})
+
+	$('#imprimirDiario').click(function(){
+		if(validaFormDiario()){
+			$('#data-form').attr('action', '../diario/imprimirDiario').submit();
+		}
 	})
 
 	$('#excluirDiario').click(function(){
