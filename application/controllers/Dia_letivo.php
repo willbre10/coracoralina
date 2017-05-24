@@ -37,10 +37,7 @@ class Dia_letivo extends MY_Controller {
 
 		$this->load->model('dia_letivo_model');
 
-		// if(empty($post['dil_id']))
-			$resultado = $this->dia_letivo_model->inserir($post);
-		// else 
-			// $resultado = $this->dia_letivo_model->atualizar($post);
+		$resultado = $this->dia_letivo_model->inserir($post);
 
 		echo json_encode($resultado);
 	}
@@ -51,8 +48,6 @@ class Dia_letivo extends MY_Controller {
 
 		$this->load->model('dia_letivo_model');
 		$resultado = $this->dia_letivo_model->buscarAnoLetivo($post);
-
-		$resultado['bimestre'] = $this->dia_letivo_model->buscarBimestre($post);
 
 		echo json_encode($resultado);
 	}

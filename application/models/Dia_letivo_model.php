@@ -9,26 +9,24 @@ class Dia_letivo_model extends CI_Model
 
 		$sql = 'SELECT (CONCAT("<a onclick=\'visualizarAnoLetivo(this);\' title=\'Visualizar Dias Letivos\' 
 									data-toggle=\'modal\' data-target=\'#myModal\' 
-									id=\'editar", dil_id ,"\' class=\'one-action-grid\' 
-									href=\'#\' data-id=\'", dil_id, "\'>
+									id=\'editar", ano_id ,"\' class=\'one-action-grid\' 
+									href=\'#\' data-id=\'", ano_id, "\'>
 										<p class=\'fa fa-14x fa-search\'></p>
 								</a>")) AS acao
-						, YEAR(dil_dia_letivo) AS ano
+						, ano_ano AS ano
 						, (CASE 
-							WHEN dil_tipo = 1
+							WHEN ano_tipo = 1
 							THEN "Infantil/Fund 1"
 						 		ELSE
 						  		"Fund 2"
-						  END) AS dil_tipo
-						, dil_status
-				FROM dia_letivo ';
+						  END) AS ano_tipo
+						, ano_status
+				FROM ano_letivo ';
 
 		if (!empty($search)){
-			$sql .= "WHERE YEAR(dil_dia_letivo) LIKE '%$search%'
-						OR dil_status LIKE '$search%' ";
+			$sql .= "WHERE ano_ano LIKE '%$search%'
+						OR ano_status LIKE '$search%' ";
 		}
-
-		$sql .= "GROUP BY YEAR(dil_dia_letivo), dil_tipo ";
 
 		if (!empty($order)){
 			$sql .= "ORDER BY $order $dir";
@@ -50,6 +48,15 @@ class Dia_letivo_model extends CI_Model
 
 		if (!$this->validaAnoLetivoExistente($dados)){
 
+			$sql = "INSERT INTO ano_letivo (ano_ano, ano_tipo)
+					VALUES ('". $dados['ano']."', ". $dados['ano_tipo'] .")";
+
+			$this->db->simple_query($sql);
+
+			$ano_id = $this->db->insert_id();
+
+			$this->inserirBimestre($dados, $ano_id);
+
 			foreach($dados['dias'] as $meses){
 
 				if (!empty($meses[0])){
@@ -59,25 +66,14 @@ class Dia_letivo_model extends CI_Model
 
 					foreach($dias as $dia){
 
-						$sql = "INSERT INTO dia_letivo (dil_dia_letivo, dil_tipo)
-								VALUES ('". $dados['ano'] . "-" . $dia ."', ".$dados['dil_tipo'].")";
+						$sql = "INSERT INTO dia_letivo (dil_dia_letivo, dil_id_ano)
+								VALUES ('". $dados['ano'] . "-" . $dia ."', ". $ano_id .")";
 
-						if(!$this->db->simple_query($sql)){
-							$retorno = false;
-
-							$sql = "DELETE FROM dia_letivo WHERE YEAR(dil_dia_letivo) = ". $dados['ano'];
-							$this->db->simple_query($sql);
-						}
+						$this->db->simple_query($sql);
 					}
 				}
 			}
 
-			for ($i = 1; $i <= 4; $i++){
-				$sql = "INSERT INTO bimestre (bim_bimestre, bim_inicio, bim_fim, bim_ano)
-						VALUES (".$i.", '". $dados[$i.'b_inicio'] . "', '". $dados[$i.'b_fim'] . "', '". $dados['ano'] . "')";
-
-				$this->db->simple_query($sql);
-			}
 		} else {
 			$retorno = array('status' => 'duplicado');
 		}
@@ -85,40 +81,54 @@ class Dia_letivo_model extends CI_Model
 		return $retorno;
 	}
 
+	private function inserirBimestre($dados, $ano_id)
+	{
+		for ($i = 1; $i <= 4; $i++){
+			$auxInicio = explode('/', $dados[$i.'b_inicio']);
+			$inicio = $dados['ano'] . '-' . $auxInicio[1] . '-' . $auxInicio[0];
+
+			$auxFim = explode('/', $dados[$i.'b_fim']);
+			$fim = $dados['ano'] . '-' . $auxFim[1] . '-' . $auxFim[0];
+
+			$sql = "INSERT INTO bimestre (bim_bimestre, bim_inicio, bim_fim, bim_id_ano)
+					VALUES (".$i.", '$inicio', '$fim', '". $ano_id . "')";
+
+			$this->db->simple_query($sql);
+		}
+	}
+
 	function buscarAnoLetivo($dados)
 	{
 		$resultado = array();
 
-		$sql = "SELECT * FROM dia_letivo 
-				WHERE YEAR(dil_dia_letivo) =
-					(SELECT YEAR(dil_dia_letivo)
-					FROM dia_letivo 
-					WHERE dil_id = ". $dados['dil_id'] .")
-				AND dil_tipo =
-					(SELECT dil_tipo
-					FROM dia_letivo 
-					WHERE dil_id = ". $dados['dil_id'] .")";
+		$sql = "SELECT *
+				FROM dia_letivo
+				WHERE dil_id_ano = ". $dados['ano_id'];
 
 		$query = $this->db->query($sql);
 
 		foreach ($query->result() as $row){
-		    $resultado[] = $row;
+		    $resultado['dia_letivo'][] = $row;
 		}
 
-		return $resultado;
-	}
-
-	function buscarBimestre($dados)
-	{
-		$resultado = array();
-	echo "<pre>";print_r($dados);die;
-		$sql = "SELECT * FROM bimestre
-				WHERE bim_ano = 10";
+		$sql = "SELECT *
+				FROM ano_letivo
+				WHERE ano_id = ". $dados['ano_id'];
 
 		$query = $this->db->query($sql);
 
 		foreach ($query->result() as $row){
-		    $resultado[] = $row;
+		    $resultado['ano'][] = $row;
+		}
+
+		$sql = "SELECT *
+				FROM bimestre
+				WHERE bim_id_ano = ". $dados['ano_id'];
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultado['bimestre'][] = $row;
 		}
 
 		return $resultado;
@@ -127,7 +137,7 @@ class Dia_letivo_model extends CI_Model
 	function validaAnoLetivoExistente($dados)
 	{
 		$retorno = false;
-		$search = array('ano' => $dados['ano'], 'dil_tipo' => $dados['dil_tipo']);
+		$search = array('ano' => $dados['ano'], 'ano_tipo' => $dados['ano_tipo']);
 
 		$resultado = $this->findByAno($search);
 
@@ -141,7 +151,7 @@ class Dia_letivo_model extends CI_Model
 	{
 		$resultado = array();
 		
-		$sql = "SELECT * FROM dia_letivo WHERE YEAR(dil_dia_letivo) = ".$search['ano']." AND dil_tipo = ".$search['dil_tipo'];
+		$sql = "SELECT * FROM ano_letivo WHERE ano_ano = ".$search['ano']." AND ano_tipo = ".$search['ano_tipo'];
 
 		$query = $this->db->query($sql);
 
@@ -156,11 +166,19 @@ class Dia_letivo_model extends CI_Model
 	{
 		$resultado = array();
 
-		$dil_tipo = ($dados['tur_curso'] == 3) ? 2 : 1;
+		$ano_tipo = ($dados['tur_curso'] == 3) ? 2 : 1;
 		$auxData = explode('/', $dados['dia_letivo']);
 		$data = $auxData[2] . '-' . $auxData['1'] . '-' . $auxData[0];
 
-		$sql = "SELECT * FROM dia_letivo WHERE dil_dia_letivo = '$data' AND dil_tipo = '$dil_tipo'";
+		$sql = "SELECT * 
+				FROM dia_letivo dil
+				INNER JOIN ano_letivo ano ON ano.ano_id = dil.dil_id_ano
+				INNER JOIN bimestre bim ON bim.bim_id_ano = dil.dil_id_ano
+				WHERE dil.dil_dia_letivo = '$data' 
+				AND bim.bim_bimestre = '". $dados['fal_bimestre'] ."'
+				AND bim.bim_inicio <= '$data'
+				AND bim.bim_fim >= '$data'
+				AND ano.ano_tipo = '$ano_tipo'";
 
 		$query = $this->db->query($sql);
 

@@ -66,18 +66,19 @@ $(function() {
 		"columns": [
 			{data: "acao"},
 			{data: "ano"},
-			{data: "dil_tipo"},
-			{data: "dil_status"}
+			{data: "ano_tipo"},
+			{data: "ano_status"}
 		]
 	})
 	$('thead tr[role="row"] th').first().css('width', '100px');
 });
 
 function visualizarAnoLetivo(elem){
+	$('input').val('');
 	var id = $('#'+elem.id).attr('data-id');
 
 	$.ajax({
-		data: 'dil_id='+id,
+		data: 'ano_id='+id,
 		url: '../dia_letivo/buscarAnoLetivo',
 		type: 'POST',
 		dataType: 'json',
@@ -141,30 +142,28 @@ function regrasSucesso(requisicao){
 }
 
 function preencheCamposVisualizar(dados){
-	var year = new Date(dados[0].dil_dia_letivo);
+	var year = dados.ano[0].ano_ano;
 
-	$('#dil_id').val(dados[0].dil_id);
-	$('select[name="dil_tipo"]').val(dados[0].dil_tipo);
+	$('#ano_id').val(dados.ano[0].ano_id);
+	$('select[name="ano_tipo"]').val(dados.ano[0].ano_tipo);
 
-	$('input[name="ano"]').val(year.getFullYear()).attr('readonly', 'readonly');
-	gerarDiasLetivos(year.getFullYear());
+	$('input[name="ano"]').val(dados.ano[0].ano_ano).attr('readonly', 'readonly');
+	gerarDiasLetivos(year);
 
-	var cont = dados.length;
+	var cont = Object.keys(dados.dia_letivo).length;
 
 	for(var i = 0; i < cont; i++){
-		var date = new Date(dados[i].dil_dia_letivo + ' 00:00:00');
-		var mes = parseInt(date.getMonth()) + 1;
-		var valor = $('input[name="dias[hidden'+ parseInt(date.getMonth()) +'][]"]').val();
-		var data_value = mes + '-' + date.getDate();
 
-		$('li[data-value="'+ data_value +'"]').addClass('ui-selected');
-		$('input[name="dias[hidden'+ parseInt(date.getMonth()) +'][]"]').val(valor+'~'+data_value);
+		if(typeof dados.dia_letivo[i] != 'undefined'){
+			var date = new Date(dados.dia_letivo[i].dil_dia_letivo + ' 00:00:00');
+			var mes = parseInt(date.getMonth()) + 1;
+			var valor = $('input[name="dias[hidden'+ parseInt(date.getMonth()) +'][]"]').val();
+			var data_value = mes + '-' + date.getDate();
+
+			$('li[data-value="'+ data_value +'"]').addClass('ui-selected');
+			$('input[name="dias[hidden'+ parseInt(date.getMonth()) +'][]"]').val(valor+'~'+data_value);
+		}
 	}
-
-	if(dados[0].dis_status == 'Inativo')
-		$('#statusRadioInativo').click();
-	else
-		$('#statusRadioAtivo').click();
 
 	preencherDatasBimestres(dados);
 }
@@ -261,5 +260,12 @@ function yearIsValid(year) {
 }
 
 function preencherDatasBimestres(dados){
-	console.log(dados);
+	for (var i = 0; i < 4; i++){
+		var id = dados.bimestre[i].bim_bimestre;
+		var inicio = dados.bimestre[i].bim_inicio.split('-');
+		var fim = dados.bimestre[i].bim_fim.split('-');
+
+		$('#'+id+'b_inicio').val(inicio[2]+'/'+inicio[1]);
+		$('#'+id+'b_fim').val(fim[2]+'/'+fim[1]);
+	}
 }

@@ -218,7 +218,6 @@ function preencheCamposEditar(dados){
 	$('#tur_id').val(dados.tur_id);
 	$('input[name="tur_nome"]').val(dados.tur_nome);
 	$('input[name="tur_ano"]').val(dados.tur_ano);
-	console.log(dados);
 	$('select[name="tur_curso"]').val(dados.tur_curso)
 
 	if(dados.tur_status == 'Inativo')

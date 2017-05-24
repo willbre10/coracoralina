@@ -54,6 +54,7 @@ $(function() {
 
 	$('select[name="fal_bimestre"]').change(function(){
 		$('#auxLancamentos').html('');
+		validaDiaLetivo($('#data').val());
 	})
 
 	buscarTurmas();
@@ -69,7 +70,6 @@ $(function() {
 });
 
 function excluirDiario(){
-	console.log('vai');
 	var tur_id = $('select[name="tur_id"]').val();
 	var con_id = $('input[name="con_id"]').val();
 	var tar_id = $('input[name="tar_id"]').val();
@@ -86,8 +86,7 @@ function excluirDiario(){
 		dataType: 'json',
 		async: false,
 		success: function(r){
-			console.log(r);
-			console.log(typeof r);
+
 			if(r == 'excluido')
 				$(".alert-success.excluido").removeClass('hide');
 			else
@@ -257,25 +256,28 @@ function validaFormDiario(){
 }
 
 function validaDiaLetivo(dia_letivo){
-	var tur_id = $('select[name="tur_id"]').val();
+	if (dia_letivo != ''){
+		var tur_id = $('select[name="tur_id"]').val();
+		var bimestre = $('select[name="fal_bimestre"]').val();
 
-	if (tur_id){
-		$.ajax({
-			data: 'dia_letivo='+dia_letivo+'&tur_id='+tur_id,
-			url: '../dia_letivo/buscarDiaLetivo',
-			type: 'POST',
-			dataType: 'json',
-			async: false,
-			success: function(r){
-				if (r.length < 1){
-					$('#data').val('');
-					alert('A data selecionada não é um dia letivo.');
+		if (tur_id){
+			$.ajax({
+				data: 'dia_letivo='+dia_letivo+'&tur_id='+tur_id+'&fal_bimestre='+bimestre,
+				url: '../dia_letivo/buscarDiaLetivo',
+				type: 'POST',
+				dataType: 'json',
+				async: false,
+				success: function(r){
+					if (r.length < 1){
+						$('#data').val('');
+						alert('Data selecionada não é válida. A data pode não ser um dia letivo ou não fazer parte desse bimestre.');
+					}
 				}
-			}
-		})
-	} else {
-		alert('Selecione uma turma antes de selcionar uma data');
-		$('#data').val('');
+			})
+		} else {
+			alert('Selecione uma turma antes de selcionar uma data');
+			$('#data').val('');
+		}
 	}
 }
 

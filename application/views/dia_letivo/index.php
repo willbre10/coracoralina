@@ -52,14 +52,14 @@
                                     </div>
 
                                     <form role="form" id="formNew" onsubmit="return false;">
-                                        <input type="hidden" id="dil_id" name="dil_id" value="" />
+                                        <input type="hidden" id="ano_id" name="ano_id" value="" />
                                         <div class="form-group input-small pull-left">
                                             <label>Ano * </label>
                                             <input data-required="true" maxlength="4" id="ano" class="form-control" name="ano" placeholder="Ano...">
                                         </div>
                                         <div class="form-group pull-left input-right input-small">
                                             <label>Tipo * </label>
-                                            <select data-required="true" class="form-control" name="dil_tipo">
+                                            <select data-required="true" class="form-control" name="ano_tipo">
                                                 <option value="">Selecione</option>
                                                 <option value="1">Infantil/Fund 1</option>
                                                 <option value="2">Fund 2</option>
