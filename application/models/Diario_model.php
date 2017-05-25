@@ -62,8 +62,8 @@ class Diario_model extends CI_Model
 		$resultado['header2'] = $this->buscaHeader2Impressao($dados, $resultado['header1'][0]);
 
 		$resultado['corpo'] = $this->buscaCorpoImpressao($dados);
-		echo "<pre>";print_r($resultado);die;
-		return $dados;
+
+		return $resultado;
 	}
 
 	private function buscaCorpoImpressao($dados)

@@ -53,6 +53,24 @@
     </head>
     <body>
         <div class="conteudo">
+        <?php 
+            $mes_extenso = array(
+                'Jan' => 'Janeiro',
+                'Feb' => 'Fevereiro',
+                'Mar' => 'Março',
+                'Apr' => 'Abril',
+                'May' => 'Maio',
+                'Jun' => 'Junho',
+                'Jul' => 'Julho',
+                'Aug' => 'Agosto',
+                'Nov' => 'Novembro',
+                'Sep' => 'Setembro',
+                'Oct' => 'Outubro',
+                'Dec' => 'Dezembro'
+            );
+
+            $totalAulas = 0;
+        ?>
             <img src="/img/logo.png">
             <h1>Diário de Classe Colégio Cora Coralina</h1>
             <div class="diario">
@@ -76,7 +94,7 @@
                     <tbody>
                         <tr>
                             <td colspan="4">
-                                <?php echo $resultado['header2'][0]->bimestre; ?>º Bimestre De <?php echo $resultado['header2'][0]->inicio; ?> de <?php echo $resultado['header2'][0]->inicio['mes']; ?> a <?php echo $resultado['header2'][0]->fim['dia']; ?> de <?php echo $resultado['header2'][0]->fim['mes']; ?>
+                                <?php echo $resultado['header2'][0]->bimestre; ?>º Bimestre De <?php echo $resultado['header2'][0]->inicio->format('d'); ?> de <?php echo $mes_extenso[$resultado['header2'][0]->inicio->format('M')]; ?> a <?php echo $resultado['header2'][0]->fim->format('d'); ?> de <?php echo $mes_extenso[$resultado['header2'][0]->fim->format('M')]; ?>
                             </td>
                         </tr>
                     </tbody>
@@ -99,42 +117,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="center">
-                                01
-                            </td>
-                            <td class="center">
-                                03
-                            </td>
-                            <td class="center">
-                                2
-                            </td>
-                            <td>
-                                Coco, coco, coco, coco, coco, coco, coco, coco
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="center">
-                                20
-                            </td>
-                            <td class="center">
-                                03
-                            </td>
-                            <td class="center">
-                                1
-                            </td>
-                            <td>
-                                Coco, coco, coco, coco, coco, coco, coco, coco
-                            </td>
-                        </tr>
+                        <?php foreach ($resultado['corpo'] as $dado){ 
+                            $auxData = explode('-', $dado->fal_dia);
+                            ?>
+                            <tr>
+                                <td class="center">
+                                    <?php echo $auxData[2]; ?>
+                                </td>
+                                <td class="center">
+                                    <?php echo $auxData[1]; ?>
+                                </td>
+                                <td class="center">
+                                    <?php echo $dado->fal_quantidade_aulas; ?>
+                                </td>
+                                <td>
+                                    <?php echo $dado->con_conteudo; ?>
+                                </td>
+                            </tr>
+                            <?php $totalAulas += $dado->fal_quantidade_aulas;
+                        } ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="2">
                                 Total
                             </td>
-                            <td>
-                                3
+                            <td class="center">
+                                <?php echo $totalAulas; ?>
                             </td>
                         </tr>
                     </tfoot>
