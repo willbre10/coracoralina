@@ -60,23 +60,23 @@
                     <thead>
                         <tr>
                             <td class="center">
-                                Curso: Fundamental 2
+                                Curso: <?php echo $resultado['header1'][0]->curso; ?>
                             </td>
                             <td class="center">
-                                Série: 7º Ano A
+                                Série: <?php echo $resultado['header1'][0]->turma; ?>
                             </td>
                             <td class="center">
-                                Professor: Marcelo
+                                Professor: <?php echo $resultado['header1'][0]->professor; ?>
                             </td>
                             <td class="center">
-                                Disciplina: Ciências
+                                Disciplina: <?php echo $resultado['header1'][0]->disciplina; ?>
                             </td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td colspan="4">
-                                1º Bimestre  De 30 de Janeiro a 28 de abril
+                                <?php echo $resultado['header2'][0]->bimestre; ?>º Bimestre De <?php echo $resultado['header2'][0]->inicio; ?> de <?php echo $resultado['header2'][0]->inicio['mes']; ?> a <?php echo $resultado['header2'][0]->fim['dia']; ?> de <?php echo $resultado['header2'][0]->fim['mes']; ?>
                             </td>
                         </tr>
                     </tbody>

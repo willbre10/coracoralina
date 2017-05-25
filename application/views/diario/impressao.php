@@ -35,13 +35,17 @@
                                 </div>
                                 <div class="form-group pull-left input-right input-small">
                                     <label>Bimestre * </label>
-                                    <select data-required="true" class="form-control" name="fal_bimestre">
+                                    <select data-required="true" class="form-control" name="bimestre">
                                         <option value="">Selecione</option>
                                         <option value="1">1º Bimestre</option>
                                         <option value="2">2º Bimestre</option>
                                         <option value="3">3º Bimestre</option>
                                         <option value="4">4º Bimestre</option>
                                     </select>
+                                </div>
+                                <div class="form-group pull-left input-right input-small">
+                                    <label>Ano * </label>
+                                    <input data-required="true" maxlength="4" id="ano" class="form-control" name="ano" placeholder="Ano...">
                                 </div>
                                 <div class="clear"></div>
                                 <div class="form-group input-small pull-left">

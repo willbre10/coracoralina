@@ -55,9 +55,93 @@ class Diario_model extends CI_Model
 		return $retorno;
 	}
 
-	public function imprimirDiario($dados)
+	public function buscaDadosImpressao($dados)
 	{
+		$resultado['header1'] = $this->buscaHeader1Impressao($dados);
+
+		$resultado['header2'] = $this->buscaHeader2Impressao($dados, $resultado['header1'][0]);
+
+		$resultado['corpo'] = $this->buscaCorpoImpressao($dados);
+		echo "<pre>";print_r($resultado);die;
 		return $dados;
+	}
+
+	private function buscaCorpoImpressao($dados)
+	{
+		$sql = "SELECT DISTINCT tdp.tur_id
+					, tdp.dis_id
+					, fal.fal_dia
+					, fal.fal_quantidade_aulas
+					, con.con_conteudo
+				FROM aluno_turma_disciplina_professor atd
+				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id
+				INNER JOIN falta fal ON fal.atd_id = atd.atd_id
+				INNER JOIN conteudo con ON con.tdp_id = tdp.tdp_id AND con.con_dia = fal.fal_dia
+				WHERE tdp.tur_id = ". $dados["tur_id"] ."
+				AND tdp.dis_id = ". $dados["dis_id"] ."
+				AND fal.fal_bimestre = ". $dados['bimestre'] ."
+				AND fal.fal_status = 'A'
+				AND con.con_status = 'A'
+				AND fal.fal_qdo_inativo IS NULL
+				ORDER BY fal.fal_dia";
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+			$resultado[] = $row;
+		}
+
+		return $resultado;
+	}
+
+	private function buscaHeader1Impressao($dados)
+	{
+		$sql = 'SELECT (CASE 
+						WHEN tur_curso = 1 THEN "Educação Infantil"
+						WHEN tur_curso = 2 THEN "Fundamental 1"
+						ELSE "Fundamental 2"
+					END) AS curso
+					, tur.tur_nome AS turma
+					, pro.pro_nome AS professor
+					, dis.dis_nome AS disciplina
+					, tur.tur_curso AS tdp_curso
+				FROM turma_disciplina_professor tdp
+				INNER JOIN turma tur ON tur.tur_id = tdp.tur_id
+				INNER JOIN disciplina dis ON dis.dis_id = tdp.dis_id
+				INNER JOIN professor pro ON pro.pro_id = tdp.pro_id
+				WHERE tur.tur_id = '. $dados["tur_id"] .'
+				AND dis.dis_id = '. $dados["dis_id"];
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultado[] = $row;
+		}
+
+		return $resultado;
+	}
+
+	private function buscaHeader2Impressao($dados, $dadoCurso)
+	{
+		$sql = "SELECT bim.bim_inicio AS inicio
+					, bim.bim_fim AS fim
+					, bim.bim_bimestre AS bimestre
+				FROM bimestre bim
+				INNER JOIN ano_letivo ano ON ano.ano_id = bim.bim_id_ano
+				WHERE bim.bim_bimestre = ". $dados['bimestre'] ."
+				AND ano.ano_ano = ". $dados['ano'] ."
+				AND ano.ano_tipo = ". $dadoCurso->tdp_curso;
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultado[] = $row;
+		}
+
+		$resultado[0]->inicio = new DateTime($resultado[0]->inicio);
+		$resultado[0]->fim = new DateTime($resultado[0]->fim);
+
+		return $resultado;
 	}
 
 	public function editar($dados)

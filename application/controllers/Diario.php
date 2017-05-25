@@ -24,7 +24,7 @@ class Diario extends MY_Controller {
 
 		$this->load->model('diario_model');
 
-		$resultado['resultado'] = $this->diario_model->imprimirDiario($post);
+		$resultado['resultado'] = $this->diario_model->buscaDadosImpressao($post);
 
 		$this->load->view('diario/diarioImpresso', $resultado);
 	}

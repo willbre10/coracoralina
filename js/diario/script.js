@@ -10,6 +10,10 @@ $(function() {
 		maxDate: today
 	});
 
+	$('#ano').on('input', function (event) { 
+    	this.value = this.value.replace(/[^0-9]/g, '');
+	});
+
 	$('#lancarDiario').click(function(){
 		$('input[name="editar"]').val(0);
 
@@ -275,7 +279,7 @@ function validaDiaLetivo(dia_letivo){
 				}
 			})
 		} else {
-			alert('Selecione uma turma antes de selcionar uma data');
+			alert('Selecione uma turma antes de selecionar uma data');
 			$('#data').val('');
 		}
 	}
