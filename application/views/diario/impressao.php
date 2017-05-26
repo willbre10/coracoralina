@@ -51,6 +51,7 @@
                                 <div class="form-group input-small pull-left">
                                     <button type="button" class="btn btn-info" id="imprimirDiario">Imprimir Diário</button>
                                 </div>
+                            </form>
                         </div>
                         <!-- /.panel-body -->
                     </div>

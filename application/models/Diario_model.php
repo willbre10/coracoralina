@@ -91,7 +91,7 @@ class Diario_model extends CI_Model
 			$resultado[] = $row;
 		}
 
-		return $resultado;
+		return !empty($resultado) ? $resultado : array();
 	}
 
 	private function buscaHeader1Impressao($dados)
@@ -123,6 +123,8 @@ class Diario_model extends CI_Model
 
 	private function buscaHeader2Impressao($dados, $dadoCurso)
 	{
+		$curso = $dadoCurso->tdp_curso == 3 ? 2 : 1;
+
 		$sql = "SELECT bim.bim_inicio AS inicio
 					, bim.bim_fim AS fim
 					, bim.bim_bimestre AS bimestre
@@ -130,7 +132,7 @@ class Diario_model extends CI_Model
 				INNER JOIN ano_letivo ano ON ano.ano_id = bim.bim_id_ano
 				WHERE bim.bim_bimestre = ". $dados['bimestre'] ."
 				AND ano.ano_ano = ". $dados['ano'] ."
-				AND ano.ano_tipo = ". $dadoCurso->tdp_curso;
+				AND ano.ano_tipo = ". $curso;
 
 		$query = $this->db->query($sql);
 

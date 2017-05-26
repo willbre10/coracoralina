@@ -10,17 +10,29 @@
             }
 
             .conteudo{
-                width: 700px;
+                width: 800px;
             }
 
             .conteudo h1 {
-                float: right;
+                background-color: #ffa5a5;
+                border: 1px solid black;
+                border-radius: 10px;
+                float: left;
                 font-family: "Comic Sans MS";
                 font-size: 21px;
                 font-weight: bold;
-                margin: 33px 0 50px 0;
+                margin: 20px 0 40px;
+                padding: 8px;
                 text-decoration: underline;
-                width: 500px;
+                width: 390px;
+            }
+
+            .diario table td{
+                padding: 3px 8px
+            }
+
+            #tableHeader, #tableBody{
+                min-width: 800px;
             }
 
             .diario table {
@@ -28,7 +40,6 @@
                 font-family: Times;
                 font-size: 15px;
                 margin: 0 0 30px 0;
-                width: 650px;
             }
 
             .conteudo h2 {
@@ -45,6 +56,7 @@
             }
 
             img{
+                margin-right: 130px;
                 width: 80px;
                 height: 80px;
                 float: left;
@@ -73,8 +85,9 @@
         ?>
             <img src="/img/logo.png">
             <h1>Diário de Classe Colégio Cora Coralina</h1>
+            <div class="clear"></div>
             <div class="diario">
-                <table border="1">
+                <table id="tableHeader" border="1">
                     <thead>
                         <tr>
                             <td class="center">
@@ -93,13 +106,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="4">
+                            <td class="center" colspan="4">
                                 <?php echo $resultado['header2'][0]->bimestre; ?>º Bimestre De <?php echo $resultado['header2'][0]->inicio->format('d'); ?> de <?php echo $mes_extenso[$resultado['header2'][0]->inicio->format('M')]; ?> a <?php echo $resultado['header2'][0]->fim->format('d'); ?> de <?php echo $mes_extenso[$resultado['header2'][0]->fim->format('M')]; ?>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <table border="1">
+                <table id="tableBody" border="1">
                     <thead>
                         <tr>
                             <td class="center">
