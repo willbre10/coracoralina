@@ -17,7 +17,7 @@
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <form id="data-form" action="#" method="post">
+                            <form id="data-form" onsubmit="return enviaForm();" method="post">
                                 <div class="alert alert-warning">
                                     Preencha todos os campos obrigatórios (*)
                                 </div>
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="clear"></div>
                                 <div class="form-group input-small pull-left">
-                                    <button type="button" class="btn btn-info" id="imprimirDiario">Imprimir Diário</button>
+                                    <button type="submit" class="btn btn-info" id="imprimirDiario">Imprimir Diário</button>
                                 </div>
                             </form>
                         </div>

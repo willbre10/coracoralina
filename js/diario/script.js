@@ -27,17 +27,6 @@ $(function() {
 	    }
 	})
 
-	$('#imprimirDiario').click(function(){
-		if(validaFormDiario()){
-			if(yearIsValid($('#ano').val())){
-				$('#data-form').attr('action', '../diario/imprimirDiario').submit();
-			} else {
-				alert('Este ano não é valido.');
-				$('#ano').val('');
-			}
-		}
-	})
-
 	$('#excluirDiario').click(function(){
 		if ($('input[name="editar"]').val() == 1){
 			excluirDiario();
@@ -77,6 +66,19 @@ $(function() {
 		$('#auxLancamentos').html('');
 	})
 });
+
+function enviaForm(){
+	if(validaFormDiario()){
+		if(yearIsValid($('#ano').val())){
+			$('#data-form').attr('action', '../diario/imprimirDiario').submit();
+		} else {
+			alert('Este ano não é valido.');
+			$('#ano').val('');
+		}
+	}
+
+	return false;
+}
 
 function yearIsValid(year) {
 	var retorno = true;
