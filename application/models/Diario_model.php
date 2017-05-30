@@ -57,6 +57,8 @@ class Diario_model extends CI_Model
 
 	public function buscaDadosImpressao($dados)
 	{
+		$this->removeDuplicados();
+
 		$resultado['header1'] = $this->buscaHeader1Impressao($dados);
 
 		$resultado['header2'] = $this->buscaHeader2Impressao($dados, $resultado['header1'][0]);
@@ -140,8 +142,10 @@ class Diario_model extends CI_Model
 		    $resultado[] = $row;
 		}
 
-		$resultado[0]->inicio = new DateTime($resultado[0]->inicio);
-		$resultado[0]->fim = new DateTime($resultado[0]->fim);
+		if (!empty($resultado)){
+			$resultado[0]->inicio = new DateTime($resultado[0]->inicio);
+			$resultado[0]->fim = new DateTime($resultado[0]->fim);
+		}
 
 		return $resultado;
 	}
@@ -241,7 +245,8 @@ class Diario_model extends CI_Model
 				INNER JOIN aluno_turma_disciplina_professor atd ON atd.atd_id = fal.atd_id
 				WHERE fal.atd_id IN ($atd_id)
 				AND fal.fal_dia = '$dia'
-				AND fal.fal_bimestre = $bimestre";
+				AND fal.fal_bimestre = $bimestre
+				AND fal.fal_status = 'A'";
 
 		$query = $this->db->query($sql);
 
@@ -260,7 +265,8 @@ class Diario_model extends CI_Model
 				FROM conteudo con
 				WHERE con.tdp_id = $tdp_id
 				AND con.con_dia = '$dia'
-				AND con.con_bimestre = $bimestre";
+				AND con.con_bimestre = $bimestre
+				AND con.con_status = 'A'";
 
 		$query = $this->db->query($sql);
 
@@ -279,7 +285,8 @@ class Diario_model extends CI_Model
 				FROM observacao obs
 				WHERE obs.tdp_id = $tdp_id
 				AND obs.obs_dia = '$dia'
-				AND obs.obs_bimestre = $bimestre";
+				AND obs.obs_bimestre = $bimestre
+				AND obs.obs_status = 'A'";
 
 		$query = $this->db->query($sql);
 
@@ -298,7 +305,8 @@ class Diario_model extends CI_Model
 				FROM tarefa tar
 				WHERE tar.tdp_id = $tdp_id
 				AND tar.tar_dia = '$dia'
-				AND tar.tar_bimestre = $bimestre";
+				AND tar.tar_bimestre = $bimestre
+				AND tar.tar_status = 'A'";
 
 		$query = $this->db->query($sql);
 
@@ -395,5 +403,156 @@ class Diario_model extends CI_Model
 		}
 
 		return $retorno;
+	}
+
+	private function removeDuplicados()
+	{
+		$this->removeConteudo();
+
+		$this->removeTarefa();
+
+		$this->removeObservacao();
+
+		$this->removeFalta();
+	}
+
+	private function removeConteudo()
+	{
+		$sql = "SELECT * FROM conteudo WHERE con_status = 'A'";
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultados[] = $row;
+		}
+
+		foreach ($resultados as $resultado){
+			$sql = "SELECT * 
+					FROM conteudo
+					WHERE con_status = 'A'
+					AND con_dia = '". $resultado->con_dia ."'
+					AND tdp_id = '". $resultado->tdp_id ."'
+					AND con_bimestre = '". $resultado->con_bimestre ."'
+					AND con_id <> ". $resultado->con_id;
+
+			$query = $this->db->query($sql);
+
+			foreach ($query->result() as $row){
+		    	$repetidosCon[] = $row;
+			}
+
+			if (!empty($repetidosCon)){
+				foreach($repetidosCon as $repetido){
+					$sql = "DELETE FROM conteudo WHERE con_id = ". $repetido->con_id;
+
+					$this->db->simple_query($sql);
+				}
+			}
+		}
+	}
+
+	private function removeTarefa()
+	{
+		$sql = "SELECT * FROM tarefa WHERE tar_status = 'A'";
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultados[] = $row;
+		}
+
+		foreach ($resultados as $resultado){
+			$sql = "SELECT * 
+					FROM tarefa
+					WHERE tar_status = 'A'
+					AND tar_dia = '". $resultado->tar_dia ."'
+					AND tdp_id = '". $resultado->tdp_id ."'
+					AND tar_bimestre = '". $resultado->tar_bimestre ."'
+					AND tar_id <> ". $resultado->tar_id;
+
+			$query = $this->db->query($sql);
+
+			foreach ($query->result() as $row){
+		    	$repetidosTar[] = $row;
+			}
+
+			if (isset($repetidosTar)){
+				foreach($repetidosTar as $repetido){
+					$sql = "DELETE FROM tarefa WHERE tar_id = ". $repetido->tar_id;
+
+					$this->db->simple_query($sql);
+				}
+			}
+		}
+	}
+
+	private function removeObservacao()
+	{
+		$sql = "SELECT * FROM observacao WHERE obs_status = 'A'";
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultados[] = $row;
+		}
+
+		foreach ($resultados as $resultado){
+			$sql = "SELECT * 
+					FROM observacao
+					WHERE obs_status = 'A'
+					AND obs_dia = '". $resultado->obs_dia ."'
+					AND tdp_id = '". $resultado->tdp_id ."'
+					AND obs_bimestre = '". $resultado->obs_bimestre ."'
+					AND obs_id <> ". $resultado->obs_id;
+
+			$query = $this->db->query($sql);
+
+			foreach ($query->result() as $row){
+		    	$repetidosObs[] = $row;
+			}
+
+			if (isset($repetidosObs)){
+				foreach($repetidosObs as $repetido){
+					$sql = "DELETE FROM observacao WHERE obs_id = ". $repetido->obs_id;
+
+					$this->db->simple_query($sql);
+				}
+			}
+		}
+	}
+
+	private function removeFalta()
+	{
+		$sql = "SELECT * FROM falta WHERE fal_status = 'A'";
+
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row){
+		    $resultados[] = $row;
+		}
+
+		foreach ($resultados as $resultado){
+			$sql = "SELECT * 
+					FROM falta
+					WHERE fal_status = 'A'
+					AND fal_dia = '". $resultado->fal_dia ."'
+					AND atd_id = '". $resultado->atd_id ."'
+					AND fal_bimestre = '". $resultado->fal_bimestre ."'
+					AND fal_id <> ". $resultado->fal_id;
+
+			$query = $this->db->query($sql);
+
+			foreach ($query->result() as $row){
+		    	$repetidosFal[] = $row;
+			}
+
+			if (isset($repetidosFal)){
+				foreach($repetidosFal as $repetido){
+					$sql = "DELETE FROM falta WHERE fal_id = ". $repetido->fal_id;
+
+					$this->db->simple_query($sql);
+				}
+			}
+		}
 	}
 }

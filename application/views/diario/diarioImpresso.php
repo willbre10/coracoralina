@@ -107,7 +107,11 @@
                     <tbody>
                         <tr>
                             <td class="center" colspan="4">
-                                <?php echo $resultado['header2'][0]->bimestre; ?>º Bimestre De <?php echo $resultado['header2'][0]->inicio->format('d'); ?> de <?php echo $mes_extenso[$resultado['header2'][0]->inicio->format('M')]; ?> a <?php echo $resultado['header2'][0]->fim->format('d'); ?> de <?php echo $mes_extenso[$resultado['header2'][0]->fim->format('M')]; ?>
+                                <?php
+                                    if (!empty($resultado['header2'])){
+                                        echo $resultado['header2'][0]->bimestre; ?>º Bimestre De <?php echo $resultado['header2'][0]->inicio->format('d'); ?> de <?php echo $mes_extenso[$resultado['header2'][0]->inicio->format('M')]; ?> a <?php echo $resultado['header2'][0]->fim->format('d'); ?> de <?php echo $mes_extenso[$resultado['header2'][0]->fim->format('M')]; 
+                                    }
+                                ?>
                             </td>
                         </tr>
                     </tbody>

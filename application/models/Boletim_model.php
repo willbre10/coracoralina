@@ -26,11 +26,12 @@ class Boletim_model extends CI_Model
 		    $dadosBasicos[] = $row;
 		}
 
-		$sql = "SELECT dis.dis_id, dis.dis_nome, fal.fal_bimestre, SUM(fal_quantidade_aulas) AS aulas, SUM(fal_falta) AS faltas
+		$sql = "SELECT DISTINCT dis.dis_id, dis.dis_nome, fal.fal_bimestre, SUM(fal_quantidade_aulas) AS aulas, SUM(fal_falta) AS faltas
 				FROM aluno_turma_disciplina_professor atd 
 				INNER JOIN turma_disciplina_professor tdp ON tdp.tdp_id = atd.tdp_id 
 				LEFT JOIN falta fal ON fal.atd_id = atd.atd_id 
 				INNER JOIN disciplina dis ON dis.dis_id = tdp.dis_id
+				INNER JOIN conteudo con ON con.tdp_id = tdp.tdp_id AND con.con_dia = fal.fal_dia
 				WHERE atd.alu_id = ". $post['alu_id'] ."
 				AND tdp.tur_id = ". $post['tur_id'] ."
 				AND fal.fal_status = 'A'

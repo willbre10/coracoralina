@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = '/';
-
+ini_set('max_execution_time', 300);
 /*
 |--------------------------------------------------------------------------
 | Index File

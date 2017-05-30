@@ -17,7 +17,7 @@
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <form id="data-form" onsubmit="return enviaForm();" method="post">
+                            <form id="data-form" target="_blank" onsubmit="return enviaForm();" method="post">
                                 <div class="alert alert-warning">
                                     Preencha todos os campos obrigatórios (*)
                                 </div>
